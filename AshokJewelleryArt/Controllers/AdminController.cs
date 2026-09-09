@@ -16,11 +16,12 @@ namespace AshokJewelleryArt.Controllers
 {
     public class AdminController : Controller
     {
-        // 1. Yeh do lines class ke andar sabse upar likhein
+        
+        
         private readonly IConfiguration _configuration;
         private readonly string connectionString;
 
-        // 2. Yeh constructor banayein
+        
         public AdminController(IConfiguration configuration)
         {
             _configuration = configuration;
