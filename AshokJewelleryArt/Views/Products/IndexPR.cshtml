@@ -1,0 +1,557 @@
+﻿@model IEnumerable<AshokJewelleryArt.Models.Product>
+
+@{
+	ViewData["Title"] = "All Collections";
+}
+
+<!-- Bootstrap Link-->
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+
+@if (Context.Request.Query["category"] == "Pendant")
+{
+	<div class="pendant-header" style="text-align:center; padding: 30px; background: linear-gradient(to right, gold, #ffffff);">
+		<h2 style="color: #b8860b; font-family: 'Playfair Display', serif;">Sacred Pendants</h2>
+		<p>Wear your faith with our handcrafted divine collection.</p>
+	</div>
+}
+<div class="container pt-2 pb-4">
+
+	<!-- --- SMART BACK BUTTON (Updated for Home Redirection) --- -->
+	<div class="mb-4 d-flex align-items-center justify-content-between">
+		@if (!string.IsNullOrEmpty(Context.Request.Query["category"]) || !string.IsNullOrEmpty(Context.Request.Query["searchString"]))
+		{
+			<a asp-controller="Home" asp-action="Index" class="btn-back-premium">
+				<i class="fa fa-arrow-left"></i> Back to Home
+			</a>
+
+			<div class="filter-info">
+				<span class="text-muted">Showing results for: </span>
+				<span class="badge" style="background-color: #D4AF37;">
+					@((string)Context.Request.Query["category"] ?? (string)Context.Request.Query["searchString"])
+				</span>
+			</div>
+		}
+		else
+		{
+			<a asp-controller="Home" asp-action="Index" class="btn-back-premium">
+				<i class="fa fa-home"></i> Back to Home
+			</a>
+		}
+	</div>
+	<!-- --- BACK BUTTON SECTION END --- -->
+	<div class="text-center mb-5">
+		<h2 class="text-center" style="color: #D4AF37; font-weight: bold;">Ashok Jewellery Art - @ViewBag.PageTitle</h2>
+	</div>
+
+	<!-- Row Loop ke BAHAR -->
+	<div class="row g-4 g-md-5">
+		@if (Model != null)
+		{
+			@foreach (var item in Model)
+			{
+				<div class="col-12 col-sm-6 col-md-4 col-lg-4">
+					<div class="card h-100 shadow-sm jewellery-card">
+						<div class="wish-overlay"
+							 onclick="event.stopPropagation(); handleWishlistClick(this)"
+							 data-id="@item.Id"
+							 data-name="@item.Name"
+							 data-image="@item.ImageURL"
+							 data-weight="@item.Weight @item.WeightUnit"
+							 style="position: absolute !important; top: 15px !important; right: 15px !important; z-index: 999 !important; background-color: white !important; width: 38px !important; height: 38px !important; border-radius: 50% !important; display: flex !important; align-items: center !important; justify-content: center !important; box-shadow: 0 4px 10px rgba(0,0,0,0.15) !important; cursor: pointer !important;">
+
+							<i class="fa-regular fa-heart icon-heart" style="color: #e74c3c !important; font-size: 19px !important;"></i>
+						</div>
+						<div class="img-container-wrapper">
+							<div class="img-box">
+								<img src="@item.ImageURL" alt="@item.Name">
+							</div>
+						</div>
+
+						<!-- Content -->
+						<div class="card-body text-center d-flex flex-column">
+							<h6 class="card-title fw-bold" style="font-size: 0.9rem;">
+								@{
+									var metal = !string.IsNullOrEmpty(item.MetalType) ? item.MetalType.Trim() : "";
+									var name = item.Name ?? "";
+
+									if (!string.IsNullOrEmpty(metal) && !name.StartsWith(metal, StringComparison.OrdinalIgnoreCase))
+									{
+										@($"{metal} {name}")
+									}
+									else
+									{
+										@name
+									}
+								}
+							</h6>
+
+							@* <h5 class="price-text mt-auto">
+                                @if (item.Price.HasValue)
+                                {
+                                    <span>₹ @item.Price.Value.ToString("N0")</span>
+                                }
+                                else
+                                {
+                                    <span>Price on Request</span>
+                                }
+                            </h5> *@
+							<a asp-controller="Products"
+							   asp-action="Details"
+							   asp-route-id="@item.Id"
+							   class="btn-gold-view">
+								View Product
+							</a>
+						</div>
+					</div>
+				</div>
+			}
+		}
+	</div>
+
+	<!-- Floating Home Button -->
+	<a asp-controller="Home" asp-action="Index" class="floating-home-btn" title="Back to Home">
+		<svg class="home-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+			<path d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 11-1.06 1.06l-.97-.97v7.13c0 .966-.784 1.75-1.75 1.75H15.5a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-2a.75.75 0 00-.75.75v4.5a.75.75 0 01-.75.75H6.25A1.75 1.75 0 014.5 19.75v-7.13l-.97.97a.75.75 0 01-1.06-1.06l8.69-8.69z" />
+		</svg>
+		<span>Home</span>
+	</a>
+</div>
+
+  
+
+<style>
+	/* Back Button Premium Style */
+	.btn-back-premium {
+		display: inline-flex;
+		align-items: center;
+		background-color: #fff;
+		color: #333;
+		padding: 8px 20px;
+		border-radius: 50px; /* Round pill shape */
+		text-decoration: none !important;
+		font-weight: 700;
+		border: 1px solid #D4AF37;
+		transition: all 0.3s ease;
+		font-size: 14px;
+	}
+
+		.btn-back-premium i {
+			margin-right: 10px;
+		}
+
+		.btn-back-premium:hover {
+			background-color: #D4AF37;
+			color: white !important;
+			box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+		}
+	/* Specific CSS to remove all conflicts */
+	.jewellery-card {
+		border: 1px solid #f1f1f1 !important;
+		border-radius: 5px;
+		transition: 0.3s;
+		background: #fff;
+	}
+
+		.jewellery-card:hover {
+			box-shadow: 0 10px 20px rgba(0,0,0,0.08) !important;
+			transform: translateY(-5px);
+		}
+
+	/* Main Wrapper */
+	.img-container-wrapper {
+		position: relative;
+		height: 350px;
+		width: 100%;
+		overflow: hidden;
+		background-color: #f8f8f8;
+	}
+
+	/* Center Image Box - Full Card Size */
+	.img-box {
+		position: relative;
+		width: 100%;
+		height: 100%;
+	}
+
+		.img-box img {
+			width: 100%;
+			height: 100%;
+			object-fit: contain;
+			object-position: center;
+			display: block;
+			transition: transform 0.3s ease;
+		}
+
+	/* Hover Effect - Smooth Zoom */
+	.jewellery-card:hover .img-box img {
+		transform: scale(1.05);
+	}
+
+	.btn-gold-view {
+		background-color: #D4AF37;
+		color: white !important;
+		text-align: center;
+		padding: 10px;
+		display: block;
+		text-decoration: none !important;
+		margin-top: 15px;
+		font-weight: 600;
+		font-size: 14px;
+		border-radius: 2px;
+	}
+
+		.btn-gold-view:hover {
+			background-color: #4a1715;
+		}
+
+	.price-text {
+		color: #333;
+		font-weight: bold;
+	}
+	/* To eliminate extra margin above the container */
+	/* Completely eliminate top padding and margin of the container */
+	.container.pt-2 {
+		padding-top: 20px !important;
+		margin-top: 20px !important;
+	}
+
+	.mb-4.d-flex.align-items-center {
+		margin-bottom: 15px !important;
+	}
+
+	.text-center.mb-5 {
+		margin-bottom: 0px !important;
+	}
+
+		.text-center.mb-5 h2 {
+			margin-top: 5px !important;
+		}
+
+	.row.g-4 {
+		margin-top: 10px !important;
+	}
+
+	.floating-home-btn {
+		position: fixed;
+		bottom: 20px;
+		right: 20px;
+		z-index: 1000;
+		background-color: #b8860b;
+		color: white;
+		padding: 10px 15px;
+		border-radius: 50px;
+		text-decoration: none;
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+		transition: all 0.3s ease;
+	}
+
+		.floating-home-btn:hover {
+			background-color: #800000;
+			transform: scale(1.1);
+			color: white;
+		}
+
+	.home-icon {
+		width: 20px;
+		height: 20px;
+	}
+</style>
+<style>
+	/* ==========================================
+			   1. Laptop / Small Desktop (Max-Width: 1024px)
+			   ========================================== */
+	@@media screen and (max-width: 1024px) {
+		.container.pt-2 {
+			padding-top: 20px !important;
+			margin-top: 5px !important;
+		}
+
+		.btn-back-premium {
+			padding: 7px 18px !important;
+			font-size: 13.5px !important;
+		}
+	}
+
+	/* ==========================================
+			   2. Tablet View (Max-Width: 850px)
+			   ========================================== */
+	@@media screen and (max-width: 850px) {
+		.container.pt-2 {
+			padding-top: 18px !important;
+			margin-top: 0 !important;
+		}
+
+		.btn-back-premium {
+			padding: 7px 16px !important;
+			font-size: 13px !important;
+		}
+
+			.btn-back-premium i {
+				margin-right: 6px !important;
+			}
+	}
+
+	/* ==========================================
+			   3. Large Mobile (Max-Width: 440px)
+			   ========================================== */
+	@@media screen and (max-width: 440px) {
+		.container.pt-2 {
+			padding-top: 12px !important;
+			margin-top: 0 !important;
+			margin-bottom: 10px !important;
+			padding-left: 12px !important;
+			padding-right: 12px !important;
+		}
+
+		.top-filter-bar {
+			justify-content: flex-start !important;
+			gap: 6px !important;
+			margin-bottom: 8px !important;
+		}
+
+		.btn-back-premium {
+			padding: 4px 10px !important;
+			font-size: 10.5px !important;
+			border-width: 1px !important;
+			border-radius: 30px !important;
+		}
+
+			.btn-back-premium i {
+				margin-right: 3px !important;
+				font-size: 9.5px !important;
+			}
+
+		.filter-info {
+			font-size: 11.5px;
+		}
+
+		.page-main-title {
+			font-size: 1.1rem !important;
+			margin-top: 5px !important;
+		}
+	}
+
+	@@media screen and (max-width: 375px) {
+		.container.pt-2 {
+			padding-left: 8px !important;
+			padding-right: 8px !important;
+		}
+
+		.btn-back-premium {
+			padding: 3px 8px !important;
+			font-size: 9.5px !important;
+		}
+
+		.filter-info {
+			font-size: 10.5px;
+		}
+
+		.img-container-wrapper {
+			height: 310px !important;
+		}
+
+		.img-box {
+			padding: 8px !important;
+		}
+
+		.wish-overlay {
+			width: 30px !important;
+			height: 30px !important;
+			top: 8px !important;
+			right: 8px !important;
+		}
+
+			.wish-overlay .icon-heart {
+				font-size: 14px !important;
+			}
+	}
+
+	@@media screen and (max-width: 320px) {
+		.container.pt-2 {
+			padding-left: 5px !important;
+			padding-right: 5px !important;
+		}
+
+		.btn-back-premium {
+			padding: 3px 6px !important;
+			font-size: 9px !important;
+		}
+
+		.img-container-wrapper {
+			height: 280px !important;
+		}
+
+		.img-box {
+			padding: 6px !important;
+		}
+
+		.wish-overlay {
+			width: 28px !important;
+			height: 28px !important;
+			top: 6px !important;
+			right: 6px !important;
+		}
+
+			.wish-overlay .icon-heart {
+				font-size: 13px !important;
+			}
+	}
+
+</style>
+
+<script>
+	// 1. Wishlist Click Handler
+	function handleWishlistClick(element) {
+		const id = element.getAttribute('data-id');
+		const name = element.getAttribute('data-name');
+		const image = element.getAttribute('data-image');
+		const weight = element.getAttribute('data-weight');
+
+		let wishlist = JSON.parse(localStorage.getItem('userWishlist')) || [];
+		const index = wishlist.findIndex(item => item.id === id);
+
+		if (index === -1) {
+			// Product Add ho raha hai
+			wishlist.push({ id, name, image, weight });
+			const icon = element.querySelector('i');
+			if (icon) {
+				icon.classList.replace('fa-regular', 'fa-solid');
+				icon.style.color = 'red';
+			}
+			showProductMessage((name || "Product") + " Added to Your Wishlist! ❤️", "success");
+		} else {
+			wishlist.splice(index, 1);
+			const icon = element.querySelector('i');
+			if (icon) {
+				icon.classList.replace('fa-solid', 'fa-regular');
+				icon.style.color = '';
+			}
+			showProductMessage((name || "Product") + " removed from Wishlist!", "error");
+		}
+
+		// LocalStorage update aur counter refresh
+		localStorage.setItem('userWishlist', JSON.stringify(wishlist));
+		if (typeof updateWishlistCount === 'function') {
+			updateWishlistCount();
+		}
+	}
+
+	// 2. Product Toast Message Popup Logic (Top-Right & Unique Name)
+	let activeProductToast = null;
+
+	function showProductMessage(text, type) {
+		if (activeProductToast) {
+			activeProductToast.remove();
+		}
+
+		activeProductToast = document.createElement('div');
+		activeProductToast.innerText = text;
+
+		// Styling (Top-Right position ke sath)
+
+		activeProductToast.style.position = 'fixed';
+		activeProductToast.style.top = '100px';
+		activeProductToast.style.right = '30px';
+		activeProductToast.style.padding = '12px 24px';
+		activeProductToast.style.color = '#fff';
+		activeProductToast.style.borderRadius = '6px';
+		activeProductToast.style.zIndex = '999999';
+		activeProductToast.style.fontFamily = 'sans-serif';
+		activeProductToast.style.fontSize = '15px';
+		activeProductToast.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+		activeProductToast.style.transition = 'opacity 0.3s ease';
+
+		// Error  Success
+		if (type === 'error') {
+			activeProductToast.style.backgroundColor = '#e74c3c'; // Red for error/remove
+		} else {
+			activeProductToast.style.backgroundColor = '#1a1a1a';
+		}
+
+		// Body  add
+		document.body.appendChild(activeProductToast);
+
+		// 3 second baad fade out karke remove kar do
+		setTimeout(() => {
+			if (activeProductToast) {
+				activeProductToast.style.opacity = '0';
+				setTimeout(() => {
+					if (activeProductToast) {
+						activeProductToast.remove();
+						activeProductToast = null;
+					}
+				}, 300);
+			}
+		}, 3000);
+	}
+
+	// 3. Header Counter Update
+	function updateWishlistCount() {
+		const wishlist = JSON.parse(localStorage.getItem('userWishlist')) || [];
+		const countElement = document.getElementById('wishlist-count');
+		if (countElement) {
+			countElement.innerText = wishlist.length;
+		}
+	}
+
+	// 4. Page Load Icons
+	document.addEventListener('DOMContentLoaded', function() {
+		updateWishlistCount();
+
+		const wishlist = JSON.parse(localStorage.getItem('userWishlist')) || [];
+
+		document.querySelectorAll('.wish-overlay').forEach(btn => {
+			const currentId = btn.getAttribute('data-id');
+			const isFavorite = wishlist.some(item => item.id === currentId);
+			const icon = btn.querySelector('i');
+
+			if (isFavorite && icon) {
+				icon.classList.replace('fa-regular', 'fa-solid');
+			}
+		});
+	});
+</script>
+
+
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+		// Disable default browser scroll restoration
+		if ('scrollRestoration' in history) {
+			history.scrollRestoration = 'manual';
+		}
+
+		// 1. Restore scroll position when coming back to the collection page
+		const savedScroll = sessionStorage.getItem('collectionScroll');
+		if (savedScroll !== null) {
+			const targetScroll = parseInt(savedScroll, 10);
+
+			window.scrollTo({ top: targetScroll, behavior: 'instant' });
+
+			setTimeout(() => {
+				window.scrollTo({ top: targetScroll, behavior: 'instant' });
+			}, 100);
+
+			setTimeout(() => {
+				window.scrollTo({ top: targetScroll, behavior: 'instant' });
+				sessionStorage.removeItem('collectionScroll');
+			}, 300);
+		}
+
+		// 2. Automatically capture clicks on all product view links/buttons
+		const productLinks = document.querySelectorAll('.btn-gold-view');
+
+		productLinks.forEach(link => {
+			link.addEventListener('click', function(e) {
+				// Save current scroll position
+				sessionStorage.setItem('collectionScroll', window.scrollY);
+			});
+		});
+	});
+</script>
+
+
+

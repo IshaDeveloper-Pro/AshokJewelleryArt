@@ -1,0 +1,513 @@
+﻿@model IEnumerable<AshokJewelleryArt.Models.Product>
+@{
+    ViewData["Title"] = ViewBag.CategoryType + " | Ashok Jewellery Art";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Category.css" asp-append-version="true" />
+   
+    <!-- Wishlist Toast Notification Container -->
+<div id="wishlist-toast" class="wishlist-toast-msg"></div>
+
+
+}
+
+<div class="category-page-container">
+    <!-- Back To Collection Button -->
+    <div class="back-to-home-wrapper">
+        @{
+            string currentCat = ViewBag.CategoryType != null ? ViewBag.CategoryType.ToString() : "";
+
+            // Dynamic Anchor Selection Logic
+            string targetAnchor = "#goldScroll"; // Default
+            if (currentCat.StartsWith("Silver"))
+            {
+                targetAnchor = "#silverScroll";
+            }
+            else if (currentCat.StartsWith("Diamond"))
+            {
+                targetAnchor = "#diamondScroll";
+            }
+            else if (currentCat.StartsWith("Gemstone") || currentCat.StartsWith("Gemstones") || currentCat.StartsWith("Emerald"))
+            {
+                targetAnchor = "#gemstoneScroll";
+            }
+
+            string backUrl = Url.Action("Index", "Home") + "?selectedCat=" + Uri.EscapeDataString(currentCat) + targetAnchor;
+        }
+        <a href="@backUrl" style="text-decoration: none; color: #800000; font-weight: 600; font-size: 14px; display: inline-flex; align-items: center; gap: 6px; transition: 0.2s;">
+            <i class="fa-solid fa-arrow-left"></i> BACK TO COLLECTION
+        </a>
+    </div>
+    <!-- Back to Home Button close -->
+    <div class="cat-title-wrapper">
+        <h2 class="cat-section-title">
+            <img src="~/images/lotus.png" class="cat-side-icon" alt="lotus">
+            @ViewBag.CategoryType
+            <img src="~/images/lotus.png" class="cat-side-icon" alt="lotus">
+        </h2>
+        <p class="cat-subtitle">Exclusive designs crafted with perfection</p>
+    </div>
+
+    <!-- Filter Bar Section -->
+    <div class="filter-bar-row">
+        <div class="filter-left-side">
+            <!-- 1. Pink Filter Button -->
+            <div class="aj-filter-trigger-wrapper">
+<button type="button" class="main-filter-btn" onclick="toggleAjFilter()" style="height: 26px !important; padding: 0 2px !important; font-size: 10px !important; border-radius: 8px !important; margin-right: 2px !important;">
+    <i class="fa fa-sliders"></i> Filter
+</button>
+            </div>
+
+            <div class="pill-group">
+                <!-- Price filter hidden completely as requested -->
+                
+
+                <!-- Weight Filter Pill -->
+                @{
+    string selectedWeight = Context.Request.Query["weight"];
+}
+
+<!-- Weight Filter Pill -->
+@{
+    string currentCatName = ViewBag.CategoryType != null ? ViewBag.CategoryType.ToString() : "";
+    bool isCaratCategory = currentCatName.Contains("Diamond", StringComparison.OrdinalIgnoreCase) ||
+                           currentCatName.Contains("Gemstone", StringComparison.OrdinalIgnoreCase) ||
+                           currentCatName.Contains("Emerald", StringComparison.OrdinalIgnoreCase);
+
+  string unitLabel = "Weight";
+  }
+
+<!-- Filter Pill Dropdown -->
+<select id="weightPill" class="filter-select-pill" onchange="applyFilters()" style="height: 32px !important; min-width: 45px !important; width: auto !important; padding: 0 2px !important; font-size: 12px !important; border-radius: 16px !important;">
+    <option value="">@unitLabel</option>
+    @if (isCaratCategory)
+    {
+       <option value="0-0.5">Below 0.50 ct</option>
+        <option value="0.5-1">0.50 ct - 1 ct</option>
+        <option value="1-2">1 ct - 2 ct</option>
+        <option value="2+">Above 2 ct</option>
+    }
+    else
+    {
+        <option value="0-10">Below 10g</option>
+        <option value="10-20">10g - 20g</option>
+        <option value="20+">Above 20g</option>
+    }
+</select>
+
+              
+
+             <!-- Apply Button -->
+<button type="button" onclick="applyFilters()" style="height: 28px !important; width: auto !important; min-width: unset !important; flex: 0 0 auto !important; padding: 0 8px !important; font-size: 9.5px !important; border-radius: 10px !important; line-height: normal !important;" class="apply-filter-small-btn">
+    APPLY
+</button>
+
+<!-- Reset Button -->
+<button type="button" onclick="resetFilters()" style="height: 28px !important; width: auto !important; min-width: unset !important; flex: 0 0 auto !important; padding: 0 8px !important; font-size: 9.5px !important; border-radius: 10px !important; line-height: normal !important; background: #f8f9fa; color: #333; border: 1px solid #ccc;" class="reset-filter-small-btn">
+    RESET
+</button>
+            </div>
+        </div>
+
+        <!-- Sort By Weight Options -->
+       <div class="filter-right sort-capsule-wrapper" style="width: 190px !important; padding: 4px 2px 4px 12px !important;">
+    <span class="sort-label" style="font-size: 10px !important; margin-right: 0px !important;">Sort By:</span>
+            <select id="sortPill" class="custom-sort" onchange="applyFilters()">
+                <option value="default">Best Matches</option>
+                <option value="weight-low">Weight: Low to High</option>
+                <option value="weight-high">Weight: High to Low</option>
+            </select>
+        </div>
+    </div>
+
+<!-- Sidebar Filter Drawer -->
+<div id="ajSidePanel" class="aj-offcanvas-drawer">
+    <div class="aj-drawer-top">
+        <h3 class="aj-brand-title">Filter By</h3>
+        <span class="aj-close-icon" onclick="toggleAjFilter()">&times;</span>
+    </div>
+
+    <div class="aj-drawer-middle" style="display: flex; flex-direction: column; gap: 15px; padding: 20px;">
+        <!-- Accordion Heading -->
+        <div class="aj-filter-group" style="display: block !important; visibility: visible !important; opacity: 1 !important;">
+            <button class="aj-accordion" onclick="toggleAccordion(this)" style="display: flex !important; justify-content: space-between; align-items: center; width: 100%; background: #f9f9f9; border: 1px solid #ddd; padding: 12px 15px; border-radius: 6px; font-weight: bold; font-size: 15px; color: #333; cursor: pointer;">
+                <span>@unitLabel</span>
+                <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div class="aj-panel" style="display: none; flex-direction: column; gap: 10px; padding: 12px 5px 5px 5px;">
+                @if (isCaratCategory)
+                {
+                    <label class="aj-checkbox-container" style="display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 14px;">
+                        <input type="checkbox" class="sidebar-weight" value="0-0.5"> Below 0.50 ct
+                    </label>
+                    <label class="aj-checkbox-container" style="display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 14px;">
+                        <input type="checkbox" class="sidebar-weight" value="0.5-1"> 0.50 ct - 1 ct
+                    </label>
+                    <label class="aj-checkbox-container" style="display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 14px;">
+                        <input type="checkbox" class="sidebar-weight" value="1-2"> 1 ct - 2 ct
+                    </label>
+                    <label class="aj-checkbox-container" style="display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 14px;">
+                        <input type="checkbox" class="sidebar-weight" value="2+"> Above 2 ct
+                    </label>
+                }
+                else
+                {
+                    <label class="aj-checkbox-container" style="display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 14px;">
+                        <input type="checkbox" class="sidebar-weight" value="0-10"> Below 10g
+                    </label>
+                    <label class="aj-checkbox-container" style="display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 14px;">
+                        <input type="checkbox" class="sidebar-weight" value="10-20"> 10g - 20g
+                    </label>
+                    <label class="aj-checkbox-container" style="display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 14px;">
+                        <input type="checkbox" class="sidebar-weight" value="20+"> Above 20g
+                    </label>
+                }
+            </div>
+        </div>
+
+        <div class="aj-line-separator" style="border-bottom: 1px solid #eee; width: 100%;"></div>
+
+        <div class="aj-selection-item aj-reset-btn" onclick="resetFilters()" style="cursor: pointer; color: #800000; font-weight: bold; font-size: 14px;">
+            Reset All Filters
+        </div>
+    </div>
+
+    <div class="aj-drawer-bottom">
+        <button class="aj-main-apply-btn" onclick="applyFilters()">APPLY FILTERS</button>
+    </div>
+</div>
+
+<div id="ajGlassOverlay" class="aj-glass-effect" onclick="toggleAjFilter()"></div>
+
+    <!-- Dynamic Product Grid -->
+    <div class="product-grid">
+        @if (Model != null && Model.Any())
+        {
+            @foreach (var item in Model)
+            {
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+                <div class="jewel-card-new" style="background: #fff; border: 1px solid #eee; border-radius: 12px; height: 100%; display: flex; flex-direction: column;">
+                    
+                   <!-- Image Section -->
+<div class="card-img-area" style="height: 300px; overflow: hidden; background: #fdfdfd; display: flex; align-items: center; justify-content: center; position: relative;">
+    
+    <!-- Direct Product Link (Only Image is inside <a>) -->
+    <a asp-controller="Products" asp-action="Details" asp-route-id="@item.Id" style="text-decoration: none; color: inherit; width: 100%; height: 100%;">
+        <img src="@item.ImageURL" alt="@item.Name" style="width: 100%; height: 100%; object-fit: cover;">
+    </a>
+
+    <!-- Wishlist Button OUTSIDE the <a> tag -->
+        <button class="wish-icon"
+          data-id="@item.Id"
+          data-name="@item.Name"
+          data-image="@item.ImageURL"
+          data-weight="@item.Weight @( (item.Category.Contains("Diamond") || item.Category.Contains("Gemstone")) ? "ct" : item.WeightUnit )" style="position: absolute; top: 10px; right: 10px; border: none; background: white; border-radius: 50%; width: 35px; height: 35px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); z-index: 10; cursor: pointer;">
+        <i class="fa-regular fa-heart"></i>
+      </button>
+
+</div>
+                    <!-- Content Section -->
+                    <div class="card-details" style="padding: 15px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between;">
+                        <div>
+                            <p class="ref-no" style="font-size: 11px; color: #999; margin-bottom: 2px;">REF: #@item.Id</p>
+                            <h3 class="jewel-name" style="font-size: 16px; font-weight: 700; color: #333; margin-bottom: 5px; text-transform: uppercase;">@item.Name</h3>
+                                @{
+                                    // Logic: in category - Diamond, Gemstone, or Emerald -> 'ct' use otherwise default
+                                    string displayUnit = item.WeightUnit;
+
+                                    if (item.Category != null &&
+                                           (item.Category.Contains("Diamond", StringComparison.OrdinalIgnoreCase) ||
+                                            item.Category.Contains("Gemstone", StringComparison.OrdinalIgnoreCase) ||
+                                            item.Category.Contains("Emerald", StringComparison.OrdinalIgnoreCase)))
+                                    {
+                                        displayUnit = "ct";
+                                    }
+                                }
+
+                                <p class="jewel-spec" style="font-size: 13px; color: #666;">@item.Weight @displayUnit | @item.Category</p> 
+                                <p class="jewel-price" style="font-size: 18px; font-weight: 800; color: #800000; margin: 10px 0;">Price on Request</p>
+                        </div>
+
+                        <!-- Buttons Section -->
+                                              @{
+                                string ownerNumber = "919890451915"; // Owner  real number
+
+                                                     string scheme = Context.Request.Scheme; 
+                                                     string host = Context.Request.Host.ToUriComponent(); 
+                                                      string detailsUrl = $"{scheme}://{host}/Home/Details/{item.Id}";
+
+                                                         string categoryMsg = $"Hello Ashok Jewellery Art, I am interested in {item.Name}.\n\n" +
+                                               $"Can you please share the current price and details?\n\n" +
+                                                    $"Product Link: {detailsUrl}";
+ 
+                                                  // Uri.EscapeDataString \n  exact line break (%0A)  convert 
+                                                         string encodedCategoryMsg = Uri.EscapeDataString(categoryMsg);
+                                                string categoryWaUrl = $"https://wa.me/{ownerNumber}?text={encodedCategoryMsg}";
+                                              }
+
+                                                 <div class="price-action" style="display: flex; flex-direction: column; gap: 8px;">
+                                <a asp-controller="Home" asp-action="Details" asp-route-id="@item.Id" onclick="window.scrollTo({top: 0, behavior: 'instant'});"
+                                                 style="background: #800000; color: white; text-align: center; padding: 10px; border-radius: 4px; text-decoration: none; font-weight: 600; font-size: 13px;">
+                                                 VIEW DETAILS
+                                                   </a>
+                                                     <a href="@categoryWaUrl" target="_blank"
+   onclick="return confirm('Are you sure you want to chat on WhatsApp for this product?');"
+   style="background: #25D366; color: white; text-align: center; padding: 10px; border-radius: 4px; text-decoration: none; font-weight: 600; font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+    <i class="fa-brands fa-whatsapp"></i> ENQUIRE ON WHATSAPP
+</a>
+                                                 </div>
+                    </div>
+                </div>
+            </div>
+              
+            }
+        }
+        else
+        {
+            <p style="grid-column: 1/-1; text-align: center;">No products found in this category.</p>
+        }
+    </div>
+    <a asp-controller="Home" asp-action="Index" class="floating-home-btn" title="Back to Home">
+    <svg class="home-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 11-1.06 1.06l-.97-.97v7.13c0 .966-.784 1.75-1.75 1.75H15.5a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-2a.75.75 0 00-.75.75v4.5a.75.75 0 01-.75.75H6.25A1.75 1.75 0 014.5 19.75v-7.13l-.97.97a.75.75 0 01-1.06-1.06l8.69-8.69z" />
+    </svg>
+    <span>Home</span>
+</a>
+</div>
+
+
+@section Scripts {
+   <script>
+        // Sidebar Drawer Open/Close 
+let scrollPosition = 0;
+
+// Function to toggle sidebar drawer and completely freeze mobile background scroll
+function toggleAjFilter() {
+    const drawer = document.getElementById("ajSidePanel");
+    const overlay = document.getElementById("ajGlassOverlay");
+    
+    if (drawer && overlay) {
+        const isOpen = drawer.classList.toggle("aj-drawer-active");
+        overlay.classList.toggle("aj-overlay-active");
+
+        if (isOpen) {
+            // Save current scroll position and lock body position
+            scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+            document.body.style.position = 'fixed';
+            document.body.style.top = `-${scrollPosition}px`;
+            document.body.style.width = '100%';
+            document.body.style.overflow = 'hidden';
+        } else {
+            // Restore body position and scroll back to original place
+            document.body.style.position = '';
+            document.body.style.top = '';
+            document.body.style.width = '';
+            document.body.style.overflow = '';
+            window.scrollTo(0, scrollPosition);
+        }
+    }
+}
+
+// Helper function to prevent background scrolling while allowing drawer internal scroll
+function preventBackgroundScroll(e) {
+    const drawer = document.getElementById("ajSidePanel");
+    
+    // Allow scrolling if the touch target is inside the drawer
+    if (drawer && drawer.contains(e.target)) {
+        return; 
+    }
+    
+    // Prevent default touch movement for background and overlay
+    e.preventDefault();
+}
+        // in Sidebar Weight accordion open/close        
+        function toggleAccordion(btn) {
+            const panel = btn.nextElementSibling;
+            if (panel) {
+                if (panel.style.display === "block") {
+                    panel.style.display = "none";
+                } else {
+                    panel.style.display = "block";
+                }
+            }
+        }
+
+document.addEventListener("DOMContentLoaded", function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    const currentWeight = urlParams.get('weight');
+    const currentSort = urlParams.get('sortBy');
+
+    const weightPill = document.getElementById('weightPill');
+    const sortPill = document.getElementById('sortPill');
+    const weightCheckboxes = document.querySelectorAll('.sidebar-weight');
+
+    // 1. Set Sort Dropdown if present
+    if (sortPill && currentSort) {
+        sortPill.value = currentSort;
+    }
+
+    // 2. Set Weight Dropdown pill value directly from URL if present
+    if (weightPill && currentWeight) {
+        weightPill.value = currentWeight;
+    }
+
+    // 3. Set Sidebar Checkboxes and handle their sync logic
+    weightCheckboxes.forEach(cb => {
+        if (currentWeight && cb.value === currentWeight) {
+            cb.checked = true;
+        } else {
+            cb.checked = false;
+        }
+
+        // Sidebar checkbox change: uncheck others & clear dropdown
+        cb.addEventListener('change', function () {
+            if (this.checked) {
+                weightCheckboxes.forEach(other => {
+                    if (other !== this) other.checked = false;
+                });
+                if (weightPill) weightPill.value = "";
+            }
+        });
+    });
+
+    // Dropdown change: clear sidebar checkboxes immediately
+    if (weightPill) {
+        weightPill.addEventListener('change', function () {
+            if (this.value !== "") {
+                weightCheckboxes.forEach(cb => cb.checked = false);
+            }
+        });
+    }
+});
+function applyFilters() {
+    let type = "@ViewBag.CategoryType";
+    let metal = "@ViewBag.CurrentMetal";
+
+    if (!type) {
+        const urlParams = new URLSearchParams(window.location.search);
+        type = urlParams.get('type') || urlParams.get('category') || '';
+        metal = urlParams.get('metal') || '';
+    }
+
+    if (!type) {
+        alert("Category type missing! Please refresh the page.");
+        return;
+    }
+
+    // Priority: Dropdown first, then Sidebar checkbox
+    let weight = '';
+    const weightPill = document.getElementById('weightPill');
+    const checkedWeight = document.querySelector('.sidebar-weight:checked');
+
+    if (weightPill && weightPill.value !== "") {
+        weight = weightPill.value;
+    } else if (checkedWeight) {
+        weight = checkedWeight.value;
+    }
+
+    let sortBy = document.getElementById('sortPill') ? document.getElementById('sortPill').value : 'default';
+
+    let newUrl = `/Home/Category?type=${encodeURIComponent(type)}`;
+
+    if (metal) {
+        newUrl += `&metal=${encodeURIComponent(metal)}`;
+    }
+    if (weight && weight !== 'all' && weight !== '') {
+        newUrl += `&weight=${encodeURIComponent(weight)}`;
+    }
+    if (sortBy && sortBy !== 'default') {
+        newUrl += `&sortBy=${encodeURIComponent(sortBy)}`;
+    }
+
+    window.location.href = newUrl;
+}
+
+        function resetFilters() {
+            let type = "@ViewBag.CategoryType";
+            let metal = "@ViewBag.CurrentMetal";
+
+            let resetUrl = `/Home/Category?type=${encodeURIComponent(type)}`;
+            if (metal) {
+                resetUrl += `&metal=${encodeURIComponent(metal)}`;
+            }
+            window.location.href = resetUrl;
+        }
+
+            //WISHLIST SCRIPT-----------------------------//
+                // Global Click Listener for Wishlist (Captures clicks anywhere on the document)
+                document.addEventListener('click', function(e) {
+                    const button = e.target.closest('.wish-icon');
+                    if (!button) return;
+
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    const currentId = button.dataset.id;
+                    const icon = button.querySelector('i');
+
+                    const itemData = {
+                        id: currentId,
+                        name: button.dataset.name,
+                        image: button.dataset.image,
+                        weight: button.dataset.weight
+                    };
+
+                    let currentWishlist = JSON.parse(localStorage.getItem('userWishlist')) || [];
+                    const index = currentWishlist.findIndex(item => (typeof item === 'object' ? item.id : item) === currentId);
+
+                    if (index > -1) {
+                        // Remove from wishlist
+                        currentWishlist.splice(index, 1);
+                        if (icon) {
+                            icon.classList.remove('fa-solid');
+                            icon.classList.add('fa-regular');
+                            icon.style.color = '';
+                        }
+                    } else {
+                        // Add to wishlist
+                        currentWishlist.push(itemData);
+                        if (icon) {
+                            icon.classList.remove('fa-regular');
+                            icon.classList.add('fa-solid');
+                            icon.style.color = 'red';
+                        }
+                    }
+
+                    // Save to localStorage
+                    localStorage.setItem('userWishlist', JSON.stringify(currentWishlist));
+
+                    if (typeof updateWishlistCount === 'function') {
+            updateWishlistCount();
+        }
+    });
+                   
+
+                // Page load hone par already favorited items ko red karne ke liye
+                document.addEventListener('DOMContentLoaded', () => {
+                    let wishlist = JSON.parse(localStorage.getItem('userWishlist')) || [];
+                    document.querySelectorAll('.wish-icon').forEach(button => {
+                        const currentId = button.dataset.id;
+                        const isFavorite = wishlist.some(item => (typeof item === 'object' ? item.id : item) === currentId);
+                        const icon = button.querySelector('i');
+
+                        if (isFavorite && icon) {
+                            icon.classList.remove('fa-regular');
+                            icon.classList.add('fa-solid');
+                            icon.style.color = 'red';
+                        }
+                    });
+
+                   // Initial count sync on load
+            if (typeof updateWishlistCount === 'function') {
+                updateWishlistCount();
+            }
+        });
+
+
+
+    </script>
+    
+}
+    
+    

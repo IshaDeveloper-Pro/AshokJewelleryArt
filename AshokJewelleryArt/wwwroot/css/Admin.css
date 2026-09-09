@@ -1,0 +1,3211 @@
+﻿/* --- ROOT VARIABLES --- */
+:root {
+    --sidebar-purple: #38006b;
+    --sidebar-hover-purple: #4b0082;
+    --gold-text: #FFD700;
+    --pink-btn-bg: #fce4ec;
+    --Purple-text: #4b0082;
+    --orange-light: #FFB347;
+    --border-pink: #f8bbd0;
+    --gold-primary: #b0914f;
+    --gold-light: #fdfaf3;
+    --emerald-dark: #1a3c34;
+    --white: #ffffff;
+    --shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* --- GLOBAL STYLES --- */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f5f6f8;
+    overflow-x: hidden;
+}
+/* --- WELCOME ADMIN:  STYLE --- */
+.admin-welcome-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #ffffff;
+    padding: 6px 15px;
+    border-radius: 50px; /* Capsule shape */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    border: 1px solid #eee;
+    margin-top: 8px;
+}
+
+.welcome-text {
+    font-size: 14px;
+    color: #777;
+    font-weight: 500;
+}
+
+.admin-name {
+    font-size: 16px;
+    font-weight: 800; /* Extra Bold */
+    letter-spacing: 1px;
+    /* GRADIENT EFFECT: Gold/Purple Mix */
+    background: linear-gradient(45deg, #b0914f, #38006b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-transform: uppercase;
+}
+
+.verified-icon {
+    display: flex;
+    align-items: center;
+    color: #b0914f; /* Brand Gold Color */
+}
+
+/* Hover effect on header */
+.admin-welcome-badge:hover {
+    transform: scale(1.05);
+    transition: all 0.3s ease;
+    border-color: var(--gold-text);
+}
+
+/* --- SIDEBAR SECTION --- */
+.sidebar {
+    width: 260px;
+    background: var(--sidebar-purple);
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 30px 0px;
+    color: white;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: touch;
+}
+    .sidebar::-webkit-scrollbar {
+        width: 6px !important;
+        display: block !important;
+    }
+
+    .sidebar::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.2);
+    }
+
+    .sidebar::-webkit-scrollbar-thumb {
+        background: var(--gold-primary, #b0914f);
+        border-radius: 10px;
+    }
+
+        .sidebar::-webkit-scrollbar-thumb:hover {
+            background: #ffd700;
+        }
+.brand-section {
+    padding: 0 20px;
+    margin-bottom: 30px;
+    text-align: left;
+}
+
+    .brand-section h1 {
+        color: var(--gold-text);
+        margin: 0;
+        padding: 0;
+        font-size: 28px;
+        font-weight: bold;
+        letter-spacing: 1px;
+    }
+
+    .brand-section p {
+        margin: 5px 0 0 0;
+        font-size: 12px;
+        opacity: 0.8;
+        color: white;
+    }
+
+/* --- NAVIGATION LINKS --- */
+.nav-links li a {
+    color: var(--gold-text) !important;
+    text-decoration: none;
+    font-weight: bold;
+    display: block;
+    padding: 15px 20px;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+    font-size: 16px;
+    background-color: transparent; 
+}
+
+    .nav-links li a:hover {
+        background-color: #004d40 !important; /* Emerald Green */
+        padding-left: 30px;
+        color: #fff !important;
+    }
+
+
+.nav-links li.active a {
+    background-color: #004d40 !important;
+ 
+    color: #fff !important;
+    display: block; 
+}
+
+
+.nav-links li a:focus {
+    background-color: transparent;
+}
+
+.nav-links li.active a:focus {
+    background-color: #004d40 !important;
+}
+/* --- RESET BUTTON --- */
+.reset-btn {
+    background: var(--orange-light) !important;
+    color: white !important;
+    border: none !important;
+    padding: 12px !important;
+    width: 90% !important;
+    margin: 10px auto !important;
+    cursor: pointer;
+    font-weight: bold !important;
+    border-radius: 6px !important;
+    display: block !important;
+    transition: all 0.4s ease;
+    text-transform: uppercase;
+    font-size: 12px;
+}
+
+    .reset-btn:hover {
+        background: var(--sidebar-hover-purple) !important;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+/* --- BACK TO HOME: STRICT SQUARE TOP RIGHT --- */
+.top-nav-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.back-home-btn {
+    background-color: var(--pink-btn-bg) !important;
+    color: var(--Purple-text) !important;
+    text-decoration: none !important;
+    padding: 8px 18px !important;
+    font-weight: bold !important;
+    font-size: 13px !important;
+    border: 1px solid var(--border-pink) !important;
+    border-radius: 0px !important;
+    -webkit-border-radius: 0px !important;
+    -moz-border-radius: 0px !important;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.08) !important;
+    transition: all 0.3s ease !important;
+    cursor: pointer;
+}
+
+.arrow-icon {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.back-home-btn:hover {
+    background-color: var(--sidebar-purple) !important;
+    color: white !important;
+    transform: translateX(-5px) !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+}
+
+/* --- MAIN CONTENT AREA --- */
+.main-content {
+    margin-left: 260px !important;
+    width: calc(100% - 260px) !important;
+    display: block !important;
+    min-height: 100vh;
+    padding: 30px;
+    position: relative;
+    box-sizing: border-box;
+}
+@media (max-width: 768px) {
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+    }
+}
+.main-content::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.content-header {
+    margin-bottom: 30px;
+    margin-left: 0 !important; 
+}
+
+    .content-header h2 {
+        margin: 0;
+        font-size: 26px;
+        color: #333;
+    }
+
+    .content-header p {
+        margin: 5px 0 0 0;
+        color: #777;
+    }
+
+.admin-card {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+    margin-bottom: 30px;
+}
+
+/* --- INVENTORY CONTROLS --- */
+.wide-dropdown {
+    width: 60% !important;
+    min-width: 400px;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    outline: none;
+    font-size: 15px;
+    background: #fff;
+}
+
+.action-btn-gold {
+    background: #b0914f !important;
+    color: white !important;
+    border: none !important;
+    padding: 12px 25px !important;
+    font-weight: bold !important;
+    cursor: pointer !important;
+    border-radius: 6px !important;
+    margin-left: 15px !important;
+    transition: all 0.3s ease-in-out;
+}
+
+    .action-btn-gold:hover {
+        background: #8e733b !important;
+        transform: scale(1.03);
+        box-shadow: 0 4px 10px rgba(176, 145, 79, 0.3);
+    }
+/* --- FIXED TABLE STYLING --- */
+.inventory-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 25px;
+    table-layout: auto; 
+}
+
+    .inventory-table thead tr {
+        background-color: #f9f9f9;
+        border-bottom: 2px solid #eee;
+    }
+
+    .inventory-table th {
+     
+        text-align: center; 
+        font-weight: 700;
+        text-transform: uppercase;
+        
+        color: #555;
+        padding: 8px 4px !important; 
+        font-size: 13px;
+        vertical-align: middle;
+    }
+
+    .inventory-table td {
+        border-bottom: 1px solid #f0f0f0;
+        text-align: center;
+        vertical-align: middle;
+        padding: 8px 4px !important; 
+        font-size: 13px;
+        vertical-align: middle;
+        font-weight: bold;
+        
+
+        
+    }
+
+.col-metal {
+    color: #d4af37;
+    font-weight: bold;
+    text-align: left !important;
+    width: 1%; 
+    white-space: nowrap;
+}
+
+.col-name {
+    text-align: left !important;
+    padding-left: 15px !important;
+}
+
+.col-date {
+    white-space: nowrap; 
+    width: 100px;
+}
+    .id-subtext{
+        font-size:10px;
+        color:#5c5050;
+        text-align:center;
+    }
+    #note{
+        font-size:12px;
+        color:#666;
+        display:block;
+        clear:both;
+        margin-top:10px;
+        font-style:italic;
+
+    }
+.inventory-scroll-container {
+    max-height: 380px;
+    overflow-y: auto;
+    border: 1px solid #f1f1f1;
+    border-radius: 8px;
+    transition: max-height 0.4s ease-in-out;
+    width: 100%;
+    overflow-x: auto; /* Ye sabse zaroori hai */
+    -webkit-overflow-scrolling: touch;
+}
+
+    .inventory-scroll-container.expanded {
+        max-height: 2000px;
+        overflow-y: visible;
+    }
+
+/* See All Button Style */
+.see-all-btn {
+    background: transparent;
+    border: 1px solid #b0914f;
+    color: #b0914f;
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+    .see-all-btn:hover {
+        background: #b0914f;
+        color: white;
+    }
+.btn-gold-outline {
+    background: white;
+    border: 1px solid #b0914f;
+    color: #b0914f;
+    padding: 6px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 14px;
+    transition: all 0.3s ease; 
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+    .btn-gold-outline:hover {
+        background: #b0914f;
+        color: white;
+        box-shadow: 0 4px 8px rgba(184, 134, 11, 0.2); 
+    }
+/* Search button  original style aur hover */
+.btn-search {
+    padding: 0 25px;
+    background: #b0914f; /* Gold color */
+    color: white;
+    border: 1px solid #b0914f;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+}
+
+    .btn-search:hover {
+        background:#dd7b11; /*  dark gold hover */
+        border-color: #8a6d3b;
+        box-shadow: 0 4px 10px rgba(184, 134, 11, 0.3);
+        transform: translateY(-1px); 
+    }
+/* --- INVENTORY IMAGE ZOOM EFFECT --- */
+.inventory-img-zoom {
+    width: 65px;
+    height: 65px;
+    object-fit: contain;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    z-index: 1;
+    border: 1px solid #eee;
+    background: #fff;
+}
+
+    .inventory-img-zoom:hover {
+        transform: scale(3.5);
+        z-index: 9999;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+        border: 1px solid var(--gold-text);
+    }
+
+/* --- ADDITIONAL REFINEMENTS --- */
+.inventory-table tbody tr:hover {
+    background-color: #fafafa;
+    transition: background 0.3s ease;
+}
+
+/* Spacer for bottom */
+.spacer-bottom {
+    height: 100px;
+    width: 100%;
+}
+
+/* --- ACTION BUTTONS IN TABLE --- */
+.table-btn {
+    padding: 10px 18px;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 4px;
+    transition: all 0.3s;
+    border: 1px solid transparent;
+    display: inline-block;
+    margin-right: 8px;
+    font-size: 13px;
+}
+
+/* 1. RENAME: Blue Style */
+.rename-btn {
+    background-color: #e3f2fd !important;
+    color: #1976d2 !important;
+    border: 1px solid #1976d2 !important;
+}
+
+    .rename-btn:hover {
+        background-color: #1976d2 !important;
+        color: white !important;
+    }
+
+/* 2. UPDATE: Yellow/Gold Style */
+.update-btn {
+    background-color: #fff9c4 !important;
+    color: #d36f1b !important;
+    border: 1px solid #fbc02d !important;
+}
+
+    .update-btn:hover {
+        background-color: #fbc02d !important;
+        color: white !important;
+    }
+
+/* 3. DELETE: Red Style */
+.delete-btn {
+    background-color: #ffebee !important;
+    color: #c62828 !important;
+    border: 1px solid #c62828 !important;
+}
+
+    .delete-btn:hover {
+        background-color: #c62828 !important;
+        color: white !important;
+    }
+
+/* --- UTILITY CLASSES --- */
+.product-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 15px 0;
+}
+
+/* Footer spacing lines */
+.spacer-large {
+    height: 50px;
+    width: 100%;
+}
+/* --- NEW CUSTOM MODAL  --- */
+.custom-modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7); 
+    z-index: 10000;
+    align-items: center;
+    justify-content: center;
+}
+
+.custom-modal-box {
+    background: white;
+    padding: 35px;
+    border-radius: 15px;
+    text-align: center;
+    width: 380px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+    animation: modalPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes modalPop {
+    from {
+        transform: scale(0.7);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.modal-icon-gold {
+    font-size: 45px;
+    color: #b0914f; 
+    margin-bottom: 15px;
+}
+
+.custom-modal-box h3 {
+    margin: 0 0 10px 0;
+    color: var(--sidebar-purple);
+    font-size: 22px;
+}
+
+.custom-modal-box p {
+    color: #555;
+    margin-bottom: 25px;
+    line-height: 1.5;
+}
+
+/* --- MODAL BUTTONS --- */
+.modal-btn-group {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.btn-cancel {
+    padding: 12px 25px;
+    border: 1px solid #ddd;
+    background: #f5f5f5;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #666;
+    transition: 0.3s;
+}
+
+.btn-reset-final {
+    padding: 12px 25px;
+    border: none;
+    background: #c62828; /* Warning red */
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+    .btn-reset-final:hover {
+        background: #b71c1c;
+        transform: translateY(-2px);
+    }
+
+.btn-cancel:hover {
+    background: #eee;
+}
+/* --- MODAL BUTTONS HOVER EFFECTS --- */
+
+/* 1. Cancel Button (Gray to Dark Gray) */
+.btn-no {
+    padding: 12px 25px;
+    background: #9acbc6;
+    border: 1px solid #dddddd;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #2a2121;
+    transition: all 0.3s ease; /* Smooth transition */
+}
+
+    .btn-no:hover {
+        background: #b0914f;
+        color: #333333;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        transform: translateY(-2px); /* Thoda upar uthega */
+    }
+
+/* 2. Reset Button (Red to Dark Red with Glow) */
+.btn-yes {
+    padding: 12px 25px;
+    background: #c62828; /* Original Red */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease; /* Smooth transition */
+}
+
+    .btn-yes:hover {
+        background: #600a0a; /* Darken magenta */
+        box-shadow: 0 5px 15px rgba(198, 40, 40, 0.4); /* Red glow effect */
+        transform: translateY(-2px); 
+        letter-spacing: 0.5px; 
+    }
+
+    .btn-no:active, .btn-yes:active {
+        transform: translateY(0);
+    }
+/* --- ORDERS: NO DATA STYLING --- */
+.no-data-view {
+    text-align: center;
+    padding: 80px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.no-data-icon {
+    font-size: 60px;
+    color: #ccc; /* Light grey icon */
+    margin-bottom: 20px;
+    opacity: 0.5;
+}
+
+.no-data-view h3 {
+    color: #999; /* Grey title */
+    font-size: 26px;
+    margin: 0;
+    font-weight: 500;
+}
+
+.no-data-view p {
+    color: #bbb; /* Lighter grey for description */
+    font-size: 15px;
+    margin-top: 12px;
+}
+
+/*DIRECT UPLOAD SECTION*/
+/* 1. Card & Header */
+.admin-card {
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid #d4af37;
+    margin: 0 auto 30px auto;
+    max-width: 950px;
+}
+
+.admin-header {
+    background: #1a1a1a;
+    color: #d4af37;
+    padding: 20px;
+    text-align: center;
+    border-bottom: 2px solid #d4af37;
+}
+
+.admin-body {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 2. Image Upload Box (Hover & Scale Restored) */
+.upload-box {
+    width: 600px !important;
+    min-height: 280px;
+    border: 2px dashed #89b399;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background: #f0f7f3;
+    transition: all 0.3s ease;
+    margin-bottom: 25px;
+}
+
+    .upload-box:hover {
+        background: #e3f0e9;
+        border-color: #2d6a4f;
+        transform: scale(1.01);
+    }
+.upload-wrapper {
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+}
+
+/* 3. STRICT SAME SIZE (600px) FOR ALL 4 FIELDS */
+.custom-input,
+.form-select {
+    width: 600px !important;
+    min-width: 600px !important;
+    max-width: 600px !important;
+    border: 1px solid #ced4da;
+    padding: 12px 15px;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    margin: 0 auto !important;
+    display: block;
+    transition: all 0.3s ease;
+}
+
+input.custom-input {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 16px 12px;
+}
+
+.custom-input:focus, .form-select:focus {
+    border-color: #d4af37;
+    box-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
+    outline: none;
+}
+
+/* Labels */
+label.fw-bold {
+    width: 600px !important;
+    max-width: 600px !important;
+    margin: 15px auto 8px auto !important;
+    display: block;
+    text-align: left;
+    color: #333;
+}
+
+/* 4. Price Display */
+.price-tag {
+    background: #1a1a1a;
+    color: #d4af37;
+    padding: 15px;
+    border-radius: 12px;
+    text-align: center;
+    border: 1px solid #d4af37;
+    min-height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 600px !important;
+    margin: 20px auto;
+}
+    .price-tag:hover {
+        cursor:pointer;
+        background-color:#4b0082;
+        color:aliceblue;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(184, 150, 46, 0.4);
+    }
+#direct-price {
+    font-size: 2rem;
+    font-weight: 800;
+}
+
+/* 5. Buttons (Hover Effects Restored) */
+.gap-2 {
+    gap: 0.75rem !important;
+    width: 600px !important;
+    margin: 25px auto 0 auto;
+    display: flex;
+}
+
+.btn-gold {
+    background: linear-gradient(45deg, #d4af37, #f2d06b);
+    color: #000;
+    font-weight: bold;
+    border-radius: 10px;
+    padding: 12px !important;
+    transition: all 0.3s ease;
+    flex: 1;
+    border: none;
+}
+
+    .btn-gold:hover {
+        background: #b8962e;
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(184, 150, 46, 0.4);
+        cursor: pointer;
+    }
+
+.btn-clear-custom {
+    background: #fff5f5;
+    border: 2px solid #ff4d4d;
+    color: #ff4d4d;
+    font-weight: 700;
+    border-radius: 10px;
+    padding: 12px !important;
+    transition: all 0.3s ease;
+    flex: 1;
+}
+
+    .btn-clear-custom:hover {
+        background: #ff4d4d;
+        color: white;
+        cursor: pointer;
+    }
+#direct-preview {
+    width: 100%;
+    max-height: 250px; 
+    object-fit: contain; 
+    background-color: #f8f9fa; 
+    border-radius: 8px;
+    display: block;
+    margin: 0 auto;
+}
+#imgPreview {
+    width: 100%;
+    height: 150px; /* Fixed height for consistency */
+    object-fit: contain;
+    border-radius: 5px;
+}
+
+#invTable {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto;
+    min-width: 900px; 
+}
+
+    .date-cell, #invTable th:nth-child(3) {
+        white-space: nowrap !important;
+        width: 110px;
+        padding: 10px 15px !important;
+    }
+
+    #invTable th:nth-child(5), #invTable td:nth-child(5) {
+        min-width: 150px;
+        padding-right: 20px;
+    }
+
+    #invTable td {
+        padding: 12px 10px;
+        border-bottom: 1px solid #d1d1d1; 
+        vertical-align: middle;
+    }
+
+.action-buttons {
+    display: flex;
+    gap: 8px;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+}
+
+/* Buttons style */
+.action-btn {
+    padding: 5px 10px;
+    font-size: 12px;
+    border: 1px solid #b0914f;
+    border-radius: 4px;
+    background: white;
+    color: #b0914f;
+    cursor: pointer;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: 0.2s;
+}
+
+    .action-btn:hover {
+        background: #b0914f;
+        color: white;
+    }
+#bulk-actions-row {
+    margin-top: 25px !important;
+    clear: both;
+    position: relative;
+    z-index: 10;
+}
+    /*CALCUlATOR*/
+/* Calculator Section Styling */
+#calculatorSection {
+    margin-top: 10px;
+    width: 100%; /* Full width inside main-content */
+    max-width: 950px; 
+    margin-left: auto;
+    margin-right: auto;
+    animation: fadeIn 0.4s ease-in-out;
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.calc-card {
+    background: #fdfaf3;
+    border: 1.5px solid #b0914f;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    padding: 25px;
+}
+
+.calc-header-badge {
+    background: #1a3c34; /* Emerald Green */
+    color: #ffd700; /* Gold */
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(26, 60, 52, 0.2);
+}
+
+.calc-input-group label {
+    font-size: 14px;
+    color: #444;
+    margin-bottom: 8px;
+    display: block;
+    font-weight: 600;
+}
+
+/* Input Styles */
+.calc-input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #d1c4a9;
+    border-radius: 8px;
+    outline: none;
+    transition: 0.3s;
+}
+
+    .calc-input:focus {
+        border-color: #1a3c34;
+        box-shadow: 0 0 0 2px rgba(26, 60, 52, 0.1);
+    }
+
+/* Button Styling */
+.btn-calculate {
+    background: #1a3c34;
+    color: white;
+    border: none;
+    padding: 15px 35px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+    .btn-calculate:hover {
+        background: #142d27;
+        transform: scale(1.02);
+    }
+
+
+    /*-----------------------MULTI PRODUCT-------------------------------*/
+
+/* Multi-Products table container par border lagane ke liye */
+.multi-products-container,
+#multiProductsSection .table-responsive,
+.inventory-container {
+    border: 2px solid #d4af37; /* Apna pasandida border color ya wahi jo product tab me hai */
+    border-radius: 12px;
+    padding: 10px;
+    background-color: #fff;
+}
+/* MULTI-UPLOAD SECTION WIDTH FIX (Exact Compact 320px) */
+#multiProductsSection input[type="text"],
+#multiProductsSection input[type="number"],
+#multiProductsSection select {
+    width: 320px !important;
+    min-width: 320px !important;
+    max-width: 320px !important;
+    height: 38px !important;
+    padding: 6px 12px !important;
+    border-radius: 6px !important;
+    border: 1px solid #ced4da !important;
+    box-sizing: border-box !important;
+    display: inline-block !important;
+}
+
+/* Labels alignment for multi-upload fields */
+#multiProductsSection label {
+    width: 320px !important;
+    max-width: 320px !important;
+    margin: 0 auto 5px auto !important;
+    display: block !important;
+    text-align: left !important;
+    font-weight: 700;
+    font-size: 12px;
+    color: #666;
+}
+
+/* Image upload box & Action buttons width sync */
+#multiProductsSection .upload-box,
+#multiProductsSection div[style*="max-width: 670px"],
+#multiProductsSection div[style*="max-width: 710px"] {
+    max-width: 670px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+    /*-----------------------------------TODAY RATE BUTTON----------------------------- */
+/* TODAY'S RATES BUTTON STYLES */
+.today-rates-btn {
+    background: #1a3c34;
+    color: #ffd700;
+    padding: 10px 20px;
+    border: 1px solid #b0914f;
+    cursor: pointer;
+    font-family: 'Playfair Display', serif;
+    border-radius: 25px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease-in-out; /* Smooth transition animation */
+}
+
+    /* Button Mouse Hover Effect */
+    .today-rates-btn:hover {
+        background: #7a153f !important; /* Vibrant Maroon on Hover */
+        color: #ffffff !important; /* Pure White Text */
+        border-color: #ffd700 !important; /* Bright Gold Border */
+        box-shadow: 0 4px 15px rgba(255, 215, 0, 0.5) !important; /* Gold Glow */
+        transform: translateY(-2px) !important; /* Button Lifts Up */
+    }
+
+    /* Button Click/Active State Effect */
+    .today-rates-btn:active {
+        transform: translateY(0);
+        box-shadow: 0 0 5px rgba(176, 145, 79, 0.8);
+    }
+
+    /* Arrow Icon rotation on hover */
+    .today-rates-btn:hover i {
+        transform: translateY(2px);
+        transition: transform 0.2s ease;
+    }
+
+/* DROPDOWN BOX PREMIUM STYLES */
+.rate-dropdown-content {
+    background: #fdfaf3;
+    border: 1.5px solid #b0914f;
+    padding: 15px;
+    width: 300px;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+/* Hover effect for the rate dropdown */
+.rate-dropdown-container:hover .rate-dropdown-content {
+    display: block !important;
+}
+
+.rate-dropdown-content {
+    display: none;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+/* Refresh Button Styling */
+/* Updated CSS */
+.refresh-btn {
+    height: 45px;
+    padding: 10px 25px;
+    font-size: 16px;
+    font-weight: 600;
+    display: inline-flex; 
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    border: none; 
+    border-radius: 8px; 
+    transition: all 0.3s ease;
+    background: #92bbaa; 
+    color: #ffffff; 
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1); 
+}
+
+    .refresh-btn:hover {
+        background: #7da594; 
+        transform: translateY(-2px); 
+    }
+
+    .refresh-btn i {
+        font-size: 18px;
+    }
+/* Warning state for your modal */
+.modal-warning i {
+    color: #e74c3c !important; /* Red color for error */
+}
+
+.modal-warning button {
+    background: #e74c3c !important;
+}
+#updateProfileTab, #createNewAdminTab {
+    display: none;
+}
+
+/*calculator part*/
+@keyframes jhatkaEffect {
+    0% {
+        transform: scale(0.95);
+        opacity: 0;
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.result-animate {
+    animation: jhatkaEffect 0.4s ease-out forwards;
+}
+
+/* Button click effect */
+.action-btn-gold:active {
+    transform: scale(0.9);
+    transition: 0.1s;
+}
+@keyframes estimateEntry {
+    0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.show-estimate {
+    animation: estimateEntry 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/*switch on / off btn*/
+/* Toggle Switch Design */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 20px;
+}
+
+    .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 20px;
+}
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 14px;
+        width: 14px;
+        left: 3px;
+        bottom: 3px;
+        background-color: white;
+        transition: .4s;
+        border-radius: 50%;
+    }
+
+input:checked + .slider {
+    background-color: #b0914f;
+}
+
+    input:checked + .slider:before {
+        transform: translateX(20px);
+    }
+
+    /*MULTI PRODUCTS*/
+
+.bulk-img-preview:hover {
+    transform: scale(1.1); 
+}
+
+#bulk-cards-container {
+    padding: 15px;
+    background: #fdfdfd;
+    border-radius: 15px;
+}
+
+.form-control-sm, .form-select-sm {
+    border-radius: 6px;
+    border: 1px solid #ddd;
+}
+
+/*visitors log*/
+#drawerTrigger:checked ~ #locationDrawer,
+#drawerTrigger:checked + div + #locationDrawer,
+#drawerTrigger:checked ~ * #locationDrawer {
+    left: 260px !important; /* Aapke sidebar ki width */
+}
+
+/* Global level par handle-fallback CSS */
+html:has(#drawerTrigger:checked) #locationDrawer {
+    left: 260px !important;
+}
+
+.custom-side-drawer {
+    position: fixed !important;
+    top: 0 !important;
+    left: -500px !important;
+    width: 430px !important;
+    height: 100vh !important;
+    background: #ffffff !important;
+    box-shadow: 5px 0 25px rgba(0,0,0,0.25) !important;
+    z-index: 9999999 !important;
+    transition: left 0.35s cubic-bezier(0.1, 0.8, 0.25, 1) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+#drawerToggleCheckbox:checked ~ #locationDrawer {
+    left: 260px !important;
+}
+
+/* --- CUSTOM PREMIUM SCROLLBARS FOR CHROMIUM (up-down & LEFT-RIGHT BOTH FORCED) --- */
+.table-scroll-zone::-webkit-scrollbar {
+    width: 7px !important; /* Vertical scrollbar width */
+    height: 7px !important; /* Horizontal scrollbar height */
+    display: block !important;
+}
+
+.table-scroll-zone::-webkit-scrollbar-track {
+    background: #f1f1f1 !important;
+    border-radius: 10px !important;
+}
+
+.table-scroll-zone::-webkit-scrollbar-thumb {
+    background: #7b1fa2 !important; /* Premium purple theme */
+    border-radius: 10px !important;
+}
+
+    .table-scroll-zone::-webkit-scrollbar-thumb:hover {
+        background: #5c147a !important;
+    }
+/* ==========================================
+   SETTINGS SECTION EXACT PAGE CENTER FIX
+   ========================================== */
+#settingsSection {
+    margin-left: 100px !important;
+}
+    /* Row & Col reset so they don't push content to the right */
+    #settingsSection .row,
+    #settingsSection .col-md-12 {
+        width: 100% !important;
+        max-width: 600px !important; 
+        margin: 0 auto !important; 
+        padding: 0 !important;
+      
+        justify-content: center !important;
+    }
+
+        /* Top Tabs Wrapper */
+        #settingsSection .row:first-child .col-md-12 > div {
+            width: 100% !important;
+            max-width: 600px !important;
+            margin: 0 0 20px 0 !important;
+            
+        }
+/* Card Wrapper Centering */
+#settingsActualContent,
+#updateProfileTab,
+#createNewAdminTab {
+    width: 100% !important;
+    max-width: 600px !important;
+    margin: 0 auto !important;
+    box-sizing: border-box !important;
+}
+    /* Main Container - Absolute Screen Centering */
+    
+
+    div:has(> table),
+    .current-inventory,
+    .inventory-table-container,
+    .multi-products-container,
+    div[id*="multi"],
+    div[class*="multi"] {
+        /* Header (~45px) + 9 Rows (~380px) = EXACT 9 ROWS VISIBLE */
+        max-height: 425px !important;
+        overflow-y: auto !important; 
+        overflow-x: auto !important;
+        box-sizing: border-box !important;
+    }
+        table th,
+        div[id*="multi"] th,
+        .multi-products-container th {
+            position: sticky !important;
+            top: 0 !important;
+            background-color: #ffffff !important;
+            z-index: 10 !important;
+        }
+    /* --- FIREFOX FALLBACK --- */
+    .table-scroll-zone {
+        scrollbar-width: thin !important;
+        scrollbar-color: #7b1fa2 #f1f1f1 !important;
+    }
+    /* ==========================================================================
+   GLOBAL TABLE CONTAINER FIX (LARGE HEIGHT & THICK VERTICAL SCROLLBAR)
+   ========================================================================== */
+    /* 1. Main Table Container Setup */
+    div:has(> table),
+    .current-inventory,
+    .inventory-table-container,
+    .multi-products-container,
+    div[id*="multi"],
+    div[class*="multi"] {
+        width: 100% !important;
+        max-width: 100% !important;
+        max-height: 700px !important;
+        /* DUAL SCROLLING ENABLED */
+        overflow-x: auto !important; /* Horizontal Scroll */
+        overflow-y: auto !important; /* Vertical Scroll */
+
+        -webkit-overflow-scrolling: touch;
+        box-sizing: border-box !important;
+        position: relative !important;
+        /* Standard LTR: Hamesha 1st column (Left) start */
+        direction: ltr !important;
+    }
+        /* 2. Sticky Header  */
+        div:has(> table) th,
+        .current-inventory th,
+        .inventory-table-container th,
+        .multi-products-container th,
+        div[id*="multi"] th,
+        div[class*="multi"] th {
+            position: sticky !important;
+            top: 0 !important;
+            background-color: #fff !important;
+            z-index: 10 !important;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+        /* ==========================================================================
+   CUSTOM VISIBLE DUAL SCROLLBAR (SLEEK & LONG GOLDEN THUMB)
+   ========================================================================== */
+        /* 1. Scrollbar Container Dimensions  */
+        div:has(> table)::-webkit-scrollbar,
+        .current-inventory::-webkit-scrollbar,
+        .inventory-table-container::-webkit-scrollbar,
+        .multi-products-container::-webkit-scrollbar,
+        div[id*="multi"]::-webkit-scrollbar,
+        div[class*="multi"]::-webkit-scrollbar {
+            width: 8px !important; /* Vertical Scrollbar Sleek/Thin (8px) */
+            height: 8px !important; /* Horizontal Scrollbar Height (8px) */
+        }
+        /* 2. Scrollbar Track (Background Grey Bar) */
+        div:has(> table)::-webkit-scrollbar-track,
+        .current-inventory::-webkit-scrollbar-track,
+        .inventory-table-container::-webkit-scrollbar-track,
+        .multi-products-container::-webkit-scrollbar-track {
+            background: #f1f1f1 !important;
+            border-radius: 4px !important;
+        }
+        /* 3. Gold Scroll Thumb Handle (Long Height Maintained) */
+        div:has(> table)::-webkit-scrollbar-thumb,
+        .current-inventory::-webkit-scrollbar-thumb,
+        .inventory-table-container::-webkit-scrollbar-thumb,
+        .multi-products-container::-webkit-scrollbar-thumb {
+            background: #b8975a !important; /* Gold Color */
+            border-radius: 4px !important;
+            min-height: 80px !important;
+        }
+            /* 4. Hover Effect */
+            div:has(> table)::-webkit-scrollbar-thumb:hover,
+            .current-inventory::-webkit-scrollbar-thumb:hover,
+            .inventory-table-container::-webkit-scrollbar-thumb:hover,
+            .multi-products-container::-webkit-scrollbar-thumb:hover {
+                background: #8a6d3b !important;
+            }
+
+            /*--------clear anf=d upload all btn hover-----*/
+body div#multiProductsSection div#bulk-actions-row button.exact-clear-btn {
+    width: 100% !important;
+    font-weight: 700 !important;
+    font-size: 11px !important;
+    height: 36px !important;
+    border-radius: 20px !important;
+    border: none !important;
+    background: #dc3545 !important;
+    color: #fff !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease-in-out !important;
+}
+
+    body div#multiProductsSection div#bulk-actions-row button.exact-clear-btn:hover {
+        background: #a71d2a !important;
+        transform: translateY(-2px) !important;
+        box-shadow: 0 4px 12px rgba(220, 53, 69, 0.5) !important;
+    }
+
+body div#multiProductsSection div#bulk-actions-row button.exact-upload-btn {
+    width: 100% !important;
+    font-weight: 700 !important;
+    font-size: 11px !important;
+    height: 36px !important;
+    border-radius: 20px !important;
+    border: none !important;
+    background: #ffc107 !important;
+    color: #000 !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease-in-out !important;
+}
+
+    body div#multiProductsSection div#bulk-actions-row button.exact-upload-btn:hover {
+        background: #d39e00 !important;
+        transform: translateY(-2px) !important;
+        box-shadow: 0 4px 12px rgba(255, 193, 7, 0.5) !important;
+    }
+    /*RESPONSIVE ---------------------------------------------------------------------------------------*/
+/* 6. Responsive */
+@media (max-width: 850px) {
+    .custom-input, .form-select, .price-tag, label.fw-bold, .gap-2, .upload-box {
+        width: 100% !important;
+        min-width: 100% !important;
+        max-width: 100% !important;
+    }
+}
+
+/* 1. Pehle Badi Screen (1024px ya usse kam) */
+@media (max-width: 1024px) {
+    .sidebar {
+        width: 220px;
+        height: 100dvh;
+    }
+
+    .main-content {
+        margin-left: 220px !important;
+        width: calc(100% - 220px) !important;
+    }
+}
+
+/* 2. Uske baad Chhoti Screen (850px ya usse kam) -  */
+@media (max-width: 850px) {
+    .admin-panel-container {
+        display: flex;
+        width: 100%;
+        overflow-x: hidden;
+    }
+    .sidebar {
+        width: 200px;
+        height: 100dvh;
+    }
+
+    .main-content {
+        margin-left: 200px !important;
+        width: calc(100% - 200px) !important;
+        padding: 10px; 
+        box-sizing: border-box;
+    }
+}
+
+    /* 3. Mobile Large (425px) */
+    @media (max-width: 440px) {
+        .sidebar {
+            width: 100% !important;
+            height: auto !important;
+            max-height: 280px !important; 
+            position: relative !important; 
+            overflow-y: auto !important;
+        }
+
+        .main-content {
+            margin-left: 0 !important;
+            width: 100% !important;
+            padding: 15px;
+        }
+    }
+    /* 4. Mobile Medium (375px) */
+    @media (max-width: 375px) {
+        .sidebar {
+            max-height: 240px !important;
+        }
+
+        .brand-section h1 {
+            font-size: 20px;
+        }
+
+        .nav-links li a {
+            font-size: 14px;
+            padding: 10px 15px;
+        }
+    }
+    /* 5. Mobile Small (320px) */
+    @media (max-width: 320px) {
+        .sidebar {
+            max-height: 210px !important;
+        }
+
+        .brand-section h1 {
+            font-size: 18px;
+        }
+
+        .nav-links li a {
+            font-size: 12px;
+            padding: 8px 10px;
+        }
+    }
+    /* ==========================================
+   MOBILE SPACING FIX (320px - 375px)
+   ========================================== */
+    @media (min-width: 320px) and (max-width: 375px) {
+        .sidebar {
+            padding-top: 10px !important;
+            padding-bottom: 10px !important;
+        }
+        .brand-section {
+            margin-bottom: 10px !important;
+            padding: 0 10px !important;
+        }
+
+            .brand-section h1 {
+                font-size: 26px !important;
+                margin-bottom: 0 !important;
+            }
+
+            .brand-section p {
+                font-size: 10px !important;
+            }
+        .visitor-card,
+        div[class*="visitor"] {
+            position: relative !important;
+            top: -90px !important; 
+            margin-bottom: 0 !important;
+            z-index: 100 !important;
+        }
+        .location-card,
+        .top-location-widget,
+        div[class*="location"] {
+            position: relative !important;
+            top: -160px !important; 
+            margin-bottom: -100px !important;
+            z-index: 101 !important; 
+        }
+        /* Padding & Text Tightening */
+        .visitor-card, .location-card {
+            padding: 4px 8px !important;
+        }
+
+            .visitor-card .icon, .location-card .icon {
+                width: 26px !important;
+                height: 26px !important;
+            }
+
+        .widget-title, .visitor-title, .location-title {
+            font-size: 8.5px !important;
+        }
+
+        .widget-value, .visitor-count, .location-name {
+            font-size: 12px !important;
+        }
+    }
+    /* ==========================================
+   LOCATION DRAWER MOBILE FIX (280px - 425px)
+   ========================================== */
+    @media screen and (max-width: 440px) {
+        /* Drawer Box Style Override */
+        #locationDrawer,
+        .custom-side-drawer {
+            width: 100% !important; 
+            max-width: 100vw !important;
+            left: -100% !important; 
+            top: 0 !important;
+            height: 100vh !important;
+            height: 100dvh !important;
+            z-index: 999999 !important; 
+            box-sizing: border-box !important;
+            padding: 10px !important;
+        }
+        #drawerTrigger:checked ~ #locationDrawer,
+        #drawerToggleCheckbox:checked ~ #locationDrawer,
+        #drawerTrigger:checked + div + #locationDrawer,
+        #drawerTrigger:checked ~ * #locationDrawer,
+        html:has(#drawerTrigger:checked) #locationDrawer {
+            left: 0 !important;
+        }
+        #locationDrawer table,
+        .custom-side-drawer table {
+            width: 100% !important;
+            font-size: 11px !important;
+        }
+
+        #locationDrawer th,
+        #locationDrawer td,
+        .custom-side-drawer th,
+        .custom-side-drawer td {
+            padding: 8px 4px !important;
+            white-space: nowrap !important;
+        }
+    }
+  
+/* ==========================================
+   GLOBAL INVENTORY and MULTI- TABLE FIX (1024px - 10 COLUMNS FIT)
+   ========================================== */
+@media screen and (max-width: 1024px) {
+
+    /* 1. Page ke saare containers aur wrappers ko scroll freedom do */
+    .inventory-scroll-container,
+    .current-inventory,
+    .inventory-table-container,
+    #multiProductsSection,
+    #multiInventoryContainer,
+    #inventoryWrapperMulti {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        max-height: none !important;
+        height: auto !important;
+        overflow-y: visible !important;
+        overflow-x: auto !important;
+    }
+
+    /* 2. Uniform Table Layout */
+    .inventory-table,
+    #invTableMulti {
+        width: 100% !important;
+        min-width: 100% !important;
+        table-layout: fixed !important;
+        border-collapse: collapse !important;
+    }
+
+        /* 3. Sticky Headers */
+        .inventory-table thead th,
+        #invTableMulti thead th {
+            position: sticky !important;
+            top: 0 !important;
+            background-color: #f8f9fa !important;
+            z-index: 5 !important;
+        }
+
+        /* 4. Common Header & Cell Sizing */
+        .inventory-table th, .inventory-table td,
+        #invTableMulti th, #invTableMulti td {
+            padding: 5px 2px !important;
+            font-size: 10px !important;
+            text-align: center !important;
+            vertical-align: middle !important;
+            white-space: nowrap !important;
+            overflow: hidden !important;
+            text-overflow: ellipsis !important;
+        }
+
+            /* --- EXACT 100% COLUMN RATIOS FOR BOTH TABLES (10 COLUMNS FIT) --- */
+            .inventory-table th:nth-child(1), .inventory-table td:nth-child(1),
+            #invTableMulti th:nth-child(1), #invTableMulti td:nth-child(1) {
+                width: 4% !important;
+            }
+
+            .inventory-table th:nth-child(2), .inventory-table td:nth-child(2),
+            #invTableMulti th:nth-child(2), #invTableMulti td:nth-child(2) {
+                width: 6% !important;
+            }
+
+            .inventory-table th:nth-child(3), .inventory-table td:nth-child(3),
+            #invTableMulti th:nth-child(3), #invTableMulti td:nth-child(3) {
+                width: 9% !important;
+            }
+
+            .inventory-table th:nth-child(4), .inventory-table td:nth-child(4),
+            #invTableMulti th:nth-child(4), #invTableMulti td:nth-child(4) {
+                width: 6% !important;
+            }
+
+            .inventory-table th:nth-child(5), .inventory-table td:nth-child(5),
+            #invTableMulti th:nth-child(5), #invTableMulti td:nth-child(5) {
+                width: 8% !important;
+            }
+
+            .inventory-table th:nth-child(6), .inventory-table td:nth-child(6),
+            #invTableMulti th:nth-child(6), #invTableMulti td:nth-child(6) {
+                width: 22% !important;
+                text-align: left !important;
+            }
+
+            .inventory-table th:nth-child(7), .inventory-table td:nth-child(7),
+            #invTableMulti th:nth-child(7), #invTableMulti td:nth-child(7) {
+                width: 8% !important;
+            }
+
+            .inventory-table th:nth-child(8), .inventory-table td:nth-child(8),
+            #invTableMulti th:nth-child(8), #invTableMulti td:nth-child(8) {
+                width: 10% !important;
+            }
+
+            .inventory-table th:nth-child(9), .inventory-table td:nth-child(9),
+            #invTableMulti th:nth-child(9), #invTableMulti td:nth-child(9) {
+                width: 13% !important;
+            }
+
+            .inventory-table th:nth-child(10), .inventory-table td:nth-child(10),
+            #invTableMulti th:nth-child(10), #invTableMulti td:nth-child(10) {
+                width: 14% !important;
+            }
+
+        /* 5. Image Thumbnail Sizing */
+        .inventory-table img,
+        #invTableMulti img {
+            width: 22px !important;
+            height: 22px !important;
+            object-fit: cover !important;
+        }
+
+        /* 6. Action Buttons Fitting */
+        .inventory-table button,
+        #invTableMulti button,
+        #invTableMulti .btn-update,
+        #invTableMulti .btn-delete {
+            padding: 2px 3px !important;
+            font-size: 9px !important;
+            margin: 0px !important;
+        }
+
+    /* Card & Preview Layout Fix */
+    #multiProductsSection .card,
+    #multiProductsSection [id*="multi"],
+    #multiProductsSection .upload-preview-container,
+    .multi-product-item {
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    #multiProductsSection form .border,
+    #multiProductsSection .p-3 {
+        padding: 10px !important;
+    }
+}
+/* ==========================================================================
+   2. SINGLE PRODUCT TABLE - 768px TO 320px (HORIZONTAL SCROLL ON)
+   ========================================================================== */
+@media screen and (max-width: 850px) {
+    #inventoryWrapper,
+    .inventory-scroll-container:not(#inventoryWrapperMulti) {
+        width: 100% !important;
+        max-width: 100% !important;
+        max-height: 550px !important;
+        overflow-x: auto !important; /* Enable Horizontal Scroll */
+        overflow-y: auto !important;
+        display: block !important;
+        -webkit-overflow-scrolling: touch !important;
+        box-sizing: border-box !important;
+    }
+
+    .inventory-table {
+        width: max-content !important;
+        min-width: 920px !important;
+        table-layout: auto !important;
+        border-collapse: collapse !important;
+    }
+
+        .inventory-table th,
+        .inventory-table td {
+            padding: 8px 6px !important;
+            font-size: 11px !important;
+            vertical-align: middle !important;
+            text-align: center !important;
+            white-space: nowrap !important;
+        }
+
+        .inventory-table thead th {
+            position: sticky !important;
+            top: 0 !important;
+            background-color: #ffffff !important;
+            z-index: 10 !important;
+        }
+
+        /* Column Min-Widths for Smooth Horizontal Scrolling */
+        .inventory-table th:nth-child(1), .inventory-table td:nth-child(1) {
+            min-width: 45px !important;
+        }
+
+        .inventory-table th:nth-child(2), .inventory-table td:nth-child(2) {
+            min-width: 80px !important;
+        }
+
+        .inventory-table th:nth-child(3), .inventory-table td:nth-child(3) {
+            min-width: 95px !important;
+        }
+
+        .inventory-table th:nth-child(4), .inventory-table td:nth-child(4) {
+            min-width: 60px !important;
+        }
+
+        .inventory-table th:nth-child(5), .inventory-table td:nth-child(5) {
+            min-width: 75px !important;
+        }
+
+        .inventory-table th:nth-child(6), .inventory-table td:nth-child(6) {
+            min-width: 170px !important;
+            text-align: left !important;
+        }
+
+        .inventory-table th:nth-child(7), .inventory-table td:nth-child(7) {
+            min-width: 80px !important;
+        }
+
+        .inventory-table th:nth-child(8), .inventory-table td:nth-child(8) {
+            min-width: 70px !important;
+        }
+
+        .inventory-table th:nth-child(9), .inventory-table td:nth-child(9) {
+            min-width: 100px !important;
+        }
+
+        .inventory-table th:nth-child(10), .inventory-table td:nth-child(10) {
+            min-width: 135px !important;
+        }
+
+        .inventory-table img {
+            width: 28px !important;
+            height: 28px !important;
+            object-fit: cover !important;
+        }
+
+        .inventory-table button, .inventory-table .btn {
+            padding: 4px 6px !important;
+            font-size: 10px !important;
+        }
+
+ 
+    /* 1. Dynamic card container ko full width aur proper spacing do */
+    #bulk-cards-container {
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+        /* 2. Har ek dynamically generated product card  force in column layout  */
+        #bulk-cards-container > div,
+        #bulk-cards-container .card,
+        #bulk-cards-container [class*="col"] {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            box-sizing: border-box !important;
+            padding: 12px 8px !important;
+            margin-bottom: 12px !important;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        #bulk-cards-container img,
+        #bulk-cards-container .preview-img,
+        #bulk-cards-container div[style*="width"] img {
+            width: 90px !important;
+            height: 90px !important;
+            object-fit: cover !important;
+            margin: 0 auto 10px auto !important;
+            display: block !important;
+            float: none !important;
+        }
+
+        #bulk-cards-container .card > div,
+        #bulk-cards-container > div > div {
+            width: 100% !important;
+            max-width: 100% !important;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        #bulk-cards-container input,
+        #bulk-cards-container select,
+        #bulk-cards-container textarea {
+            width: 100% !important;
+            max-width: 260px !important; 
+            box-sizing: border-box !important;
+            margin: 4px auto 8px auto !important;
+            display: block !important;
+            text-align: center !important;
+        }
+
+        #bulk-cards-container label {
+            width: 100% !important;
+            max-width: 260px !important;
+            text-align: left !important;
+            display: block !important;
+            margin: 0 auto 2px auto !important;
+        }
+}
+
+
+@media screen and (max-width: 850px) {
+
+    #inventoryWrapperMulti {
+        width: 100% !important;
+        max-width: 100% !important;
+        height: 500px !important;
+        min-height: 450px !important;
+        max-height: 450px !important;
+        overflow-x: auto !important;
+        overflow-y: auto !important;
+        display: block !important;
+        -webkit-overflow-scrolling: touch !important;
+        box-sizing: border-box !important;
+    }
+
+    #invTableMulti {
+        width: 900px !important;
+        min-width: 900px !important;
+        table-layout: auto !important;
+        border-collapse: collapse !important;
+        margin-left: 0 !important;
+        margin-right: auto !important;
+        direction: ltr !important;
+        max-height: none !important;
+    }
+
+        #invTableMulti th,
+        #invTableMulti td {
+            padding: 4px 4px !important; /* Padding aur compact ki hai taaki zyada rows fit ho sakein */
+            font-size: 10.5px !important;
+            vertical-align: middle !important;
+            text-align: center !important;
+            white-space: nowrap !important;
+            box-sizing: border-box !important;
+        }
+
+        #invTableMulti thead th {
+            position: sticky !important;
+            top: 0 !important;
+            background-color: #f8f9fa !important;
+            z-index: 5 !important;
+        }
+
+        /* Column Widths */
+        #invTableMulti th:nth-child(1), #invTableMulti td:nth-child(1) {
+            width: 45px !important;
+            min-width: 45px !important;
+        }
+
+        #invTableMulti th:nth-child(2), #invTableMulti td:nth-child(2) {
+            width: 75px !important;
+            min-width: 75px !important;
+        }
+
+        #invTableMulti th:nth-child(3), #invTableMulti td:nth-child(3) {
+            width: 90px !important;
+            min-width: 90px !important;
+        }
+
+        #invTableMulti th:nth-child(4), #invTableMulti td:nth-child(4) {
+            width: 60px !important;
+            min-width: 60px !important;
+        }
+
+        #invTableMulti th:nth-child(5), #invTableMulti td:nth-child(5) {
+            width: 70px !important;
+            min-width: 70px !important;
+        }
+
+        #invTableMulti th:nth-child(6), #invTableMulti td:nth-child(6) {
+            width: 150px !important;
+            min-width: 150px !important;
+            text-align: left !important;
+        }
+
+        #invTableMulti th:nth-child(7), #invTableMulti td:nth-child(7) {
+            width: 100px !important;
+            min-width: 100px !important;
+        }
+
+        #invTableMulti th:nth-child(8), #invTableMulti td:nth-child(8) {
+            width: 65px !important;
+            min-width: 65px !important;
+        }
+
+        #invTableMulti th:nth-child(9), #invTableMulti td:nth-child(9) {
+            width: 95px !important;
+            min-width: 95px !important;
+        }
+
+        #invTableMulti th:nth-child(10), #invTableMulti td:nth-child(10) {
+            width: 130px !important;
+            min-width: 130px !important;
+        }
+
+        #invTableMulti img {
+            width: 24px !important;
+            height: 24px !important;
+            object-fit: cover !important;
+        }
+        #invTableMulti button,
+        #invTableMulti .btn-update,
+        #invTableMulti .btn-delete {
+            padding: 2px 4px !important;
+            font-size: 10px !important;
+        }
+}
+@media screen and (max-width: 440px) {
+    #inventoryWrapper,
+    .inventory-scroll-container:not(#inventoryWrapperMulti) {
+        max-height: 350px !important;
+    }
+
+    .inventory-table {
+        min-width: 880px !important;
+    }
+
+        .inventory-table th, .inventory-table td {
+            padding: 6px 4px !important;
+            font-size: 10px !important;
+        }
+    /*--old----*/
+    #multiProductsSection {
+        padding: 10px 10px !important;
+        box-sizing: border-box !important;
+    }
+
+        #multiProductsSection div[style*="width: 320px"],
+        #multiProductsSection select,
+        #multiProductsSection input,
+        #multiProductsSection label + div {
+            width: 90% !important;
+            max-width: 90% !important;
+            margin-left: auto !important;
+            margin-right: auto !important;
+            box-sizing: border-box !important;
+        }
+
+        /* Image Box ki width aur choti ki */
+        #multiProductsSection label[for="bulk-images-input"] {
+            width: 85% !important;
+            max-width: 85% !important;
+            margin: 0 auto !important;
+            padding: 25px 15px !important;
+            box-sizing: border-box !important;
+        }
+
+    #inventoryWrapperMulti {
+        max-height: 380px !important;
+    }
+
+    #invTableMulti {
+        min-width: 920px !important;
+    }
+
+        #invTableMulti th,
+        #invTableMulti td {
+            padding: 8px 6px !important;
+            font-size: 11.5px !important;
+        }
+
+        #invTableMulti img {
+            width: 28px !important;
+            height: 28px !important;
+        }
+
+        #invTableMulti button,
+        #invTableMulti .btn-update,
+        #invTableMulti .btn-delete {
+            padding: 4px 7px !important;
+            font-size: 10px !important;
+        }
+    /* 1. Cards container aur layout on mobile */
+    #bulk-cards-container {
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100% !important;
+        padding: 0 4px !important;
+        box-sizing: border-box !important;
+    }
+
+        #bulk-cards-container .bulk-card-item > .card > div {
+            flex-direction: column !important;
+            align-items: center !important;
+            padding: 10px 6px !important;
+            gap: 8px !important;
+        }
+
+        /* 2. Image size chota karo */
+        #bulk-cards-container .bulk-card-item div[style*="flex: 0 0 150px"] {
+            flex: 0 0 auto !important;
+            width: 80px !important;
+            height: 80px !important;
+            margin-bottom: 4px !important;
+        }
+
+        #bulk-cards-container .bulk-card-item img {
+            width: 80px !important;
+            height: 80px !important;
+        }
+
+        #bulk-cards-container .bulk-card-item input.form-control,
+        #bulk-cards-container .bulk-card-item select.form-select,
+        #bulk-cards-container .bulk-card-item .input-group,
+        #bulk-cards-container .bulk-card-item div[style*="max-width: 180px"] {
+            width: 100% !important;
+            max-width: 230px !important;
+            min-width: 230px !important;
+            margin: 0 auto !important;
+            box-sizing: border-box !important;
+        }
+
+        #bulk-cards-container .bulk-card-item select.bulk-material {
+            width: 230px !important;
+            max-width: 230px !important;
+            min-width: 230px !important;
+            height: 32px !important;
+            font-size: 12px !important;
+        }
+
+        #bulk-cards-container .bulk-card-item .input-group {
+            display: flex !important;
+            flex-direction: row !important;
+            align-items: center !important;
+        }
+
+            #bulk-cards-container .bulk-card-item .input-group > input {
+                flex: 1 !important;
+                height: 32px !important;
+                font-size: 12px !important;
+            }
+
+            #bulk-cards-container .bulk-card-item .input-group > span.dynamic-unit-tag {
+                display: inline-block !important;
+                width: auto !important;
+                height: 32px !important;
+                line-height: 20px !important;
+                padding: 5px 8px !important;
+                font-size: 11px !important;
+                background: #f1f1f1 !important;
+            }
+
+        #bulk-cards-container .bulk-card-item label {
+            width: 100% !important;
+            max-width: 230px !important;
+            text-align: left !important;
+            display: block !important;
+            margin: 4px auto 2px auto !important;
+            font-size: 10px !important;
+        }
+}
+
+/* --------------------------------------------------------------------------
+   4. MEDIUM MOBILE (375px)
+   -------------------------------------------------------------------------- */
+@media screen and (max-width: 375px) {
+    #multiProductsSection {
+        padding: 8px 6px !important;
+        box-sizing: border-box !important;
+    }
+
+        #multiProductsSection div[style*="width: 320px"],
+        #multiProductsSection select,
+        #multiProductsSection input {
+            width: 100% !important;
+            max-width: 100% !important;
+            margin-left: auto !important;
+            margin-right: auto !important;
+            box-sizing: border-box !important;
+        }
+
+        #multiProductsSection label[for="bulk-images-input"] {
+            width: 82% !important;
+            max-width: 82% !important;
+            margin: 0 auto !important;
+            padding: 18px 10px !important;
+            box-sizing: border-box !important;
+        }
+
+    #inventoryWrapperMulti {
+        max-height: 350px !important;
+
+    }
+
+    #invTableMulti {
+        min-width: 880px !important;
+    }
+
+        #invTableMulti th, #invTableMulti td {
+            padding: 7px 5px !important;
+            font-size: 11px !important;
+        }
+
+        #invTableMulti img {
+            width: 25px !important;
+            height: 25px !important;
+        }
+
+        #invTableMulti button, #invTableMulti .btn-update, #invTableMulti .btn-delete {
+            padding: 3px 6px !important;
+            font-size: 9.5px !important;
+        }
+    /*image-----*/
+    #bulk-cards-container {
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100% !important;
+        padding: 0 2px !important;
+        box-sizing: border-box !important;
+    }
+
+        #bulk-cards-container .bulk-card-item > .card > div {
+            flex-direction: column !important;
+            align-items: center !important;
+            padding: 8px 4px !important;
+            gap: 6px !important;
+        }
+
+        #bulk-cards-container .bulk-card-item div[style*="flex: 0 0 150px"] {
+            flex: 0 0 auto !important;
+            width: 70px !important;
+            height: 70px !important;
+            margin-bottom: 2px !important;
+        }
+
+        #bulk-cards-container .bulk-card-item img {
+            width: 70px !important;
+            height: 70px !important;
+        }
+
+        #bulk-cards-container .bulk-card-item input.form-control,
+        #bulk-cards-container .bulk-card-item select.form-select,
+        #bulk-cards-container .bulk-card-item .input-group,
+        #bulk-cards-container .bulk-card-item div[style*="max-width: 180px"] {
+            width: 100% !important;
+            max-width: 205px !important;
+            min-width: 205px !important;
+            margin: 0 auto !important;
+            box-sizing: border-box !important;
+        }
+
+        #bulk-cards-container .bulk-card-item select.bulk-material {
+            width: 205px !important;
+            max-width: 205px !important;
+            min-width: 205px !important;
+            height: 30px !important;
+            font-size: 11px !important;
+            padding: 0 4px !important;
+        }
+
+        #bulk-cards-container .bulk-card-item .input-group {
+            display: flex !important;
+            flex-direction: row !important;
+            align-items: center !important;
+        }
+
+            #bulk-cards-container .bulk-card-item .input-group > input {
+                flex: 1 !important;
+                height: 30px !important;
+                font-size: 11px !important;
+                padding: 4px 6px !important;
+            }
+
+            #bulk-cards-container .bulk-card-item .input-group > span.dynamic-unit-tag {
+                display: inline-block !important;
+                width: auto !important;
+                height: 30px !important;
+                line-height: 18px !important;
+                padding: 4px 6px !important;
+                font-size: 10px !important;
+                background: #f1f1f1 !important;
+            }
+
+        #bulk-cards-container .bulk-card-item label {
+            width: 100% !important;
+            max-width: 205px !important;
+            text-align: left !important;
+            display: block !important;
+            margin: 3px auto 1px auto !important;
+            font-size: 9px !important;
+        }
+}
+
+
+
+/* --------------------------------------------------------------------------
+   5. EXTRA SMALL MOBILE (320px - STRICT OVERRIDE)
+   -------------------------------------------------------------------------- */
+@media screen and (max-width: 320px) {
+
+
+    #multiProductsSection {
+        padding: 6px 4px !important;
+        box-sizing: border-box !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+    }
+
+        #multiProductsSection div[style*="width: 320px"] {
+            width: 100% !important;
+            max-width: 100% !important;
+            min-width: 0 !important;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+            box-sizing: border-box !important;
+        }
+
+        #multiProductsSection select.form-select,
+        #multiProductsSection input.form-control {
+            width: 100% !important;
+            max-width: 100% !important;
+            min-width: 0 !important;
+            box-sizing: border-box !important;
+            font-size: 11px !important;
+            padding: 4px 6px !important;
+        }
+
+        #multiProductsSection label {
+            font-size: 10px !important;
+            width: 100% !important;
+            text-align: left !important;
+        }
+
+  
+
+                #multiProductsSection label[for="bulk-images-input"] {
+                    width: 100% !important;
+                    max-width: 100% !important;
+                    margin: 0 auto !important;
+                    padding: 16px 6px !important;
+                    box-sizing: border-box !important;
+                    font-size: 9.5px !important;
+                }
+
+        #inventoryWrapperMulti {
+            max-height: 320px !important;
+        }
+
+        #invTableMulti {
+            min-width: 820px !important;
+        }
+
+            #invTableMulti th,
+            #invTableMulti td {
+                padding: 6px 4px !important;
+                font-size: 10px !important;
+            }
+
+            #invTableMulti img {
+                width: 22px !important;
+                height: 22px !important;
+            }
+
+            #invTableMulti button,
+            #invTableMulti .btn-update,
+            #invTableMulti .btn-delete {
+                padding: 2px 4px !important;
+                font-size: 9px !important;
+            }
+
+        #bulk-cards-container {
+            display: flex !important;
+            flex-direction: column !important;
+            width: 100% !important;
+            padding: 0 1px !important;
+            box-sizing: border-box !important;
+        }
+
+            #bulk-cards-container .bulk-card-item > .card > div {
+                flex-direction: column !important;
+                align-items: center !important;
+                padding: 6px 2px !important;
+                gap: 5px !important;
+            }
+
+            #bulk-cards-container .bulk-card-item div[style*="flex: 0 0 150px"] {
+                flex: 0 0 auto !important;
+                width: 60px !important;
+                height: 60px !important;
+                margin-bottom: 2px !important;
+            }
+
+            #bulk-cards-container .bulk-card-item img {
+                width: 60px !important;
+                height: 60px !important;
+            }
+
+            #bulk-cards-container .bulk-card-item input.form-control,
+            #bulk-cards-container .bulk-card-item select.form-select,
+            #bulk-cards-container .bulk-card-item .input-group,
+            #bulk-cards-container .bulk-card-item div[style*="max-width: 180px"] {
+                width: 100% !important;
+                max-width: 175px !important;
+                min-width: 175px !important;
+                margin: 0 auto !important;
+                box-sizing: border-box !important;
+            }
+
+            /* 4. Material dropdown ki specific width fix */
+            #bulk-cards-container .bulk-card-item select.bulk-material {
+                width: 175px !important;
+                max-width: 175px !important;
+                min-width: 175px !important;
+                height: 28px !important;
+                font-size: 10px !important;
+                padding: 0 2px !important;
+            }
+
+            /* 5. Input-group and unit-tag ('g') */
+            #bulk-cards-container .bulk-card-item .input-group {
+                display: flex !important;
+                flex-direction: row !important;
+                align-items: center !important;
+            }
+
+                #bulk-cards-container .bulk-card-item .input-group > input {
+                    flex: 1 !important;
+                    height: 28px !important;
+                    font-size: 10px !important;
+                    padding: 2px 4px !important;
+                }
+
+                #bulk-cards-container .bulk-card-item .input-group > span.dynamic-unit-tag {
+                    display: inline-block !important;
+                    width: auto !important;
+                    height: 28px !important;
+                    line-height: 16px !important;
+                    padding: 2px 4px !important;
+                    font-size: 9px !important;
+                    background: #f1f1f1 !important;
+                }
+
+            /* 6. Labels formatting for 320px */
+            #bulk-cards-container .bulk-card-item label {
+                width: 100% !important;
+                max-width: 175px !important;
+                text-align: left !important;
+                display: block !important;
+                margin: 2px auto 1px auto !important;
+                font-size: 8.5px !important;
+            }
+    }
+    
+
+    /* ==========================================================================
+   SHOW ONLY 6 ROWS ON SCREEN (RESPONSIVE: 280px TO 1024px)
+   ========================================================================== */
+    @media screen and (min-width: 280px) and (max-width: 1024px) {
+        /* Table Container: Height fixed for exactly 6 rows */
+        div:has(> table),
+        .current-inventory,
+        .inventory-table-container,
+        .multi-products-container,
+        div[id*="multi"],
+        div[class*="multi"] {
+            /* Height calc: Header (~32px) + (6 Rows * ~35px) = ~242px */
+            max-height: 315px !important;
+            /* Smooth vertical scroll for remaining items */
+            overflow-y: auto !important;
+            overflow-x: auto !important;
+            -webkit-overflow-scrolling: touch;
+        }
+            table th,
+            div[id*="multi"] th,
+            .multi-products-container th {
+                position: sticky !important;
+                top: 0 !important;
+                background-color: #ffffff !important;
+                z-index: 10 !important;
+            }
+
+        h3, .title, .inventory-title,
+        div:has(> .current-inventory) h2,
+        .current-inventory-header h2 {
+            font-size: 22px !important; 
+            font-weight: 700 !important;
+            line-height: 1.2 !important;
+        }
+
+        table th,
+        div[id*="multi"] th,
+        div[class*="multi"] th,
+        .multi-products-container th {
+            font-size: 13px !important; 
+            font-weight: 700 !important; /* Extra Bold */
+            color: darkslategrey !important; /* Pure Dark / Black Color */
+            letter-spacing: 0.5px !important; 
+        }
+    }
+
+    /* ==========================================================================
+   BREAKPOINTS: DESKTOP TO MOBILE (1024px, 850px, 425px, 375px, 320px)
+   ========================================================================== */
+
+    /* 1. Desktop & Large Laptop (1024px) */
+    @media (max-width: 1024px) {
+        .multi-products-container,
+        div[id*="multi"],
+        div[class*="multi-upload"] {
+            padding: 15px !important;
+        }
+    }
+
+    /* 2. Tablet Mode (768px) */
+    @media (max-width: 850px) {
+        .multi-products-container,
+        div[id*="multi"],
+        div[class*="multi-upload"] {
+            padding: 12px !important;
+        }
+
+            /* Row wrapping for two-column inputs */
+            div[id*="multi"] .row,
+            div[class*="multi"] .row {
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+            }
+    }
+
+    /* 3. Mobile Large (425px) */
+    @media (max-width: 440px) {
+        .multi-products-container,
+        div[id*="multi"],
+        div[class*="multi-upload"] {
+            padding: 10px !important;
+            margin-top: 10px !important;
+        }
+
+            /* Single column stack for inputs */
+            div[id*="multi"] .col-md-6,
+            div[id*="multi"] .col-md-4,
+            div[class*="multi"] .col-md-6,
+            div[class*="multi"] .col-md-4 {
+                width: 100% !important;
+                max-width: 100% !important;
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+                margin-bottom: 10px !important;
+            }
+
+            /* Multi Upload Header Banner font adjustment */
+            div[id*="multi"] h2,
+            div[id*="multi"] h3,
+            div[id*="multi"] div[style*="MULTI UPLOAD"] {
+                font-size: 14px !important;
+                padding: 10px !important;
+            }
+    }
+
+    /* 4. Mobile Medium (375px) */
+    @media (max-width: 375px) {
+        .multi-products-container,
+        div[id*="multi"] {
+            padding: 8px !important;
+        }
+
+            div[id*="multi"] label,
+            div[class*="multi"] label {
+                font-size: 12px !important;
+            }
+
+            div[id*="multi"] input,
+            div[id*="multi"] select {
+                height: 38px !important;
+                font-size: 13px !important;
+            }
+    }
+
+    /* 5. Mobile Small (320px) */
+    @media (max-width: 320px) {
+        .multi-products-container,
+        div[id*="multi"] {
+            padding: 5px !important;
+        }
+
+            div[id*="multi"] h2,
+            div[id*="multi"] h3 {
+                font-size: 12px !important;
+                letter-spacing: 0px !important;
+            }
+    }
+
+
+
+    /*--------------------------------PRICE CALCULATOR------------------------------------- */
+    /* ==========================================
+   PRICE CALCULATOR RESPONSIVE FIX (NO HTML CHANGE)
+   ========================================== */
+    /* 1. TABLET FIX (768px and below) */
+    @media screen and (max-width: 850px) {
+        #calculatorSection section > div:first-child {
+            margin-top: -10px !important;
+            margin-bottom: 15px !important;
+            align-items: center !important; 
+            flex-wrap: wrap !important;
+            gap: 8px !important;
+        }
+        /* Heading Margin Reset */
+        #calculatorSection h3 {
+            margin: 0 !important;
+            padding: 0 !important;
+            line-height: 1.6 !important;
+        }
+
+        .rate-dropdown-container {
+            margin-left: auto !important; 
+        }
+
+        .today-rates-btn {
+            padding: 6px 12px !important;
+            font-size: 11px !important;
+            height: auto !important;
+            white-space: nowrap !important;
+        }
+
+        .rate-dropdown-content {
+            right: 0 !important;
+            left: auto !important;
+        }
+        /* Bottom Section Flex Wrap & Stacking Fix */
+        #calculatorSection section > div:last-child {
+            flex-wrap: wrap !important;
+            align-items: flex-start !important;
+            gap: 15px !important;
+        }
+
+        #calculatorSection div:has(> #autoCalcToggle) span {
+            font-size: 10.5px !important;
+            white-space: nowrap !important;
+        }
+
+        .input-group {
+            width: 100% !important;
+            max-width: 250px !important;
+        }
+      
+        #calcResult {
+            width: 100% !important;
+            box-sizing: border-box !important;
+            order: 2 !important; 
+            margin: 10px 0 !important;
+        }
+
+        .input-group {
+            order: 1 !important;
+        }
+
+        .action-btn-gold {
+            order: 3 !important;
+            width: 60% !important;
+            margin: 0 !important;
+        }
+
+        .refresh-btn {
+            order: 4 !important;
+            width: 35% !important;
+        }
+    }
+
+
+    @media screen and (max-width: 576px) {
+        #calculatorSection {
+            padding: 10px 8px !important;
+        }
+
+            #calculatorSection section {
+                padding: 15px 12px !important;
+                box-shadow: 2px 2px 8px rgba(0,0,0,0.15) !important;
+                overflow: visible !important;
+            }
+
+        /* Container Alignment */
+        .rate-dropdown-container {
+            margin-left: 0 !important;
+            width: auto !important;
+            display: inline-block !important;
+            position: relative !important;
+        }
+
+        /* Today's Rates Button */
+        .today-rates-btn {
+            padding: 6px 10px !important;
+            font-size: 10.5px !important;
+            border-radius: 15px !important;
+            white-space: nowrap !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 4px !important;
+        }
+
+        /* RIGHT-SIDE EXPANDING DROPDOWN (Fixes Left Cut-off on 425px) */
+        .rate-dropdown-content {
+            position: absolute !important;
+            left: 0 !important; 
+            right: auto !important;
+            top: 105% !important;
+            width: 270px !important;
+            max-width: calc(100vw - 40px) !important; 
+            padding: 12px !important;
+            box-sizing: border-box !important;
+            z-index: 99999 !important;
+        }
+
+            .rate-dropdown-content table {
+                font-size: 12px !important;
+            }
+
+        /* Form Fields Responsive Stack */
+        #calculatorSection section > div:nth-child(2) {
+            flex-direction: column !important;
+            gap: 12px !important;
+        }
+
+            #calculatorSection section > div:nth-child(2) > div {
+                width: 100% !important;
+                min-width: 100% !important;
+            }
+
+        #calculatorSection section > div:last-child {
+            flex-direction: column !important;
+            align-items: stretch !important;
+            gap: 12px !important;
+        }
+
+        .action-btn-gold, .refresh-btn {
+            width: 100% !important;
+        }
+    }
+
+    /* ==========================================
+   425PX PERFECT DROPDOWN FIT FIX
+========================================== */
+    @media screen and (max-width: 440px) {
+        /* Section parent container setup */
+        #calculatorSection section {
+            overflow: visible !important;
+        }
+
+        /* Dropdown container  right bound rakhenge */
+        .rate-dropdown-container {
+            position: relative !important;
+            display: inline-block !important;
+        }
+
+        /* RIGHT-ALIGNED DROPDOWN (Button  right side fit ) */
+        .rate-dropdown-content {
+            position: absolute !important;
+            right: 0 !important; 
+            left: auto !important; /* Left property clear */
+            top: 110% !important;
+            width: 270px !important; /* Compact card width */
+            max-width: calc(100vw - 40px) !important; 
+            padding: 12px !important;
+            box-sizing: border-box !important;
+            z-index: 99999 !important;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.25) !important;
+        }
+
+            /* Dropdown content scaling */
+            .rate-dropdown-content table {
+                font-size: 12px !important;
+            }
+
+            .rate-dropdown-content td {
+                padding: 5px 0 !important;
+            }
+    }
+
+
+
+    @media screen and (max-width: 375px) {
+        #calculatorSection h3 {
+            font-size: 0.9rem !important;
+        }
+
+        .today-rates-btn {
+            padding: 5px 8px !important;
+            font-size: 9.5px !important;
+        }
+
+        .rate-dropdown-content {
+            position: absolute !important;
+            right: 0 !important;
+            left: auto !important;
+            transform: translateX(-35px) !important; 
+            width: 220px !important;
+            box-sizing: border-box !important;
+            z-index: 99999 !important;
+        }
+    }
+
+    /* 2. ULTRA SMALL MOBILE (320px) */
+    @media screen and (max-width: 320px) {
+        .today-rates-btn {
+            padding: 4px 7px !important;
+            font-size: 9px !important;
+        }
+
+        .rate-dropdown-content {
+            position: absolute !important;
+            width: 210px !important; /* Compact width for 320px */
+            right: -5px !important; /* Perfect offset to prevent cut-off */
+            left: auto !important;
+            padding: 8px !important;
+            box-sizing: border-box !important;
+            z-index: 99999 !important;
+        }
+
+            .rate-dropdown-content table {
+                font-size: 10.5px !important;
+            }
+
+        /* Calculation Result Display Control */
+        #calcResult:not([style*="display: block"]) {
+            display: none !important;
+        }
+
+        #calcResult[style*="display: block"] {
+            display: block !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
+        }
+    }
+
+
+
+    /* ==========================================
+   MOBILE & TABLET BREAKPOINTS (320px - 576px ) setting
+   ========================================== */
+    @media screen and (max-width: 576px) {
+        #settingsSection {
+            margin-left: 0 !important;
+            padding: 5px !important;
+        }
+
+        #settingsActualContent,
+        #updateProfileTab,
+        #createNewAdminTab {
+            width: 95% !important; /* Small side gap for small mobile screens (320px, 375px) */
+            max-width: 100% !important;
+            margin: 0 auto !important;
+        }
+
+        /* Small screens Par Input fields full width */
+        #settingsSection input,
+        #settingsSection select,
+        #settingsSection button.btn-block {
+            width: 100% !important;
+            box-sizing: border-box !important;
+        }
+    }
+
+@media (min-width: 1025px) and (max-width: 2560px) {
+    #bulk-cards-container .bulk-card-item > .card > div {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: wrap !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        gap: 15px !important;
+        padding: 15px !important;
+    }
+
+    #bulk-cards-container .bulk-card-item label {
+        position: static !important;
+        display: block !important;
+        width: 100% !important;
+        max-width: none !important;
+        text-align: left !important;
+        margin: 0 0 3px 0 !important;
+        font-size: 11px !important;
+        clear: both !important;
+    }
+
+    #bulk-cards-container .bulk-card-item input.form-control,
+    #bulk-cards-container .bulk-card-item select.form-select,
+    #bulk-cards-container .bulk-card-item .input-group {
+        width: 220px !important;
+        max-width: 220px !important;
+        min-width: 220px !important;
+        margin: 0 !important;
+    }
+
+    #bulk-cards-container .bulk-card-item .input-group {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+    }
+
+        #bulk-cards-container .bulk-card-item .input-group > input {
+            flex: 1 !important;
+            width: auto !important;
+        }
+}
+
+/*table stop to scroll*/
+/* 850px screen ke liye height badhayein taaki kam se kam 6-7 rows dikhein */
+@media (max-width: 1024px) and (min-width: 851px) {
+    #inventoryWrapper {
+        max-height: 600px !important;
+        height: 600px !important;
+    }
+}
+    /* 1024px tak ki screens ke liye */
+    @media (max-width: 1024px) and (min-width: 851px) {
+        #inventoryWrapperMulti {
+            max-height: 600px !important;
+            height: 600px !important;
+        }
+    }
+
+    @media (max-width: 850px) {
+        #inventoryWrapperMulti {
+            max-height: 450px !important;
+            height: 450px !important;
+        }
+    }
+
+    /*PRODUCT INVENTORY- UPPER SECTION*/
+    @media screen and (max-width: 320px) {
+        /* 1. Main Card Container */
+        section.admin-card {
+            padding: 8px !important;
+            margin-bottom: 10px !important;
+            box-sizing: border-box !important;
+        }
+
+            /* 2. Header Layout: Title & Buttons (Refresh / See All) side-by-side */
+            section.admin-card > div:first-child {
+                display: flex !important;
+                flex-direction: row !important;
+                justify-content: space-between !important;
+                align-items: center !important;
+                gap: 6px !important;
+                margin-bottom: 8px !important;
+            }
+
+                /* Adjust 'Current Inventory' title size to fit nicely */
+                section.admin-card > div:first-child h3 {
+                    font-size: 15px !important;
+                    margin: 0 !important;
+                    line-height: 1.2 !important;
+                    word-break: break-word !important;
+                }
+
+                /* Buttons container next to the title */
+                section.admin-card > div:first-child > div:last-child {
+                    display: flex !important;
+                    flex-direction: row !important;
+                    gap: 4px !important;
+                    flex-shrink: 0 !important;
+                }
+
+                    /* Refresh and See All button styling for 320px */
+                    section.admin-card > div:first-child > div:last-child button,
+                    section.admin-card > div:first-child > div:last-child a {
+                        padding: 5px 8px !important;
+                        font-size: 11px !important;
+                        white-space: nowrap !important;
+                    }
+
+            /* 3. Search Bar & Search Button Row */
+            section.admin-card > div:nth-child(2) {
+                display: flex !important;
+                flex-direction: row !important;
+                align-items: center !important;
+                gap: 5px !important;
+                margin-bottom: 6px !important;
+                width: 100% !important;
+            }
+
+                /* Search input wrapper takes available space */
+                section.admin-card > div:nth-child(2) > div:first-child {
+                    flex: 1 !important;
+                    min-width: 0 !important;
+                }
+
+        /* Search input field text size and padding */
+        #inventorySearch {
+            width: 100% !important;
+            padding: 6px 8px !important;
+            font-size: 11px !important;
+            box-sizing: border-box !important;
+        }
+
+        /* Search Button */
+        .btn-search {
+            padding: 6px 10px !important;
+            font-size: 11px !important;
+            white-space: nowrap !important;
+            flex-shrink: 0 !important;
+        }
+
+        /* 4. Notes text formatting under search */
+        section.admin-card small,
+        section.admin-card .note,
+        section.admin-card div:has(> small) {
+            font-size: 9px !important;
+            line-height: 1.2 !important;
+            margin-bottom: 6px !important;
+            display: block !important;
+        }
+
+        /* 5. Total Items Badge styling */
+        .total-badge {
+            display: inline-block !important;
+            width: 100% !important;
+            text-align: center !important;
+            padding: 5px 8px !important;
+            font-size: 12px !important;
+            margin-bottom: 8px !important;
+            box-sizing: border-box !important;
+        }
+    }
+
+    /*MULTI PRODUCCT --CURRENT INVENTAORY  UPPER SECTION*/
+    @media screen and (min-width: 321px) and (max-width: 375px) {
+        /* 1. Card Container & Padding */
+        #multiInventoryContainer .admin-card {
+            padding: 12px 10px !important;
+            box-sizing: border-box !important;
+        }
+
+            /* 2. Search Section Layout */
+            #multiInventoryContainer .admin-card > div:nth-child(2) {
+                width: 100% !important;
+                box-sizing: border-box !important;
+                gap: 12px !important;
+            }
+
+                #multiInventoryContainer .admin-card > div:nth-child(2) > div:first-child {
+                    width: 100% !important;
+                    min-width: unset !important;
+                    box-sizing: border-box !important;
+                }
+
+                    /* Input and Search Button Row */
+                    #multiInventoryContainer .admin-card > div:nth-child(2) > div:first-child > div:first-child {
+                        display: flex !important;
+                        width: 100% !important;
+                        gap: 6px !important;
+                        box-sizing: border-box !important;
+                    }
+
+        /* Search Input Box */
+        #inventorySearchMulti {
+            flex: 1 !important;
+            min-width: 0 !important;
+            padding: 7px 8px !important;
+            font-size: 11px !important;
+            height: 34px !important;
+            box-sizing: border-box !important;
+        }
+
+        /* Search Button */
+        #multiInventoryContainer .btn-search {
+            padding: 6px 10px !important;
+            font-size: 11px !important;
+            height: 34px !important;
+            line-height: 1 !important;
+            white-space: nowrap !important;
+            flex-shrink: 0 !important;
+            box-sizing: border-box !important;
+        }
+
+        /* 3. Note Text Sizing & Wrapping */
+        #multiNote {
+            width: 100% !important;
+            font-size: 9.5px !important;
+            line-height: 1.35 !important;
+            padding-left: 0 !important;
+            box-sizing: border-box !important;
+        }
+
+            #multiNote span {
+                display: block !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+            }
+    }
+
+    @media screen and (max-width: 320px) {
+        /* 1. Fix outer padding of the admin card so everything stays inside bounds */
+        #multiInventoryContainer .admin-card {
+            padding: 10px 8px !important;
+            box-sizing: border-box !important;
+        }
+
+            /* 2. Ensure search section container doesn't overflow */
+            #multiInventoryContainer .admin-card > div:nth-child(2) {
+                width: 100% !important;
+                box-sizing: border-box !important;
+                gap: 10px !important;
+            }
+
+                /* 3. Adjust input and search button wrapper to fit 320px perfectly */
+                #multiInventoryContainer .admin-card > div:nth-child(2) > div:first-child {
+                    width: 100% !important;
+                    min-width: unset !important;
+                    box-sizing: border-box !important;
+                }
+
+                    /* Row containing input and search button */
+                    #multiInventoryContainer .admin-card > div:nth-child(2) > div:first-child > div:first-child {
+                        display: flex !important;
+                        width: 100% !important;
+                        gap: 4px !important;
+                        box-sizing: border-box !important;
+                    }
+
+        /* Search Input Box */
+        #inventorySearchMulti {
+            flex: 1 !important;
+            min-width: 0 !important;
+            padding: 5px 6px !important;
+            font-size: 10px !important;
+            height: 28px !important;
+            box-sizing: border-box !important;
+        }
+
+        /* Search Button - properly sized so it doesn't overflow on the right */
+        #multiInventoryContainer .btn-search {
+            padding: 4px 6px !important;
+            font-size: 9px !important;
+            height: 28px !important;
+            line-height: 1 !important;
+            white-space: nowrap !important;
+            flex-shrink: 0 !important;
+            box-sizing: border-box !important;
+        }
+
+        /* 4. Fix Note text so it wraps cleanly and doesn't get cut off on the right */
+        #multiNote {
+            width: 100% !important;
+            font-size: 8.5px !important;
+            line-height: 1.3 !important;
+            padding-left: 0 !important;
+            box-sizing: border-box !important;
+            word-break: break-word !important;
+        }
+
+            #multiNote span {
+                display: block !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+            }
+    }

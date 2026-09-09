@@ -1,0 +1,804 @@
+﻿@model AshokJewelleryArt.Models.HomeViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<section class="hero-slider" style="height:auto; width:100%;">
+    <div class="slider-arrow prev" onclick="moveSlide(-1)">&#10094;</div>
+    <div class="slider-arrow next" onclick="moveSlide(1)">&#10095;</div>
+    <div class="slider-container" style="height:auto;">
+        
+        <!-- Slide 1 -->
+        <div class="slide">
+            <picture>
+                <source media="(max-width: 440px)" srcset="/images/testing2.png">
+
+                <img src="/images/testing2.png" alt="Gold Collection">
+            </picture>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="slide">
+            <picture>
+                <source media="(max-width: 440px)" srcset="/images/showcasebanner22mobile.png">
+                <img src="/images/showcasebanner22.png" alt="Diamond Collection">
+            </picture>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="slide">
+            <picture>
+                <source media="(max-width: 440px)" srcset="/images/showcasebanner12mobile.png">
+                <img src="/images/showcasebanner12.png" alt="Gold Collection">
+            </picture>
+        </div>
+
+        <!-- Slide 4 -->
+        <div class="slide">
+            <picture>
+                <source media="(max-width: 440px)" srcset="/images/showcasebanner28mobile.png">
+                <img src="/images/showcasebanner21.png" alt="Gold Collection">
+            </picture>
+        </div>
+
+        <!-- Slide 5 -->
+        <div class="slide">
+            <picture>
+                <source media="(max-width: 440px)" srcset="/images/showcasebanner26mobile.png">
+                <img src="/images/showcasebanner3.png" alt="Gold Collection">
+            </picture>
+        </div>
+
+    </div>
+
+
+    <div class="slider-dots">
+        <span class="dot active" onclick="currentSlide(0)"></span>
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>
+        <span class="dot" onclick="currentSlide(4)"></span>
+    </div>
+</section>
+
+@* GOLD SECTION *@
+<section class="exclusive-collection gold-section">
+    <div class="title-wrapper">
+        <h2 class="section-title">
+            <img src="/images/lotus.png" class="side-icon" alt="lotus"> EXCLUSIVE GOLD COLLECTION <img src="/images/lotus.png" class="side-icon" alt="lotus">
+        </h2>
+    </div>
+    <div class="clean-wrapper gold-theme">
+        <!-- id="goldScroll" added -->
+        <div class="grid-container horizontal-scroll" id="goldScroll">
+            <a href="/Home/Category?type=Gold Bangles" class="geo-shape" style="background-image: url('/images/goldBangles1.jpg');"><span>Gold Bangles</span></a>
+            <a href="/Home/Category?type=Gold Chains" class="geo-shape" style="background-image: url('/images/GOLDchain.png');"><span>Gold Chains</span></a>
+            <a href="/Home/Category?type=Gold Gents Rings" class="geo-shape" id="goldex1" style="background-image: url('/images/gentsringplace3.png'); "><span>Gents Rings</span></a>
+            <a href="/Home/Category?type=Kids Bracelet&metal=Gold" class="geo-shape" id="goldex2" style="background-image: url('/images/Kidsbraceletplace.jpg');"><span>Kids Bracelets</span></a>
+
+            <!-- VIEW MORE BUTTON:  right scroll on click -->
+            <div class="geo-shape view-more-card" id="cardbtn3" onclick="sideScroll('goldScroll', 'right')" style="cursor: pointer;">
+                <div class="view-more-content">
+                    <i class="fas fa-arrow-right"></i>
+                    <span>VIEW MORE</span>
+                </div>
+            </div>
+
+            <!-- Hidden items  -->
+            <a href="/Home/Category?type=Kids Mangati" class="geo-shape extra-item" style="background-image: url('/images/Kidsmangatiplace.jpg');"><span>Kids Mangati</span></a>
+
+            <a href="/Home/Category?type=Gold Earring" class="geo-shape extra-item" style="background-image: url('/images/GOLDearrings.png');"><span>Gold Earrings</span></a>
+
+            <a href="/Home/Category?type=Kids Ring&metal=Gold" class="geo-shape extra-item" style="background-image: url('/images/kidsringplace1.jpg');"><span>Kids Rings</span></a>
+            <a href="/Home/Category?type=Gold Mangalsutra" class="geo-shape extra-item" style="background-image: url('/images/GOLDmangalsutra.png');"><span>Mangalsutra</span></a>
+            <a href="/Home/Category?type=Mangalsutra Pendants" class="geo-shape extra-item" style="background-image: url('/images/mangalsutrapendantplace.jpg');"><span>Mangalsutra-<br>Pendants</span></a>
+
+            <a href="/Home/Category?type=Gold Coins" class="geo-shape extra-item" style="background-image: url('/images/goldcoins1new.jpg');"><span>Gold Coins</span></a>
+            <a href="/Home/Category?type=Ladies Rings&metal=Gold" class="geo-shape extra-item" style="background-image: url('/images/ladiesringplace.jpg');"><span>Ladies Rings</span></a>
+            <a href="/Home/Category?type=Gold Bracelets" class="geo-shape extra-item" style="background-image: url('/images/goldBRACELETS.png');"><span>Gold Bracelets</span></a>
+            <a href="/Home/Category?type=Gold Pendants" class="geo-shape extra-item" style="background-image: url('/images/goldpendantplace2.jpg');"><span>Gold Pendants</span></a>
+
+            <a href="/Home/Category?type=Gold Necklace" class="geo-shape extra-item" style="background-image: url('/images/goldnecklaceplace2.jfif');"><span>Gold Necklace</span></a>
+            <a href="/Home/Category?type=Dorle Pendant" class="geo-shape extra-item" style="background-image: url('/images/dorlependantplace.jpg');"><span>Dorle Pendants</span></a>
+            <a href="/Home/Category?type=Jhumka" class="geo-shape extra-item" style="background-image: url('/images/goldzumkaplace.jpg');"><span> Gold Jhumka</span></a>
+            <a href="/Home/Category?type=Patta Mangalsutra" class="geo-shape extra-item" style="background-image: url('/images/pattamangalsutraplace.jpg');"><span>Patta-Mangalsutra</span></a>
+
+            <a href="/Home/Category?type=Bridal Necklace" class="geo-shape extra-item" style="background-image: url('/images/goldnecklaceplace.jpg');"><span>Bridal Necklace</span></a>
+
+
+            <a href="/Home/Category?type=Gold Tops" class="geo-shape extra-item" style="background-image: url('/images/topsstudsgoldplace.jpg');"><span>Tops & Studs</span></a>
+            <a href="/Home/Category?type=Nath" class="geo-shape extra-item" style="background-image: url('/images/nathplace.jpg');"><span>Nose Studs (Nath)</span></a>
+
+            <a href="/Home/Category?type=Short Poth" class="geo-shape extra-item" style="background-image: url('/images/shortmangalsutraplace.jpg');"><span>Short Mangalsutra<br>(Poth)</span></a>
+            <a href="/Home/Category?type=Rounded Ring" class="geo-shape extra-item" style="background-image: url('/images/roundedringplace.png');"><span>Rounded Rings</span></a>
+
+            <a href="/Home/Category?type=Ranihaar" class="geo-shape extra-item" style="background-image: url('/images/ranihaarplace.jpg');"><span>Ranihaar</span></a>
+            <a href="/Home/Category?type=Laxmi Har" class="geo-shape extra-item" style="background-image: url('/images/laxmihaarplace.jfif');"><span>Laxmi Har</span></a>
+
+            <a href="/Home/Category?type=Bormani Maal" class="geo-shape extra-item" style="background-image: url('/images/bormanimaalplace.jpg');"><span>Bormani-Maal</span></a>
+
+            <a href="/Home/Category?type=Pohehaar" class="geo-shape extra-item" style="background-image: url('/images/pohehaarplace.jfif');"><span>Pohehaar</span></a>
+
+
+            <a href="/Home/Category?type=Kanthi Choker" class="geo-shape extra-item" style="background-image: url('/images/kanthigoldplace.jfif');"><span>Kanthi (Choker)</span></a>
+            <a href="/Home/Category?type=EarChain" class="geo-shape extra-item" style="background-image: url('/images/goldearchainplace.jpg');"><span>EarChain (KAAN VEL)</span></a>
+
+            <a href="/Home/Category?type=Nosepins&metal=Gold" class="geo-shape extra-item" style="background-image: url('/images/goldnosepinsplace.jfif');"><span>Nosepins</span></a>
+
+
+            <a href="/Home/Category?type=Basket Earrings" class="geo-shape extra-item" style="background-image: url('/images/basketringplace.jpg');"><span>Basket Earrings</span></a>
+            <a href="/Home/Category?type=RoseGold Ring" class="geo-shape extra-item" style="background-image: url('/images/rosegoldringplace.jpg');"><span>RoseGold Rings</span></a>
+
+            <div class="geo-shape back-card hide-initially" id="goldBackBtn" onclick="sideScroll('goldScroll', 'left')">
+                <div class="view-more-content"><i class="fas fa-arrow-left"></i><span>BACK TO START</span></div>
+            </div>
+        </div>
+        <div class="center-back-wrapper">
+            <button type="button" class="bottom-center-back-btn" id="goldCenterBackBtn" onclick="sideScroll('goldScroll', 'left')" style="display: none;">
+                <i class="fas fa-arrow-left"></i> BACK TO START
+            </button>
+        </div>
+    </div>
+
+</section>
+
+@* SILVER SECTION *@
+<section class="exclusive-collection silver-section">
+    <div class="title-wrapper">
+        <h2 class="section-title">
+            <img src="/images/lotus.png" class="side-icon" alt="lotus"> EXCLUSIVE SILVER COLLECTION <img src="/images/lotus.png" class="side-icon" alt="lotus">
+        </h2>
+    </div>
+    <div class="clean-wrapper silver-theme">
+        <!-- id="silverScroll" added -->
+        <div class="grid-container horizontal-scroll" id="silverScroll">
+            <a href="/Home/Category?type=Silver Earrings" class="geo-shape" style="background-image: url('/images/silverearringplace.jpg'); object-fit:contain;"><span>Silver Earrings</span></a>
+            <a href="/Home/Category?type=Silver Utensils" class="geo-shape" style="background-image: url('/images/Silver Utensils/silverutensils11.jpg');"><span>Silver Utensils</span></a>
+            <a href="/Home/Category?type=Pooja Items" class="geo-shape" id="silverex1" style="background-image: url('/images/silverPOOJA3.png');"><span>Pooja Items</span></a>
+            <a href="/Home/Category?type=Silver Idol" class="geo-shape" id="silverex2" style="background-image: url('/images/silverIDOL2.jpg');"><span>Silver Idol</span></a>
+
+            <!-- VIEW MORE BUTTON for Silver -->
+            <div class="geo-shape view-more-card" id="cardbtn4" onclick="sideScroll('silverScroll', 'right')" style="cursor: pointer;">
+                <div class="view-more-content">
+                    <i class="fas fa-arrow-right"></i>
+                    <span>VIEW MORE</span>
+                </div>
+            </div>
+
+            <!-- Hidden Silver Items -->
+            <a href="/Home/Category?type=Silver Studs" class="geo-shape extra-item" style="background-image: url('/images/silverstuds3.jpg');"><span>Silver Studs</span></a>
+
+            <a href="/Home/Category?type=Silver Articles" class="geo-shape extra-item" style="background-image: url('/images/silverARTICLES1.png');"><span>Silver Articles</span></a>
+            <a href="/Home/Category?type=Silver Anklets" class="geo-shape extra-item" style="background-image: url('/images/silverANKLET1.jpg');"><span>Silver Anklets</span></a>
+            <!-- Karanda (Kumkum Box) -->
+            <a href="/Home/Category?type=Silver Karanda" class="geo-shape extra-item" style="background-image: url('/images/silverkarandaplace.jpg');"><span>Karanda (Kumkum Box)</span></a>
+
+            <!-- Door Hanging -->
+            <a href="/Home/Category?type=Silver Door Hanging" class="geo-shape extra-item" style="background-image: url('/images/silverdoorhangingplace.jpg');"><span>Door Hanging</span></a>
+
+            <!-- Silver Rings -->
+            <a href="/Home/Category?type=Silver Gents Rings" class="geo-shape extra-item" style="background-image: url('/images/silvergentsringplace2.jpg');"><span>Silver Gents Ring</span></a>
+
+            <a href="/Home/Category?type=Silver Ladies Rings" class="geo-shape extra-item" style="background-image: url('/images/silverladiesringplace1.jpg');"><span>Ladies Rings</span></a>
+            <a href="/Home/Category?type=Silver Kids Rings" class="geo-shape extra-item" style="background-image: url('/images/silverkidsringplace.jpg');"><span>Kids Rings</span></a>
+
+            <!-- Nosepins -->
+            <a href="/Home/Category?type=Silver Nosepins" class="geo-shape extra-item" style="background-image: url('/images/silvernosepinplace.jpg');"><span>Nosepins</span></a>
+
+            <!-- Bracelets -->
+            <a href="/Home/Category?type=Silver Bracelets" class="geo-shape extra-item" style="background-image: url('/images/silverbraceletplace.jpg');"><span>Bracelets</span></a>
+            <a href="/Home/Category?type=Silver Kids Bracelet&metal=Silver" class="geo-shape extra-item" style="background-image: url('/images/kidsbracelet22.jpg');"><span>Kids Bracelets</span></a>
+            <!-- Silver Pendants -->
+            <a href="/Home/Category?type=Silver Pendants" class="geo-shape extra-item" style="background-image: url('/images/silverpendantplace2.jpg');"><span>Silver Pendants</span></a>
+
+            <!-- Bangles -->
+            <a href="/Home/Category?type=Silver Bangles" class="geo-shape extra-item" style="background-image: url('/images/silverbanglesplace.jpg');"><span>Bangles</span></a>
+
+            <!-- Chain Anklets -->
+            <a href="/Home/Category?type=Chain Anklets" class="geo-shape extra-item" style="background-image: url('/images/silverchainankletplace.jpeg');"><span>Chain Anklets</span></a>
+
+            <!-- Silver Chains -->
+            <a href="/Home/Category?type=Silver Chains" class="geo-shape extra-item" style="background-image: url('/images/silverchainplace.jfif');"><span>Silver Chains</span></a>
+
+            <!-- Toe Rings -->
+            <a href="/Home/Category?type=Silver Toe Rings" class="geo-shape extra-item" style="background-image: url('/images/silvertoeringplace.jpg');"><span>Toe Rings</span></a>
+
+            <!-- Kambarpatta -->
+            <a href="/Home/Category?type=Silver Kambarpatta" class="geo-shape extra-item" style="background-image: url('/images/silverkambarpattaplace1.jpg');"><span>Kambarpatta</span></a>
+
+            <!-- Krishna Accessories -->
+            <a href="/Home/Category?type=Silver Krishna Saaj" class="geo-shape extra-item" style="background-image: url('/images/krishnasaajplace1.png');"><span>Krishna Saaj</span></a>
+
+            <!-- Karnful -->
+            <a href="/Home/Category?type=Silver Karnful" class="geo-shape extra-item" style="background-image: url('/images/silverkarnfulplace.jpg');"><span>Karnphool</span></a>
+
+            <!-- Silver Coins -->
+            <a href="/Home/Category?type=Silver Coins" class="geo-shape extra-item" style="background-image: url('/images/silvercoinsplace.jpg');"><span>Silver Coins</span></a>
+
+            <div class="geo-shape back-card hide-initially" id="silverBackBtn" onclick="sideScroll('silverScroll', 'left')" style="cursor: pointer;">
+                <div class="view-more-content">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>BACK TO START</span>
+                </div>
+            </div>
+        </div>
+        <div class="center-back-wrapper">
+            <button type="button" class="bottom-center-back-btn" id="silverCenterBackBtn" onclick="sideScroll('silverScroll', 'left')" style="display: none; cursor:pointer;">
+                <i class="fas fa-arrow-left"></i> BACK TO START
+            </button>
+        </div>
+    </div>
+</section>
+
+   
+@*DIAMOND SECTION (Mosaic Grid Style) *@
+<section class="diamond-mosaic-section" id="diamondScroll">
+        <div class="jewel-header">
+            <img src="/images/lotus.png" class="lotus-icon" alt="lotus">
+        <h2>Diamond <span class="break-title">Collection</span></h2>
+            <img src="/images/lotus.png" class="lotus-icon" alt="lotus">
+        </div>
+    
+        <div class="mosaic-grid-container">
+            <div class="mosaic-left">
+            <a href="/Home/Category?type=Diamond Rings" class="mosaic-item small ring-card" style="background-image: url('/images/diamondring4.jpg');"><span>Rings</span></a>
+                <a href="/Home/Category?type=Diamond Earrings" class="mosaic-item small" style="background-image: url('/images/dimondearing1.jpg');"><span>Earrings</span></a>
+                <a href="/Home/Category?type=Diamond Bracelets" class="mosaic-item small" style="background-image: url('/images/diamondbracelet2.jpg');"><span>Bracelets</span></a>
+            <a href="/Home/Category?type=Diamond Pendants" class="mosaic-item small pendant-card" style="background-image: url('/images/diamondpendant3.jpg');"><span>Pendants</span></a>
+            </div>
+            <div class="mosaic-right">
+            <a href="/Home/Category?type=Diamond Bangles" class="mosaic-item big" style="background-image: url('/images/diamondbangles3.jpg');">
+                <span>Exclusive <br> Bangles</span>
+            </a>
+            <div class="mosaic-btn"
+                 onclick="window.location.href='/Products/Index?category=Diamond'"
+                 style="cursor: pointer;">
+                VIEW MORE <i class="fa fa-arrow-right"></i>
+            </div>
+            
+               
+            </div>
+        </div>
+</section>
+
+    
+@*GEMSTONE SECTION (Greenish Organic Vertical Look) *@
+<section class="gemstone-organic-section" id="gemstoneScroll">
+        <div class="jewel-header">
+            <img src="/images/lotus.png" class="lotus-icon" alt="lotus">
+        <h2>Gemstone <span class="break-title">Collection</span></h2>
+            <img src="/images/lotus.png" class="lotus-icon" alt="lotus">
+        </div>
+
+        <div class="organic-wrapper">
+            <div class="organic-container">
+                <a href="/Home/Category?type=Gemstones" class="organic-card">
+                    <div class="organic-shape pill-style" style="background-image: url('/images/gemsstones1.jpg');">
+                        <div class="gem-overlay">GEMSTONES</div>
+                    </div>
+                </a>
+
+                <a href="/Home/Category?type=Gemstone Rings" class="organic-card">
+                    <div class="organic-shape rect-style"  id="gemsringid"  style="background-image: url('/images/gemsring2.jpg');">
+                        <div class="gem-overlay">RINGS</div>
+                    </div>
+                </a>
+
+                <a href="/Home/Category?type=Emerald Special" class="organic-card featured">
+                    <div class="organic-shape polaroid-style" style="background-image: url('/images/gemsemrald.jpeg');">
+                        <div class="gem-overlay">EMERALD SPECIAL</div>
+                    </div>
+                </a>
+
+                <a href="/Home/Category?type=Gemstone Pendants" class="organic-card">
+                    <div class="organic-shape rect-style" id="gemspendantid"   style="background-image: url('/images/gemspendant1.jpg');">
+                        <div class="gem-overlay">PENDANTS</div>
+                    </div>
+                </a>
+
+                <a href="/Home/Category?type=Gemstone Bracelets" class="organic-card">
+                    <div class="organic-shape pill-style" style="background-image: url('/images/gemsbracelet3.jpg');">
+                        <div class="gem-overlay">BRACELETS</div>
+                    </div>
+                </a>
+            </div>
+
+        <div class="gem-view-more-container">
+            <a asp-controller="Products"
+                   asp-action="Index"
+                   asp-route-category="Gemstone"
+                   class="gem-view-btn"
+                   style="text-decoration: none; font-weight: bold; display: inline-flex; align-items: center;">
+                EXPLORE ALL GEMSTONES <i class="fas fa-long-arrow-alt-right" style="margin-left: 8px;"></i>
+            </a>
+        </div>
+        </div>
+</section>
+
+@*NEW ARRIVAL SECTION*@
+<div class="section-header">
+    <div class="title-flex">
+        <img src="/images/STARicon1.gif" class="stars-icon" alt="star"> <h2 class="main-title">NEW ARRIVALS</h2> <img src="/images/STARicon1.gif" class="stars-icon" alt="star">
+    </div>
+    <div class="title-underline"></div>
+</div>
+
+<div class="slider-container-arrival">
+    <button class="ctrl-btn prev" onclick="moveSlider(-1)">&#10094;</button>
+    <div class="arrival-wrapper" id="newArrivals">
+        @foreach (var product in Model.NewArrivals)
+        {
+            <a href="/Home/Details?id=@product.Id" class="product-col" style="text-decoration: none; color: inherit;">
+                <div class="product-img">
+                    <img src="@product.ImageURL" style="width: 300px; height: 300px; object-fit: cover;" alt="@product.Name">
+                </div>
+
+                <div class="product-metal" style="font-size: 13px; color: #b08d57; font-weight: 600; text-transform: uppercase; margin-top: 8px; letter-spacing: 1px;">
+                    @product.MetalType
+                </div>
+
+                <div class="product-name" style="margin-top: 2px;">@product.Name</div>
+            </a>
+        }
+    </div>
+    <button class="ctrl-btn next" onclick="moveSlider(1)">&#10095;</button>
+</div>
+
+@*Trending collection*@
+<div id="trending-section-target"  class="trending-main-wrapper">
+    <section class="trending-section">
+        <div class="trending-flex-container">
+            
+            <div class="trending-left-panel">
+                <div class="title-container">
+                    <img src="/images/icondiamond1.gif" class="diamond-icon" alt="diamond">
+                    <h2 class="section-title">Trending Collection</h2>
+                    <img src="/images/icondiamond1.gif" class="diamond-icon" alt="diamond">
+                </div>
+
+                <div class="video-transition-box">
+                   <video autoplay loop muted playsinline controls class="trending-video">
+                        <source src="/images/trendingvideo1.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+                </div>
+
+                <div class="style-promo-card over-layout">
+                    <div class="text-content-area">
+                        <span class="text-regular">JEWELLERY THAT SUITS</span>
+                        <h4 class="text-script">Your style</h4>
+                    </div>
+        
+                    <div class="image-with-shape-wrap">
+                        <img src="/images/modernjwe5.jpg" alt="Style Model" class="organic-img">
+                    </div>
+                </div>
+            </div>
+            <div class="trending-right-panel">
+                <div class="beige-grid">
+        
+                    @if (Model.TrendingProducts != null && Model.TrendingProducts.Any())
+                    {
+                        @foreach (var item in Model.TrendingProducts)
+                        {
+                            <a asp-controller="Product" asp-action="Details" asp-route-id="@item.Id"  class="aj-card-link">
+                                <div class="premium-card">
+                                    <div class="image-frame">
+                                        @* Background Blur Fix *@
+                                        <div class="bg-blur" style="background-image: url('@item.ImageURL');"></div>
+                            
+                                        @* Main Image *@
+                                        <img src="@item.ImageURL" alt="@item.Name" class="main-img">
+                                    </div>
+                                    <div class="item-details">
+                                        <h3 class="p-name">@item.Name</h3>
+                                        <p class="p-weight">Weight: @item.Weight</p>
+                                      
+                                        <p class="p-MetalType">@item.MetalType-Collection</p>
+                                    </div>
+                                </div>
+                            </a>
+                        }
+                        @* <-- Loop closed *@
+                    }
+                    else
+                    {
+                        <div class="no-data">Bhai, Database mein koi product nahi mila!</div>
+                    }
+
+                    <div class="view-all-wrapper-right">
+                       
+                            <a href="/Home/TrendingList" class="btn-view-all-premium">
+                                VIEW ALL COLLECTION <span class="arrow">→</span>
+                            </a>
+                        
+                    </div>
+
+                </div> @* <-- beige-grid close*@
+            </div>
+
+                 
+        </div>
+    </section>
+</div>
+
+@*SHOWCASE BANNER SLIDES SECTION -------------------------------------------------------*@
+<section class="showcase-banner">
+    <div class="banner-nav prev-btn" onclick="bannerMove(-1)">&#10094;</div>
+    <div class="banner-nav next-btn" onclick="bannerMove(1)">&#10095;</div>
+    <div class="slider-wrapper">
+
+        <!-- Slide 1 -->
+        <div class="banner-slide active">
+            <picture>
+                <source media="(max-width: 440px)" srcset="/images/showcasebanner13mobile.png">
+                <img src="/images/showcasebanner13.png" alt="Exquisite Jewellery">
+            </picture>
+            <a href="https://wa.me/919890451915?text=Hello%20Ashok%20Jewellery%20Art,%20I%20would%20like%20to%20make%20a%20general%20enquiry%20about%20your%20jewellery%20collections."
+               class="banner-enquiry-btn"
+               target="_blank"
+               onclick="return confirm('Are you sure you want to chat on WhatsApp?');">
+                Enquire Now
+            </a>           
+            <div class="overlay-info">
+                <h3>The Heritage Collection</h3>
+                <p>Pure craftsmanship in every detail.</p>
+                <a href="#enquiry" class="enquiry-link">Enquire Now &rarr;</a>
+            </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="banner-slide">
+            <picture>
+                <source media="(max-width: 440px)" srcset="/images/showcasebanner24mobile.png">
+                <img src="/images/showcasebanner10.png" alt="Luxury Rings">
+            </picture>
+            <a href="https://wa.me/919890451915?text=Hello%20Ashok%20Jewellery%20Art,%20I%20would%20like%20to%20make%20a%20general%20enquiry%20about%20your%20jewellery%20collections."
+           class="banner-enquiry-btn"
+           target="_blank"
+           onclick="return confirm('Are you sure you want to chat on WhatsApp?');">
+            Enquire Now
+        </a>            <div class="overlay-info">
+                <h3>Bridal Essentials</h3>
+                <p>Make your special day shine brighter.</p>
+                <a href="#enquiry" class="enquiry-link">Enquire Now &rarr;</a>
+            </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="banner-slide">
+            <picture>
+                <source media="(max-width: 440px)" srcset="/images/showcasebanner6mobile.png">
+                <img src="/images/showcasebanner6.png" alt="Diamond Sets">
+            </picture>
+        <a href="https://wa.me/919890451915?text=Hello%20Ashok%20Jewellery%20Art,%20I%20would%20like%20to%20make%20a%20general%20enquiry%20about%20your%20jewellery%20collections."
+       class="banner-enquiry-btn"
+       target="_blank"
+       onclick="return confirm('Are you sure you want to chat on WhatsApp?');">
+        Enquire Now
+    </a>            <div class="overlay-info">
+                <h3>Royal Diamonds</h3>
+                <p>Elegance that speaks for itself.</p>
+                <a href="#enquiry" class="enquiry-link">Enquire Now &rarr;</a>
+            </div>
+        </div>
+
+        <!-- Slide 4 -->
+        <div class="banner-slide">
+            <picture>
+                <source media="(max-width: 440px)" srcset="/images/showcasebanner7mobile.png">
+                <img src="/images/showcasebanner7.png" alt="Gold Ornaments">
+            </picture>
+    <a href="https://wa.me/919890451915?text=Hello%20Ashok%20Jewellery%20Art,%20I%20would%20like%20to%20make%20a%20general%20enquiry%20about%20your%20jewellery%20collections."
+       class="banner-enquiry-btn"
+       target="_blank"
+       onclick="return confirm('Are you sure you want to chat on WhatsApp?');">
+        Enquire Now
+    </a>            <div class="overlay-info">
+                <h3>Golden Traditions</h3>
+                <p>Authentic gold for every occasion.</p>
+                <a href="#enquiry" class="enquiry-link">Enquire Now &rarr;</a>
+            </div>
+        </div>
+
+        <!-- Slide 5 -->
+        <div class="banner-slide">
+            <picture>
+                <source media="(max-width: 440px)" srcset="/images/showcasebanner8mobile.png">
+                <img src="/images/showcasebanner8.png" alt="Modern Minimalist">
+            </picture>
+    <a href="https://wa.me/919890451915?text=Hello%20Ashok%20Jewellery%20Art,%20I%20would%20like%20to%20make%20a%20general%20enquiry%20about%20your%20jewellery%20collections."
+       class="banner-enquiry-btn"
+       target="_blank"
+       onclick="return confirm('Are you sure you want to chat on WhatsApp?');">
+        Enquire Now
+    </a>            <div class="overlay-info">
+                <h3>Modern Minimalist</h3>
+                <p>Simple designs for everyday luxury.</p>
+                <a href="#enquiry" class="enquiry-link">Enquire Now &rarr;</a>
+            </div>
+        </div>
+
+        <!-- Slider Dots -->
+        <div class="slider-dots">
+            <span class="banner-dot active" onclick="bannerCurrent(0)"></span>
+            <span class="banner-dot" onclick="bannerCurrent(1)"></span>
+            <span class="banner-dot" onclick="bannerCurrent(2)"></span>
+            <span class="banner-dot" onclick="bannerCurrent(3)"></span>
+            <span class="banner-dot" onclick="bannerCurrent(4)"></span>
+        </div>
+
+    </div>
+</section>
+
+@*TRUST,PURITY FACTOR*@
+<section class="trust-purity-bar">
+    <div class="trust-container">
+        <div class="trust-item">
+            <div class="trust-icon">
+                <i class="fas fa-certificate"></i>
+            </div>
+            <div class="trust-text">
+                <h4>100% Purity</h4>
+                <p>BIS Hallmarked Gold & Silver</p>
+            </div>
+        </div>
+
+        <div class="trust-item">
+            <div class="trust-icon">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <div class="trust-text">
+                <h4>Ashok Trust</h4>
+                <p>Legacy of Quality & Artistry</p>
+            </div>
+        </div>
+
+        <div class="trust-item">
+            <div class="trust-icon">
+                <i class="fas fa-gem"></i>
+            </div>
+            <div class="trust-text">
+                <h4>Certified Gems</h4>
+                <p>GIA & IGI Certified Diamonds</p>
+            </div>
+        </div>
+
+        <div class="trust-item">
+            <div class="trust-icon">
+                <i class="fas fa-handshake"></i>
+            </div>
+            <div class="trust-text">
+                <h4>Transparent</h4>
+                <p>Honest Pricing & No Hidden Costs</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+@*CUSTOMISE UR JEWELLERY SECTION*@
+<div class="customize-outer-bg">
+    <div class="animated-gold-border"></div>
+    <div class="customize-inner-card">
+        
+        <div class="card-flex-layout">
+            <div class="card-text-side">
+                <h2 class="brand-title">Customize Your Jewellery</h2>
+                <h3 class="quote-main">"Your unique story, in gold."</h3>
+                <p class="desc">Your imagination, our gold. Craft a piece as unique as your story. Customization is in our art.</p>
+                <!-- Updated WhatsApp Link with Customization Message and Confirmation Popup -->
+                <a href="https://wa.me/919890451915?text=Hello%20Ashok%20Jewellery%20Art,%20I%20want%20to%20customize%20my%20own%20jewellery.%20I%20have%20a%20design%20idea%20in%20mind,%20can%20we%20discuss%20it?"
+                   class="whatsapp-btn"
+                   target="_blank"
+                   onclick="return confirm('Are you sure you want to chat on WhatsApp for custom jewellery?');">
+                    <span class="btn-text">CRAFT YOUR PIECE</span>
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+            </div>
+
+            <div class="card-image-side">
+                <div class="sleek-banner-frame">
+                    <img src="/images/custombnr1.png" alt="Jewellery Design">
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+@*LEAF ANIMATION SECTION WITH PENDANTS*@
+<section class="jewel-leaf-section">
+    <div class="jewel-leaf-wrapper">
+        
+        <div class="leaf-col">
+            <div class="perfect-leaf-card">
+                <div class="leaf-inner">
+                    <div class="leaf-img-container">
+                        <img src="/images/pendantkrishna3.jpg" alt="Pendant">
+                    </div>
+                    <div class="leaf-text-container">
+                        <h3>Lord Krishna  <br />Pendant</h3>
+                        <span>A symbol  <br />of divine love<br /> and faith</span>
+                    </div>
+                </div>
+            </div>
+            <div class="perfect-leaf-card">
+                <div class="leaf-inner">
+                    <div class="leaf-img-container">
+                        <img src="/images/pendantshivrudraksh2.jpeg" alt="Pendant">
+                    </div>
+                    <div class="leaf-text-container" style="font-size: 9px; display: flex;  ">
+                        
+                        <h3>Shiv <br />Rudraksha <br /> Pendant </h3>
+                        <span>A symbol of <br />protection and <br />peace</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="leaf-col col-offset">
+            <div class="perfect-leaf-card">
+                <div class="leaf-inner">
+                    <div class="leaf-img-container">
+                        <img src="/images/pendantmahadev1.jpg" alt="Pendant">
+                    </div>
+                    <div class="leaf-text-container">
+                        <h3>Mahadev  <br />Pendant</h3>
+                        <span>A symbol of  <br />strength and <br /> devotion</span>
+                    </div>
+                </div>
+            </div>
+            <div class="perfect-leaf-card">
+                <div class="leaf-inner">
+                    <div class="leaf-img-container">
+                        <img src="/images/pendantlaxmi1.jpg" alt="Pendant">
+                    </div>
+                    <div class="leaf-text-container">
+                        <h3>Laxmi Devi <br /> Pendant</h3>
+                        <span>A symbol of  <br /> wealth and <br /> prosperity</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="leaf-col">
+            <div class="perfect-leaf-card">
+                <div class="leaf-inner">
+                    <div class="leaf-img-container">
+                        <img src="/images/pendantsurya1.jpg" alt="Pendant">
+                    </div>
+                    <div class="leaf-text-container">
+                        <h3>Surya Devta <br /> Pendant</h3>
+                        <span>A symbol of  <br />power and <br /> vitality</span>
+                    </div>
+                </div>
+            </div>
+            <div class="perfect-leaf-card">
+                <div class="leaf-inner">
+                    <div class="leaf-img-container">
+                        <img src="/images/pendantganesh5.jpg" alt="Pendant">
+                    </div>
+                    <div class="leaf-text-container">
+                        <h3>Om Ganeshay <br /> Pendant</h3>
+                        <span>A symbol of  <br /> wisdom and new <br />beginnings</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="leaf-side-content">
+            <h2>Carry your belief... <br> Close to your heart ❤️</h2>
+            <p>Our pendants are more than just jewellery; they are a sacred presence that guides you, reflecting your inner faith in every moment of your journey.</p>
+            <a href="@Url.Action("Index", "Products", new { category = "Gold Pendants,Silver Pendants,Diamond Pendants,Gemstone Pendants" })"
+               class="leaf-explore-btn"
+               style="text-decoration: none; display: inline-block;">
+
+                Discover Collection ➡
+
+            </a>
+        </div>
+            
+        
+
+    </div>
+</section>
+
+ @*Our story in short----------------------------------------------------*@
+<section class="story-triptych">
+    <div class="short-story-container">
+        <h2 class="main-title">Our Story</h2>
+        
+        <div class="triptych-grid">
+            <div class="col-visual">
+                <div class="image-wrapper">
+                    <img src="/images/shortstorylegacy1.png" alt="Ashok Jewellery Art" id="storyImg">
+                </div>
+            </div>
+
+            <div class="col-nav">
+                <ul class="story-links">
+                    <li class="active" data-content="legacy">OUR LEGACY</li>
+                    <li  data-content="values">OUR VALUES</li>
+                    <li data-content="craft" >CRAFTMANSHIP</li>
+                    <li data-content="vision">OUR VISION</li>
+                </ul>
+            </div>
+
+            <div class="col-info">
+                <div class="info-card-premium">
+                    <i class="fa-solid fa-quote-left quote-icon-top"></i>
+        
+                    <div id="storyContent">
+                        <h3 id="infoTitle">Our Legacy</h3>
+                        <p id="infoText">
+                            With a foundation built in 1985, Ashok Jewellery Art has been
+                            a beacon of purity for generations. Our journey is defined by
+                            an unwavering commitment to quality and transparency.
+                        </p>
+                        <a class="legacy-link" asp-controller="Home" asp-action="AboutUs">Discover More &rarr;</a>
+
+                    </div>
+
+                    <i class="fa-solid fa-quote-right quote-icon-bottom"></i>
+                </div>
+            </div>
+            </div>
+    </div>
+</section>
+
+@*PROMISES SECTION---------------------------------------------------*@
+    <section class="aj-promises-section">
+        <div class="container">
+            <div class="aj-promise-header">
+                <h2 class="aj-promise-title">Our Pillars of Trust</h2>
+                <p class="aj-promise-subtitle">Commitment to excellence since 1985.</p>
+            </div>
+
+            <div class="aj-promise-grid">
+                <div class="aj-promise-item">
+                    <div class="aj-shape-wrap" id="prom1" >
+                        <div class="aj-inner-shape">
+                        </div>
+                    </div>
+                    <h4>Guaranteed Purity</h4>
+                    <p>"Every piece of jewellery comes with 100% BIS Hallmarked gold."</p>
+                </div>
+
+                <div class="aj-promise-item">
+                    <div class="aj-shape-wrap" id="prom2">
+                        <div class="aj-inner-shape">
+                           
+                        </div>
+                    </div>
+                    <h4>Fine Craftsmanship</h4>
+                    <p>"Each unique design is masterfully crafted by expert artisans."</p>
+                </div>
+
+                <div class="aj-promise-item">
+                    <div class="aj-shape-wrap" id="prom3">
+                        <div class="aj-inner-shape">
+                            
+                        </div>
+                    </div>
+                    <h4>Transparent Pricing</h4>
+                    <p>"No hidden charges. Complete clarity on making charges and stone weight."</p>
+                </div>
+
+                <div class="aj-promise-item">
+                    <div class="aj-shape-wrap">
+                        <div class="aj-inner-shape" id="prom4">
+                           
+                        </div>
+                    </div>
+                    <h4>Legacy of Trust</h4>
+                    <p>"A symbol of your trust for over three decades—Ashok Jewellery Art."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+<script src="~/js/site.js"></script>
+@section Scripts {
+    <script src="~/js/TrendingCollection.js" asp-append-version="true"></script>
+}
+
+                        

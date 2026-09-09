@@ -1,0 +1,119 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@{
+    Layout = null;
+}
+@{
+    Layout = null; // Isse Layout.cshtml (Header/Footer) load nahi hoga
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login | Ashok Jewellery Art</title>
+    <style>
+            body {
+                margin: 0;
+                padding: 0;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                background: #1a1a1a; /* Dark background */
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+            }
+
+            .login-container {
+                background: #ffffff;
+                padding: 40px;
+                border-radius: 15px;
+                box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+                width: 350px;
+                text-align: center;
+                border-top: 5px solid #d4af37; /* Gold border*/
+            }
+
+            h2 {
+                color: #1a1a1a;
+                margin-bottom: 25px;
+            }
+
+            input {
+                width: 100%;
+                padding: 12px;
+                margin: 10px 0;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                box-sizing: border-box; /* Padding fix */
+            }
+
+            button {
+                width: 100%;
+                padding: 12px;
+                background: #d4af37; /* Gold color */
+                color: white;
+                border: none;
+                border-radius: 5px;
+                font-weight: bold;
+                cursor: pointer;
+                transition: 0.3s;
+                margin-top: 10px;
+            }
+
+                button:hover {
+                    background: #b8962d;
+                }
+
+            .error-msg {
+                color: #e74c3c;
+                margin-top: 15px;
+                font-size: 14px;
+            }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+
+        <img src="/images/STARicon1.gif" alt="Logo" style="width: 40px; margin-bottom: 0px;"> 
+        <a href="@Url.Action("Index", "Home")" style="text-decoration:none; color:#d4af37; margin-bottom:20px; display:inline-block;">
+            &larr; Back to Home
+        </a>
+        <h2>Admin Panel</h2>
+        
+        <form action="/Admin/Login" method="post">
+            <input type="text" name="username" placeholder="Username" required autocomplete="off">
+            <div class="password-field" style="position: relative;">
+                <input type="password" name="password" id="password" placeholder="Password" required>
+                <span id="togglePassword" style="position: absolute; right: 10px; top: 12px; cursor: pointer;">
+                    👁️
+                </span>
+            </div>          
+            <button type="submit">LOGIN</button>
+        </form>
+
+        @if (ViewBag.Error != null)
+        {
+            <div class="error-msg">@ViewBag.Error</div>
+        }
+    </div>
+    <script>
+            const togglePassword = document.querySelector('#togglePassword');
+            const password = document.querySelector('#password');
+
+            togglePassword.addEventListener('click', function (e) {
+                // Toggle the type attribute
+                const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                password.setAttribute('type', type);
+        
+                // Toggle the icon (optional)
+                this.textContent = type === 'password' ? '👁️' : '🙈';
+            });
+    </script>
+</body>
+</html>

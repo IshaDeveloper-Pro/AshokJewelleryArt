@@ -1,0 +1,808 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"] - AshokJewelleryArt</title>
+
+	<!-- Google Fonts -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+	<!-- FontAwesome (Single Clean CDN) -->
+	<link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+
+	<!-- Site CSS (Local file) -->
+	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+	@RenderSection("Styles", required: false)
+</head>
+
+<body>
+	<div id="toast-container" style="position: fixed; top: 20px; right: 20px; z-index: 9999;"></div>
+
+    
+	<header class="main-site-header">
+
+		<!-- Main Static Container -->
+		<div class="brand-bar-wrapper">
+			<!-- Static background asset can be implemented via CSS on .brand-bar-wrapper -->
+			<div class="brand-bar-content">
+				<!-- Left Side: Logo Area -->
+				<div class="logo-area">
+					<h1 class="brand-name">
+						<img src="/images/AJ LOGO3new.png" alt="AJ Logo" width="100" height="100">
+						<span class="ashok-text">ASHOK</span>
+						<span class="gold-text">JEWELLERY ART</span>
+						<span class="star-line"></span>
+					</h1>
+				</div>
+
+				<!-- Right Side:  -->
+				<div class="top-right-icons">
+					<div class="nav-icon-group">
+						<a asp-controller="Home" asp-action="AboutUs" style=" display: flex; flex-direction: column; align-items: center;">
+							<i class="fa-solid fa-circle-info"></i>
+							<span>About Us</span>
+						</a>
+					</div>
+
+					<div class="nav-icon-group">
+						<a asp-controller="Home" asp-action="ContactUs" style="text-decoration:none; display: flex; flex-direction: column; align-items: center;">
+							<i class="fa-solid fa-headset"></i>
+							<span>Contact</span>
+						</a>
+					</div>
+
+					<div class="nav-icon-group">
+						<a asp-controller="Home" asp-action="Wishlist" style="text-decoration:none; display: flex; flex-direction: column; align-items: center; position: relative;">
+							<i class="fa-regular fa-heart"></i>
+							<span id="wishlist-count" class="badge-count" style="display: none!important;"></span>
+							<span>Wishlist</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="white-menu-bar">
+			<div class="menu-flex-container">
+				<nav class="category-nav" style="width: 100%;">
+					<ul class="nav-links" style="display: flex; align-items: center; justify-content: space-between; width: 100%; list-style: none; margin: 0; padding: 0;">
+
+						<!-- Left: Hamburger Menu -->
+						<li class="hamburger-item" style="display: flex !important; align-items: center !important; flex-shrink: 0 !important;">
+							<a href="javascript:void(0)" class="hamburger-btn" id="mobile-menu-toggle" style="display: flex !important; align-items: center !important; text-decoration: none !important; color: #d4af37 !important; padding: 4px !important;">
+								<i class="fa-solid fa-bars" style="font-size: 24px !important; color: #d4af37 !important; display: inline-block !important; width: 24px !important; height: 24px !important;"></i>
+							</a>
+						</li>
+
+						<!-- Right Side: only Search Icon -->
+						<li class="mobile-search-trigger-li" style="margin-left: auto; list-style: none;">
+							<a href="javascript:void(0);" id="openSearchModal" style="color:darkmagenta; font-size: 18px; text-decoration: none; padding: 5px;">
+								<i class="fa fa-search"></i>
+							</a>
+						</li>
+
+						<!-- for Mobile + Text (Exact Desktop  Color & Style) -->
+						<div class="mobile-inline-nav-items">
+							<div class="nav-icon-group">
+								<a asp-controller="Home" asp-action="AboutUs">
+									<i class="fa-solid fa-circle-info"></i>
+									<span>About Us</span>
+								</a>
+							</div>
+							<div class="nav-icon-group">
+								<a asp-controller="Home" asp-action="ContactUs">
+									<i class="fa-solid fa-headset"></i>
+									<span>Contact</span>
+								</a>
+							</div>
+							<div class="nav-icon-group">
+								<a asp-controller="Home" asp-action="Wishlist" style="position: relative;">
+									<i class="fa-regular fa-heart"></i>
+									<span id="wishlist-count-mob" class="badge-count" style="display: none!important;"></span>
+									<span>Wishlist</span>
+								</a>
+							</div>
+						</div>
+
+                     
+						<!-- ALL JEWELLERY Mega Menu -->
+						<li class="has-dropdown mega-parent">
+							<a href="javascript:void(0)"><i class="fa fa-gem"></i> ALL JEWELLERY <i class="fa fa-chevron-down"></i></a>
+							<div class="mega-dropdown-content">
+								<div class="mega-column">
+									<span class="drop-label"><i class="fa fa-bolt"></i> Quick Access</span>
+									<a asp-controller="Products" asp-action="Index" style="font-weight:bold; color:#D4AF37;">
+										<i class="fa fa-eye"></i> VIEW ALL COLLECTIONS
+									</a>
+									<hr class="mini-divider">
+									<span class="drop-label"><i class="fa fa-th-large"></i> By Category</span>
+									<a asp-controller="Products" asp-action="Index" asp-route-category="Earring"><i class="fa fa-leaf"></i> Earrings</a>
+									<a asp-controller="Products" asp-action="Index" asp-route-category="Studs-Tops"><i class="fa fa-dot-circle"></i> Studs & Tops</a>
+									<a asp-controller="Products" asp-action="Index" asp-route-category="Gold Pendants,Silver Pendants,Diamond Pendants,Gemstone Pendants">
+										<i class="fa fa-heart"></i> Pendants
+									</a> 
+									<a asp-controller="Products" asp-action="Index" asp-route-category="Gents Ring"><i class="fa fa-ring"></i> Gents Rings</a>
+									<a asp-controller="Products" asp-action="Index" asp-route-category="Ladies Rings" asp-route-metal="Gold">
+										<i class="fa fa-ring"></i> Gold Ladies Rings
+									</a>
+									<a asp-controller="Products" asp-action="Index" asp-route-category="Silver Ladies Rings" asp-route-metal="Silver">
+										<i class="fa fa-ring"></i> Silver Ladies Rings
+									</a>
+									<a asp-controller="Products" asp-action="Index" asp-route-category="Kids Ring"><i class="fa fa-ring"></i> Kids Rings</a>
+									<a asp-controller="Products" asp-action="Index" asp-route-category="Diamond Ring"><i class="fa fa-ring"></i> Diamond Rings</a>
+									<a asp-controller="Products" asp-action="Index" asp-route-category="Gemstone Ring"><i class="fa fa-ring"></i> Gemstone Rings</a>
+									<a asp-controller="Products" asp-action="Index" asp-route-category="Necklace"><i class="fa fa-ellipsis-h"></i> Necklaces</a>
+									<a asp-controller="Products" asp-action="Index" asp-route-category="Gold Mangalsutra"><i class="fa fa-infinity"></i> Mangalsutra</a>
+									<a asp-controller="Products" asp-action="Index" asp-route-category="ShortMangalsutra"><i class="fa fa-minus"></i> Short Mangalsutra</a>
+									<a asp-controller="Products" asp-action="Index" asp-route-category="Nath"><i class="fa fa-certificate"></i> Nose Stud (Nath)</a>
+									<a asp-controller="Products" asp-action="Index" asp-route-category="Gold Chain"><i class="fa fa-link"></i> Gold Chains</a>
+									<a asp-controller="Products" asp-action="Index" asp-route-category="Silver Chains"><i class="fa fa-link"></i> Silver Chains</a>
+									<a asp-controller="Products" asp-action="Index" asp-route-category="Silver Anklets"><i class="fa fa-link"></i> Silver Anklets</a>
+								</div>
+
+								<div class="mega-column">
+									<span class="drop-label"><i class="fa fa-cube"></i> By Metal & Stones</span>
+									<a asp-controller="Products" asp-action="Index" asp-route-category="Gold"><i class="fa fa-coins" style="color: gold;"></i> Gold</a>
+									<a asp-controller="Products" asp-action="Index" asp-route-category="Diamond"><i class="fa fa-gem" style="color: #b9f2ff;"></i> Diamond</a>
+									<a asp-controller="Products" asp-action="Index" asp-route-category="Silver"><i class="fa fa-certificate" style="color: #C0C0C0;"></i> Silver</a>
+									<a asp-controller="Products" asp-action="Index" asp-route-category="Gemstone"><i class="fa fa-bahai" style="color: #ef476f;"></i> Gemstones</a>
+								</div>
+
+								<div class="mega-column">
+									
+									<span class="drop-label"><i class="fa fa-star"></i> Collections</span>
+									<a asp-controller="Products" asp-action="BridalCollection"><i class="fa fa-synagogue"></i> Wedding & Bridal Wear</a>
+									<a asp-controller="Products" asp-action="Index" asp-route-category="DailyWear"><i class="fa fa-tshirt"></i> Daily Wear</a>
+								</div>
+							</div>
+						</li>
+
+						<!-- GOLD -->
+						<li class="has-dropdown">
+							<a href="javascript:void(0)"><i class="fa fa-coins"></i> GOLD <i class="fa fa-chevron-down"></i></a>
+							<ul class="dropdown-list">
+								<li><a asp-controller="Products" asp-action="Index" asp-route-metalType="Gold" style="font-weight:bold; color:#D4AF37;"><i class="fa fa-arrow-right"></i> VIEW ALL GOLD</a></li>
+								<li><hr></li>
+								<li><strong><i class="fa fa-paint-brush"></i> By Style</strong></li>
+								<li><a asp-controller="Products" asp-action="Index" asp-route-metalType="Gold" asp-route-category="Jhumka"><i class="fa fa-bell"></i> Jhumkas</a></li>
+								<li><a asp-controller="Products" asp-action="Index" asp-route-metalType="Gold" asp-route-category="Tops"><i class="fa fa-dot-circle"></i> Studs & Tops</a></li>
+								<li><a asp-controller="Products" asp-action="Index" asp-route-metalType="Gold" asp-route-category="Earring"><i class="fa fa-leaf"></i> Earrings</a></li>
+								<li><a asp-controller="Products" asp-action="Index" asp-route-metalType="Gold" asp-route-category="Chains"><i class="fa fa-link"></i> Chains</a></li>
+								<li><a asp-controller="Products" asp-action="Index" asp-route-metalType="Gold" asp-route-category="Gold Mangalsutra"><i class="fa fa-minus"></i> Mangalsutra</a></li>
+								<li><a asp-controller="Products" asp-action="Index" asp-route-metalType="Gold" asp-route-category="Ranihaar"><i class="fa fa-crown"></i> Queen Necklace (Ranihaar)</a></li>
+								<li><a asp-controller="Products" asp-action="Index" asp-route-metalType="Gold" asp-route-category="Bormani Maal"><i class="fa fa-braille"></i> Golden Berry Beads (Bor Mani Maal)</a></li>
+								<li><a asp-controller="Products" asp-action="Index" asp-route-metalType="Gold" asp-route-category="Choker"><i class="fa fa-square-full"></i> Chokers (Kanthi)</a></li>
+								<li><a asp-controller="Products" asp-action="Index" asp-route-metalType="Gold" asp-route-category="NosePins"><i class="fa fa-certificate"></i> Nosepins</a></li>
+								<li><a asp-controller="Products" asp-action="Index" asp-route-metalType="Gold" asp-route-category="Nath"><i class="fa fa-bahai"></i> Nose studs (Nath)</a></li>
+								<li><a asp-controller="Products" asp-action="Index" asp-route-metalType="Gold" asp-route-category="Dorle Pendant"><i class="fa fa-heart"></i> Pendants (Dorle)</a></li>
+								<li><a asp-controller="Products" asp-action="Index" asp-route-metalType="Gold" asp-route-category="Basket Earring"><i class="fa fa-record-vinyl"></i> Basket Rings</a></li>
+								<li><hr></li>
+								<li><strong><i class="fa fa-calendar-alt"></i> By Occasion</strong></li>
+								<li><a asp-controller="Products" asp-action="Index" asp-route-metalType="Gold" asp-route-category="Bridal"><i class="fa fa-synagogue"></i> Wedding / Bridal</a></li>
+								<li><a asp-controller="Products" asp-action="Index" asp-route-metalType="Gold" asp-route-category="DailyWear"><i class="fa fa-tshirt"></i> Daily Wear</a></li>
+							</ul>
+						</li>
+
+						<!-- SILVER -->
+						<li class="has-dropdown">
+							<a href="javascript:void(0)"><i class="fa fa-certificate"></i> SILVER <i class="fa fa-chevron-down"></i></a>
+							<ul class="vertical-dropdown">
+								<li><a asp-controller="Products" asp-action="Index" asp-route-metal="Silver" asp-route-category="Silver" style="font-weight:bold; color:#D4AF37;"><i class="fa fa-arrow-right"></i> VIEW ALL SILVER</a></li>
+								<li><hr></li>
+								<li><a asp-controller="Products" asp-action="Index" asp-route-metal="Silver" asp-route-category="Silver Earrings"><i class="fa fa-leaf"></i> Earrings</a></li>
+								<li><a asp-controller="Products" asp-action="Index" asp-route-metal="Silver" asp-route-category="Silver Gents Rings"><i class="fa fa-ring"></i> Gents Rings</a></li>
+								<li><a asp-controller="Products" asp-action="Index" asp-route-metal="Silver" asp-route-category="Silver Ladies Rings"><i class="fa fa-ring"></i> Ladies Rings</a></li>
+								<li><a asp-controller="Products" asp-action="Index" asp-route-metal="Silver" asp-route-category="Silver Kids Rings"><i class="fa fa-ring"></i> Kids Rings</a></li>
+								<li><a asp-controller="Products" asp-action="Index" asp-route-metal="Silver" asp-route-category="Silver Chains"><i class="fa fa-tape"></i> Silver Chains</a></li>
+								<li><a asp-controller="Products" asp-action="Index" asp-route-metal="Silver" asp-route-category="Silver Bangles"><i class="fa fa-circle-notch"></i> Bangles</a></li>
+								<li><a asp-controller="Products" asp-action="Index" asp-route-metal="Silver" asp-route-category="Silver Bracelets"><i class="fa fa-ring"></i> Bracelets</a></li>
+								<li><a asp-controller="Products" asp-action="Index" asp-route-metal="Silver" asp-route-category="Silver Anklets"><i class="fa fa-shoe-prints"></i> Anklets (Payal)</a></li>
+								<li><a asp-controller="Products" asp-action="Index" asp-route-metal="Silver" asp-route-category="Silver Toe Rings"><i class="fa fa-paw"></i> Toe Rings (Bichhiya)</a></li>
+								<li><a asp-controller="Products" asp-action="Index" asp-route-metal="Silver" asp-route-category="Silver Coins"><i class="fa fa-dot-circle"></i> Silver Coins</a></li>
+								<li><a asp-controller="Products" asp-action="Index" asp-route-metal="Silver" asp-route-category="Silver Utensils"><i class="fa fa-utensils"></i> Utensils</a></li>
+								<li><a asp-controller="Products" asp-action="Index" asp-route-metal="Silver" asp-route-category="Silver Karanda"><i class="fa fa-box-open"></i> Vermillion Box (Kumkum box)</a></li>
+								<li><a asp-controller="Products" asp-action="Index" asp-route-metal="Silver" asp-route-category="Door Hanging"><i class="fa fa-home"></i> Door Hanging (Toran)</a></li>
+								<li><a asp-controller="Products" asp-action="Index" asp-route-metal="Silver" asp-route-category="Silver Idol"><i class="fa fa-om"></i> Silver Idols</a></li>
+								<li><a asp-controller="Products" asp-action="Index" asp-route-metal="Silver" asp-route-category="Silver Karnful"><i class="fa fa-sun"></i> Traditional Earflowers (Karnphul)</a></li>
+								<li><a asp-controller="Products" asp-action="Index" asp-route-metal="Silver" asp-route-category="Silver Nosepins"><i class="fa fa-certificate"></i> Nosepins</a></li>
+								<li><a asp-controller="Products" asp-action="Index" asp-route-metal="Silver" asp-route-category="Silver KrishnaSaaj"><i class="fa fa-user-circle"></i> Krishna Necklace Set (Krishna Saaj)</a></li>
+								<li><a asp-controller="Products" asp-action="Index" asp-route-metal="Silver" asp-route-category="Silver KambarPatta"><i class="fa fa-tape"></i> Waist Belts</a></li>
+							</ul>
+						</li>
+
+						<!-- DIAMOND -->
+						<li class="has-dropdown">
+							<a href="javascript:void(0)"><i class="fa fa-gem"></i> DIAMOND <i class="fa fa-chevron-down"></i></a>
+							<ul class="dropdown-list">
+								<li><a asp-controller="Products" asp-action="Index" asp-route-category="Diamond" style="font-weight:bold; color:#D4AF37;"><i class="fa fa-arrow-right"></i> VIEW ALL DIAMOND</a></li>
+								<li><hr></li>
+								<li><strong><i class="fa fa-list"></i> Shop by Product</strong></li>
+								<li><a asp-controller="Products" asp-action="Index" asp-route-category="Diamond Rings"><i class="fa fa-ring"></i> Diamond Rings</a></li>
+								<li><a asp-controller="Products" asp-action="Index" asp-route-category="Diamond Earrings"><i class="fa fa-leaf"></i> Diamond Earrings</a></li>
+								<li><a asp-controller="Products" asp-action="Index" asp-route-category="Diamond Pendants"><i class="fa fa-heart"></i> Diamond Pendants</a></li>
+								<li><a asp-controller="Products" asp-action="Index" asp-route-category="Diamond Bangles"><i class="fa fa-circle-notch"></i>Diamond Bangles</a></li>
+								<li><a asp-controller="Products" asp-action="Index" asp-route-category="Diamond Bracelets"><i class="fa fa-circle-notch"></i>Diamond Bracelets </a></li>
+								<li><hr></li>
+								<li><strong><i class="fa fa-crown"></i> Exclusive</strong></li>
+								<li><a asp-controller="Products" asp-action="Index" asp-route-category="Diamond Mangalsutra"><i class="fa fa-infinity"></i> Diamond Mangalsutra</a></li>
+								<li><a asp-controller="Products" asp-action="Index" asp-route-category="Diamond Nosepins"><i class="fa fa-dot-circle"></i> Diamond Nose Pins</a></li>
+							</ul>
+						</li>
+
+						<!-- GEMSTONE -->
+						<li class="has-dropdown">
+							<a href="javascript:void(0)"><i class="fa fa-bahai"></i> GEMSTONE <i class="fa fa-chevron-down"></i></a>
+							<ul class="dropdown-list">
+								<li><a asp-controller="Products" asp-action="Index" asp-route-category="Gemstone" style="font-weight:bold; color:#D4AF37;"><i class="fa fa-arrow-right"></i> VIEW ALL GEMSTONE</a></li>
+								<li><hr></li>
+								<li><strong><i class="fa fa-gem"></i> By Category</strong></li>
+								<li><a asp-controller="Products" asp-action="Index" asp-route-category="Gemstones"><i class="fa fa-link"></i> Gemstones</a></li>
+								<li><a asp-controller="Products" asp-action="Index" asp-route-category="Emerald Special"><i class="fa fa-leaf"></i> Emerald Special</a></li>
+								<li><a asp-controller="Products" asp-action="Index" asp-route-category="Gemstone Rings"><i class="fa fa-ring"></i> Rings</a></li>
+								<li><a asp-controller="Products" asp-action="Index" asp-route-category="Gemstone Bracelets"><i class="fa fa-circle-notch"></i> Bracelets</a></li>
+								<li><a asp-controller="Products" asp-action="Index" asp-route-category="Gemstone Pendants"><i class="fa fa-heart"></i> Pendants</a></li>
+							</ul>
+						</li>
+
+						<!-- EARRINGS -->
+						<li class="has-dropdown">
+							<a href="javascript:void(0)"><i class="fa fa-leaf"></i> EARRINGS <i class="fa fa-chevron-down"></i></a>
+							<ul class="dropdown-list">
+								<li><a asp-controller="Products" asp-action="Index" asp-route-category="Earring" style="font-weight:bold; color:#D4AF37;"><i class="fa fa-arrow-right"></i> VIEW ALL EARRINGS</a></li>
+								<li><hr></li>
+								<li><strong><i class="fa fa-star"></i> Shop by Style</strong></li>
+								<li><a asp-controller="Products" asp-action="Index" asp-route-category="Gold Earring" asp-route-metal="Gold"><i class="fa fa-dot-circle"></i> Gold Earrings</a></li>
+								<li><a asp-controller="Products" asp-action="Index" asp-route-category="Jhumka"><i class="fa fa-bell"></i> Jhumkas</a></li>
+								<li><a asp-controller="Products" asp-action="Index" asp-route-category="Hoops"><i class="fa fa-circle-notch"></i> Hoops (Baali)</a></li>
+								<li><a asp-controller="Products" asp-action="Index" asp-route-category="Silver Karnful"><i class="fa fa-moon"></i> Karnful</a></li>
+								<li><a asp-controller="Products" asp-action="Index" asp-route-category="EarChain"><i class="fa fa-dot-circle"></i> EarChain</a></li>
+								<li><a asp-controller="Products" asp-action="Index" asp-route-category="Gold Tops" asp-route-metal="Gold"><i class="fa fa-dot-circle"></i> Gold Tops</a></li>
+								<li><a asp-controller="Products" asp-action="Index" asp-route-category="Silver Studs"><i class="fa fa-dot-circle"></i> Silver Studs</a></li>
+								<li><a asp-controller="Products" asp-action="Index" asp-route-category="Diamond Earrings"><i class="fa fa-tint"></i> Diamond Studs</a></li>
+								<li><a asp-controller="Products" asp-action="Index" asp-route-category="Silver Earrings"><i class="fa fa-ellipsis-v"></i>Silver Earings</a></li>
+								<li><a asp-controller="Products" asp-action="Index" asp-route-category="Basket Earrings"><i class="fa fa-minus"></i> Basket Earrings</a></li>
+								<li><hr></li>
+								
+							</ul>
+						</li>
+
+						<!-- DAILYWEAR -->
+						<li class="has-dropdown">
+							<a href="javascript:void(0)"><i class="fa fa-tshirt"></i> DAILYWEAR <i class="fa fa-chevron-down"></i></a>
+							<ul class="dropdown-list">
+								<li><a asp-controller="Products" asp-action="Index" asp-route-category="DailyWear" style="font-weight:bold; color:#D4AF37;"><i class="fa fa-arrow-right"></i> VIEW ALL DAILYWEAR</a></li>
+								<li><hr></li>
+								<li><strong>Dailywear Jewellery</strong></li>
+								<li><a asp-controller="Products" asp-action="Index" asp-route-category="Dailywear" asp-route-subcategory="Chain"><i class="fa fa-link"></i> Dailywear Chains</a></li>
+								<li><a asp-controller="Products" asp-action="Index" asp-route-category="Dailywear" asp-route-subcategory="Earring"><i class="fa fa-leaf"></i> Dailywear Earrings</a></li>
+								<li><a asp-controller="Products" asp-action="Index" asp-route-category="Dailywear" asp-route-subcategory="Ring"><i class="fa fa-ring"></i> Dailywear Rings</a></li>
+								<li><a asp-controller="Products" asp-action="Index" asp-route-category="Dailywear" asp-route-subcategory="Mangalsutra"><i class="fa fa-infinity"></i> Dailywear Mangalsutra</a></li>
+								<li><a asp-controller="Products" asp-action="Index" asp-route-category="Dailywear" asp-route-subcategory="Pendant"><i class="fa fa-heart"></i> Dailywear Pendants</a></li>
+							</ul>
+						</li>
+
+						<!-- Stylish Animated ALL Collections Button -->
+						<li class="nav-btn-item">
+							<a asp-controller="Products" asp-action="Index" class="btn-collection-animated">
+								<span>ALL<br /> COLLECTIONS</span>
+								<i class="fa fa-sparkles"></i>
+							</a>
+						</li>
+
+						<!-- Search Box inside Nav Links (Flexbox fit) -->
+						<li class="nav-search-item hide-on-mobile" style="display: flex !important; flex-grow: 1 !important; margin: 0 !important;">
+							<div class="search-box-area" style="width: 100% !important;">
+								<form asp-controller="Products" asp-action="Index" method="get" onsubmit="clearSearch()" style="width: 100% !important; margin: 0 !important;">
+									<div class="search-pill" style="display: flex !important; align-items: center !important; border: 1px solid #ccc !important; border-radius: 25px !important; padding: 6px 15px !important; background: #fff !important; width: 100% !important; box-sizing: border-box !important;">
+										<button type="submit" style="background: none; border: none; padding: 0; cursor: pointer; display: flex; align-items: center; margin-right: 8px;">
+											<i class="fa fa-search" style="color: #666;"></i>
+										</button>
+										<input type="text" name="searchString" id="searchInput" placeholder="Search designs..." style="border: none; outline: none; background: transparent; width: 100%; font-size: 14px;" autocomplete="off">
+										<i class="fa fa-microphone" id="micBtn" style="margin-left: 8px; cursor: pointer; color: #666;"></i>
+									</div>
+								</form>
+							</div>
+						</li>
+						<!--  Style Expandable / Overlay Search Box (for Mobile - hidden ) -->
+						<div id="mobileSearchOverlay" class="mobile-search-overlay">
+							<div class="search-overlay-content">
+								<form asp-controller="Products" asp-action="Index" method="get">
+									<div class="overlay-search-input-wrapper" style="display: flex; align-items: center; background: #fff; border-radius: 25px; padding: 6px 15px; border: 1px solid #ccc;">
+                <button type="submit" style="background: none; border: none; padding: 0; cursor: pointer; display: flex; align-items: center; margin-right: 8px;">
+                    <i class="fa fa-search" style="color: #666;"></i>
+                </button>
+                <input type="text" name="searchString" id="searchInputMob" placeholder="Search for product..." autocomplete="off" autofocus style="border: none; outline: none; background: transparent; width: 100%; font-size: 14px;">
+                <i class="fa fa-microphone" id="micBtnMob" style="margin-left: 8px; cursor: pointer; color: #666;"></i>
+            </div>
+								</form>
+								<span id="closeSearchModal" class="close-search-btn"><i class="fa fa-xmark"></i>✕</span>
+							</div>
+						</div>
+					</ul>
+				</nav>
+			</div>
+		</div>
+
+		<!-- NEWSTYLE OVERLAY DRAWER WITH ALL  LINKS -->
+		<div class="newstyle-overlay" id="newstyleOverlay"></div>
+		<div class="newstyle-drawer" id="newstyleDrawer">
+			<div class="drawer-header">
+				<h5><i class="fa fa-gem"></i> ASHOK JEWELLERY</h5>
+				<button class="close-btn" id="mobile-menu-close">&times;</button>
+			</div>
+
+			<div class="drawer-body" id="drawerBody">
+
+				<!-- 1. ALL COLLECTIONS BUTTON AT TOP OF DRAWER -->
+				<div class="drawer-top-btn-wrapper">
+					<a asp-controller="Products" asp-action="Index" class="btn-collection-animated drawer-animated-override">
+						<i class="fa fa-layer-group"></i>
+						<span>ALL COLLECTIONS</span>
+					</a>
+				</div>
+
+				<!-- ALL JEWELLERY -->
+				<details>
+					<summary><i class="fa fa-gem"></i> ALL JEWELLERY <i class="fa fa-angle-down"></i></summary>
+					<div class="drawer-sublinks">
+						<a asp-controller="Products" asp-action="Index" style="font-weight:bold; color:#D4AF37;"><i class="fa fa-eye"></i> VIEW ALL COLLECTIONS</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-category="Earring"><i class="fa fa-leaf"></i> Earrings</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-category="Studs-Tops"><i class="fa fa-dot-circle"></i> Studs & Tops</a>
+												
+						<a asp-controller="Products" asp-action="Index" asp-route-category="Gold Pendants,Silver Pendants,Diamond Pendants,Gemstone Pendants">
+							<i class="fa fa-heart"></i> Pendants
+						</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-category="Gents Ring"><i class="fa fa-ring"></i> Gents Rings</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-category="Ladies Rings" asp-route-metal="Gold">
+							<i class="fa fa-ring"></i> Gold Ladies Rings
+						</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-category="Silver Ladies Rings" asp-route-metal="Silver">
+							<i class="fa fa-ring"></i> Silver Ladies Rings
+						</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-category="Kids Ring"><i class="fa fa-ring"></i> Kids Rings</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-category="Diamond Ring"><i class="fa fa-ring"></i> Diamond Rings</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-category="Gemstone Ring"><i class="fa fa-ring"></i> Gemstone Rings</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-category="MangalsutraPendant"><i class="fa fa-heart"></i> Mangalsutra Pendants</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-category="Bangles"><i class="fa fa-circle-notch"></i> Bangles & Bracelets</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-category="Necklace"><i class="fa fa-ellipsis-h"></i> Necklaces</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-category="Gold Mangalsutra"><i class="fa fa-infinity"></i> Mangalsutra</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-category="ShortMangalsutra"><i class="fa fa-minus"></i> Short Mangalsutra</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-category="Nath"><i class="fa fa-certificate"></i> Nose Stud (Nath)</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-category="Gold Chain"><i class="fa fa-link"></i> Gold Chains</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-category="Silver Chains"><i class="fa fa-link"></i> Silver Chains</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-category="Silver Anklets"><i class="fa fa-link"></i> Silver Anklets</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-category="Gold"><i class="fa fa-coins" style="color: gold;"></i> Gold Category</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-category="Diamond"><i class="fa fa-gem" style="color: #b9f2ff;"></i> Diamond Category</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-category="Silver"><i class="fa fa-certificate" style="color: #C0C0C0;"></i> Silver Category</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-category="Gemstone"><i class="fa fa-bahai" style="color: #ef476f;"></i> Gemstones Category</a>
+						<a asp-controller="Products" asp-action="BridalCollection"><i class="fa fa-synagogue"></i> Wedding & Bridal Wear</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-category="DailyWear"><i class="fa fa-tshirt"></i> Daily Wear</a>
+					</div>
+				</details>
+
+				<!-- GOLD -->
+				<details>
+					<summary><i class="fa fa-coins" style="color:#d4af37;"></i> GOLD <i class="fa fa-angle-down"></i></summary>
+					<div class="drawer-sublinks">
+						<a asp-controller="Products" asp-action="Index" asp-route-metalType="Gold" style="font-weight:bold; color:#D4AF37;"><i class="fa fa-arrow-right"></i> VIEW ALL GOLD</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-metalType="Gold" asp-route-category="Jhumka"><i class="fa fa-bell"></i> Jhumkas</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-metalType="Gold" asp-route-category="Tops"><i class="fa fa-dot-circle"></i> Studs & Tops</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-metalType="Gold" asp-route-category="Earring"><i class="fa fa-leaf"></i> Earrings</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-metalType="Gold" asp-route-category="Chains"><i class="fa fa-link"></i> Chains</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-metalType="Gold" asp-route-category="Gold Mangalsutra"><i class="fa fa-minus"></i> Mangalsutra</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-metalType="Gold" asp-route-category="Ranihaar"><i class="fa fa-crown"></i> Queen Necklace (Ranihaar)</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-metalType="Gold" asp-route-category="Bormani Maal"><i class="fa fa-braille"></i> Golden Berry Beads (Bor Mani Maal)</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-metalType="Gold" asp-route-category="Choker"><i class="fa fa-square-full"></i> Chokers (Kanthi)</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-metalType="Gold" asp-route-category="NosePins"><i class="fa fa-certificate"></i> Nosepins</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-metalType="Gold" asp-route-category="Nath"><i class="fa fa-bahai"></i> Nose studs (Nath)</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-metalType="Gold" asp-route-category="Dorle Pendant"><i class="fa fa-heart"></i> Pendants (Dorle)</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-metalType="Gold" asp-route-category="Basket Earring"><i class="fa fa-record-vinyl"></i> Basket Rings</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-metalType="Gold" asp-route-category="Bridal"><i class="fa fa-synagogue"></i> Wedding / Bridal</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-metalType="Gold" asp-route-category="DailyWear"><i class="fa fa-tshirt"></i> Daily Wear</a>
+					</div>
+				</details>
+
+				<!-- SILVER -->
+				<details>
+					<summary><i class="fa fa-certificate" style="color:#C0C0C0;"></i> SILVER <i class="fa fa-angle-down"></i></summary>
+					<div class="drawer-sublinks">
+						<a asp-controller="Products" asp-action="Index" asp-route-metal="Silver" asp-route-category="Silver" style="font-weight:bold; color:#D4AF37;"><i class="fa fa-arrow-right"></i> VIEW ALL SILVER</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-metal="Silver" asp-route-category="Silver Earrings"><i class="fa fa-leaf"></i> Earrings</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-metal="Silver" asp-route-category="Silver Gents Rings"><i class="fa fa-ring"></i> Gents Rings</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-metal="Silver" asp-route-category="Silver Ladies Rings"><i class="fa fa-ring"></i> Ladies Rings</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-metal="Silver" asp-route-category="Silver Kids Rings"><i class="fa fa-ring"></i> Kids Rings</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-metal="Silver" asp-route-category="Silver Chains"><i class="fa fa-tape"></i> Silver Chains</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-metal="Silver" asp-route-category="Silver Bangles"><i class="fa fa-circle-notch"></i> Bangles</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-metal="Silver" asp-route-category="Silver Bracelets"><i class="fa fa-ring"></i> Bracelets</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-metal="Silver" asp-route-category="Silver Anklets"><i class="fa fa-shoe-prints"></i> Anklets (Payal)</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-metal="Silver" asp-route-category="Silver Toe Rings"><i class="fa fa-paw"></i> Toe Rings (Bichhiya)</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-metal="Silver" asp-route-category="Silver Coins"><i class="fa fa-dot-circle"></i> Silver Coins</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-metal="Silver" asp-route-category="Silver Utensils"><i class="fa fa-utensils"></i> Utensils</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-metal="Silver" asp-route-category="Silver Karanda"><i class="fa fa-box-open"></i> Vermillion Box (Kumkum box)</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-metal="Silver" asp-route-category="Door Hanging"><i class="fa fa-home"></i> Door Hanging (Toran)</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-metal="Silver" asp-route-category="Silver Idol"><i class="fa fa-om"></i> Silver Idols</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-metal="Silver" asp-route-category="Silver Karnful"><i class="fa fa-sun"></i> Traditional Earflowers (Karnphul)</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-metal="Silver" asp-route-category="Silver Nosepins"><i class="fa fa-certificate"></i> Nosepins</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-metal="Silver" asp-route-category="Silver KrishnaSaaj"><i class="fa fa-user-circle"></i> Krishna Necklace Set (Krishna Saaj)</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-metal="Silver" asp-route-category="Silver KambarPatta"><i class="fa fa-tape"></i> Waist Belts</a>
+					</div>
+				</details>
+
+				<!-- DIAMOND -->
+				<details>
+					<summary><i class="fa fa-gem" style="color:#b9f2ff;"></i> DIAMOND <i class="fa fa-angle-down"></i></summary>
+					<div class="drawer-sublinks">
+						<a asp-controller="Products" asp-action="Index" asp-route-category="Diamond" style="font-weight:bold; color:#D4AF37;"><i class="fa fa-arrow-right"></i> VIEW ALL DIAMOND</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-category="Diamond Rings"><i class="fa fa-ring"></i> Diamond Rings</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-category="Diamond Earrings"><i class="fa fa-leaf"></i> Diamond Earrings</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-category="Diamond Pendants"><i class="fa fa-heart"></i> Diamond Pendants</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-category="Diamond Bangles"><i class="fa fa-circle-notch"></i> Bangles</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-category="Diamond Bracelets"><i class="fa fa-circle-notch"></i> Bracelets</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-category="Diamond Mangalsutra"><i class="fa fa-infinity"></i> Diamond Mangalsutra</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-category="Diamond Nosepins"><i class="fa fa-dot-circle"></i> Diamond Nose Pins</a>
+					</div>
+				</details>
+
+				<!-- GEMSTONE -->
+				<details>
+					<summary><i class="fa fa-bahai" style="color:#ef476f;"></i> GEMSTONE <i class="fa fa-angle-down"></i></summary>
+					<div class="drawer-sublinks">
+						<a asp-controller="Products" asp-action="Index" asp-route-category="Gemstone" style="font-weight:bold; color:#D4AF37;"><i class="fa fa-arrow-right"></i> VIEW ALL GEMSTONE</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-category="Gemstones"><i class="fa fa-link"></i> Gemstones</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-category="Emerald Special"><i class="fa fa-leaf"></i> Emerald Special</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-category="Gemstone Rings"><i class="fa fa-ring"></i> Rings</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-category="Gemstone Bracelets"><i class="fa fa-circle-notch"></i> Bracelets</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-category="Gemstone Pendants"><i class="fa fa-heart"></i> Pendants</a>
+					</div>
+				</details>
+
+				<!-- EARRINGS -->
+				<details>
+					<summary><i class="fa fa-leaf"></i> EARRINGS <i class="fa fa-angle-down"></i></summary>
+					<div class="drawer-sublinks">
+						<a asp-controller="Products" asp-action="Index" asp-route-category="Earring" style="font-weight:bold; color:#D4AF37;"><i class="fa fa-arrow-right"></i> VIEW ALL EARRINGS</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-category="Gold Earring" asp-route-metal="Gold"><i class="fa fa-dot-circle"></i> Gold Earrings</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-category="Jhumka"><i class="fa fa-bell"></i> Jhumkas</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-category="Hoops"><i class="fa fa-circle-notch"></i> Hoops (Baali)</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-category="Silver Karnful"><i class="fa fa-moon"></i> Karnful</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-category="EarChain"><i class="fa fa-dot-circle"></i> EarChain</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-category="Gold Tops" asp-route-metal="Gold"><i class="fa fa-dot-circle"></i> Gold Tops</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-category="Silver Studs"><i class="fa fa-dot-circle"></i> Silver Studs</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-category="Diamond Earrings"><i class="fa fa-tint"></i> Diamond Studs</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-category="Silver Earrings"><i class="fa fa-ellipsis-v"></i> Silver Earings</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-category="Basket Earrings"><i class="fa fa-minus"></i> Basket Earrings</a>
+						
+					</div>
+				</details>
+
+				<!-- DAILYWEAR -->
+				<details>
+					<summary><i class="fa fa-tshirt"></i> DAILYWEAR <i class="fa fa-angle-down"></i></summary>
+					<div class="drawer-sublinks">
+
+						<a asp-controller="Products" asp-action="Index" asp-route-category="DailyWear" style="font-weight:bold; color:#D4AF37;"><i class="fa fa-arrow-right"></i> VIEW ALL DAILYWEAR</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-category="DailyWear" asp-route-subcategory="Chain"><i class="fa fa-link"></i> Dailywear Chains</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-category="DailyWear" asp-route-subcategory="Earring"><i class="fa fa-leaf"></i> Dailywear Earrings</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-category="DailyWear" asp-route-subcategory="Ring"><i class="fa fa-ring"></i> Dailywear Rings</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-category="DailyWear" asp-route-subcategory="Mangalsutra"><i class="fa fa-infinity"></i> Dailywear Mangalsutra</a>
+						<a asp-controller="Products" asp-action="Index" asp-route-category="DailyWear" asp-route-subcategory="Pendant"><i class="fa fa-heart"></i> Dailywear Pendants</a>
+					</div>
+				</details>
+
+			</div>
+		</div>
+
+       
+   
+	</header>
+
+	<div class="ashok-content-wrapper">
+		<main role="main" class="pb-3">
+			@RenderBody()
+		</main>
+	</div>
+	@*FOOTER SECTION*@
+	<footer class="main-footer">
+		<div class="footer-top">
+			<div class="footer-container">
+				<div class="footer-column brand-info">
+					<div class="footer-logo" style="display: flex; align-items: center; gap: 0px;margin-left: -15px;margin-top: 25px;">
+						<img src="~/images/AJ LOGO3new.png" alt="Logo" style="width: 90px; height: auto; margin-right: -6px;" />
+						<h2 class="footer-brand-title" style="margin: 0;">
+							<span class="text-ashok">ASHOK</span>
+							<span class="text-jewellery">JEWELLERY ART</span>
+
+						</h2>
+					</div>
+					<p class="brand-bio">Crafting timeless elegance and heritage jewellery <br> since 1990. Your trust, our masterpiece.</p>
+					<div class="social-links">
+						<a href="https://www.instagram.com/ashokjewelleryart" target="_blank" rel="noopener noreferrer" title="Instagram" class="social-circle insta-icon">
+							<i class="fab fa-instagram"></i>
+						</a>
+
+						<!--  Facebook link -->
+						<a href="https://www.facebook.com/profile.php?id=61593775194458" target="_blank" rel="noopener noreferrer" title="Facebook" class="social-circle fb-icon">
+							<i class="fab fa-facebook-f"></i>
+						</a>
+					</div>
+				</div>
+
+				@{
+					string ownerNumber = "919890451915"; // Owner WhatsApp number
+					string footerMsg = "Hello Ashok Jewellery Art, I have a general enquiry.";
+					string encodedFooterMsg = Uri.EscapeDataString(footerMsg);
+					string footerWaUrl = $"https://wa.me/{ownerNumber}?text={encodedFooterMsg}";
+				}
+
+				<div class="footer-column contact-info">
+					<h4>Enquire Now</h4>
+					<p><i class="fas fa-map-marker-alt"></i> Anshuman Market,Near Mungasaji Maharaj Temple,Nandgaon Kh.,Dist.-Amravati.</p>
+
+					<!-- Phone Link with Confirmation Popup -->
+					<p class="hover-item">
+						<a href="tel:+919890451915"
+						   onclick="return confirmAction(event, 'tel:+919890451915', 'Are you sure you want to call?')"
+						   style="color: inherit; text-decoration: none;">
+							<i class="fas fa-phone-alt"></i> +91 9890451915
+						</a>
+					</p>
+
+					<!-- Email Link with Confirmation Popup -->
+					<p class="hover-item">
+						<a href="mailto:official.ashokjewellery.art1990@gmail.com"
+						   onclick="return confirmAction(event, 'mailto:official.ashokjewellery.art1990@gmail.com', 'Are you sure you want to send an email?')"
+						   style="color: inherit; text-decoration: none;">
+							<i class="fas fa-envelope"></i> official.ashokjewellery.art1990@gmail.com
+						</a>
+					</p>
+
+					<p><i class="fas fa-clock"></i> Mon - Sat: 11:00 AM - 8:30 PM</p>
+					<a href="@footerWaUrl" class="whatsapp-btn" target="_blank" onclick="return confirm('Are you sure you want to Chat on WhatsApp?');">
+						<i class="fab fa-whatsapp"></i> Enquire on WhatsApp
+					</a>
+				</div>
+
+				<div class="footer-column quick-links">
+					<h4>Collections</h4>
+					<ul>
+						<ul>
+							<li>
+								<a asp-controller="Products" asp-action="BridalCollection">Bridal Collection</a>
+							</li>
+                            <li><a href="/Home/Category?type=Diamond Rings">Diamond Rings</a></li>
+                        </ul>
+						<li><a asp-controller="Home" asp-action="AboutUs">About Our Lagacy</a></li>
+						<li><a asp-controller="Home" asp-action="HowToEnquire">How To Enquire</a></li>
+						<li><a asp-controller="Home" asp-action="ContactUs">Contact Us</a></li>
+						<li><a asp-controller="Home" asp-action="AboutUs" asp-fragment="hallmarking-section">Hallmarking & Quality</a></li>
+
+
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="footer-bottom">
+			<div class="footer-container">
+				<div class="trust-icons">
+					<span class="trust-tag">100% Certified:</span>
+					<img src="/images/bis-verified2.png" alt="BIS" title="BIS Hallmarked">
+					<img src="/images/IGI-verified1.png" alt="IGI" title="IGI Certified">
+				</div>
+
+				<div class="legal-links">
+					<a href="javascript:void(0)" onclick="openModal('privacyModal')">Privacy Policy</a> |
+					<a href="javascript:void(0)" onclick="openModal('termsModal')">Terms & Conditions</a>
+				</div>
+
+
+				<p class="copyright">
+					&copy; 2026
+					<a href="/Admin" style="color: inherit; text-decoration: none; cursor: text;">Ashok Jewellery Art</a>.
+					All rights reserved.
+				</p>                
+
+			</div>
+		</div>
+
+		<div id="infoModal" class="aj-modal">
+			<div class="aj-modal-content">
+				<div class="aj-modal-header">
+					<h2 id="modalTitle">Policy</h2>
+					<span class="close-modal" onclick="closeModal()">&times;</span>
+				</div>
+				<div class="aj-modal-body" id="modalBody">
+				</div>
+				<div class="aj-modal-footer">
+					<button class="btn-close-modal" onclick="closeModal()">Close</button>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="~/js/site.js" asp-append-version="true"></script>
+	@await RenderSectionAsync("Scripts", required: false)
+
+	@*bottom footer privacy-policy section->*@
+	<script>
+			const policyContent = {
+				privacyModal: {
+					title: "Privacy Policy",
+					body: `
+									<h3>Data Collection</h3>
+									<p>We collect your name and contact details only when you enquire via WhatsApp or our contact forms to provide you with the best service.</p>
+
+									<h3>Usage & Privacy</h3>
+									<p>Your data is used solely for personalized consultations and order updates. We maintain 100% confidentiality and never share your data with third parties.</p>
+
+									<h3>Copyright Protection</h3>
+									<p>All jewelry designs, brand names, and images displayed on this website are the exclusive property of <strong>Ashok Jewellery Art</strong>. Unauthorized use or reproduction is strictly prohibited.</p>
+
+									<h3>Cookies</h3>
+									<p>We use minimal cookies to enhance your browsing experience and analyze website traffic.</p>`
+				},
+				termsModal: {
+					title: "Terms & Conditions",
+					body: `
+									<h3>Pricing Policy</h3>
+									<p>Jewellery prices are subject to change based on daily market gold rates. The final price will be confirmed only at the time of your formal consultation.</p>
+
+									<h3>Order & Customization</h3>
+									<p>Orders are processed after personal verification. Custom-made designs require a specific lead time, and changes may not be possible once production begins.</p>
+
+									<h3>Authenticity & Certification</h3>
+									<p>All our products are <strong>BIS Hallmarked</strong>, and diamond jewellery is <strong>IGI/GIA certified</strong>, ensuring the highest standards of purity and quality.</p>
+
+									<h3>Buy-Back & Exchange</h3>
+									<p>We offer a transparent Buy-Back and Exchange policy at our physical store, subject to purity testing and the prevailing gold rates at the time of transaction.</p>`
+				}
+			};
+
+			function openModal(type) {
+				const modal = document.getElementById("infoModal");
+				document.getElementById("modalTitle").innerText = policyContent[type].title;
+				document.getElementById("modalBody").innerHTML = policyContent[type].body;
+
+				modal.style.display = "block";
+				document.body.style.overflow = "hidden";
+			}
+
+			function closeModal() {
+				document.getElementById("infoModal").style.display = "none";
+				document.body.style.overflow = "auto";
+			}
+
+           
+			window.onclick = function(event) {
+				let modal = document.getElementById("infoModal");
+				if (event.target == modal) {
+					closeModal();
+				}
+			}
+	</script>
+	<script>
+			function updateWishlistCount() {
+				const wishlist = JSON.parse(localStorage.getItem('userWishlist')) || [];
+				const count = wishlist.length;
+
+				// 1. Desktop Wishlist Badge Update
+				const countElement = document.getElementById('wishlist-count');
+				if (countElement) {
+					countElement.innerText = count > 0 ? count : '';
+					if (count > 0) {
+						countElement.style.setProperty('display', 'flex', 'important');
+					} else {
+						countElement.style.setProperty('display', 'none', 'important');
+					}
+				}
+
+				// 2. Mobile Wishlist Badge Update
+				const mobCountElement = document.getElementById('wishlist-count-mob');
+				if (mobCountElement) {
+					mobCountElement.innerText = count > 0 ? count : '';
+					if (count > 0) {
+						mobCountElement.style.setProperty('display', 'flex', 'important');
+					} else {
+						mobCountElement.style.setProperty('display', 'none', 'important');
+					}
+				}
+			}
+
+			document.addEventListener('DOMContentLoaded', function() {
+				updateWishlistCount();
+			});
+	</script>
+
+	<script>
+			function showMessage(msg, type = 'success') {
+				let container = document.getElementById('toast-container');
+				let toast = document.createElement('div');
+				toast.className = `custom-toast ${type === 'error' ? 'error' : ''}`;
+
+				// Icon logic
+				let icon = type === 'success' ? 'fa-circle-check' : 'fa-circle-exclamation';
+
+				toast.innerHTML = `
+				<i class="fa-solid ${icon}"></i>
+				<span>${msg}</span>`;
+				container.appendChild(toast);
+
+  
+				setTimeout(() => {
+					toast.style.animation = "fadeOut 0.5s ease-out forwards";
+					setTimeout(() => toast.remove(), 500);
+				}, 3000);
+			}
+
+	</script>
+
+   
+	<script>
+			//DEATAILS PAGE  BACK TO COLLECTION
+			// 1. Save scroll position on ANY product click anywhere on the site
+			document.addEventListener('click', function(e) {
+				const link = e.target.closest('a');
+				if (link && link.getAttribute('href')) {
+					const href = link.getAttribute('href').toLowerCase();
+					if (href.includes('detail') || href.includes('product')) {
+						sessionStorage.setItem("lastProductScrollPos", window.scrollY);
+					}
+				}
+			});
+
+			// 2. Restore scroll position when coming back
+			function restoreScrollPos() {
+				const savedScrollPos = sessionStorage.getItem("lastProductScrollPos");
+				if (savedScrollPos !== null) {
+					const pos = parseInt(savedScrollPos);
+
+					// Immediately scroll
+					window.scrollTo(0, pos);
+
+					setTimeout(function() {
+						window.scrollTo({
+							top: pos,
+							behavior: 'instant'
+						});
+						// Position set hone ke baad storage clear karein
+						sessionStorage.removeItem("lastProductScrollPos");
+					}, 100);
+				}
+			}
+
+			// Run when DOM is ready and when page is fully loaded (images included)
+			document.addEventListener("DOMContentLoaded", restoreScrollPos);
+			window.addEventListener("load", restoreScrollPos);
+	</script>
+	<script>
+			window.addEventListener('scroll', function() {
+				const header = document.querySelector('header.main-site-header');
+				if (window.scrollY > 50) {
+					header.classList.add('is-sticky');
+				} else {
+					header.classList.remove('is-sticky');
+				}
+			});
+	</script>
+	
+	<script>
+			function confirmAction(event, url, message) {
+    if (!confirm(message)) {
+        event.preventDefault(); 
+        return false;
+    }
+    return true; 
+}
+	</script>
+
+	<script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html>

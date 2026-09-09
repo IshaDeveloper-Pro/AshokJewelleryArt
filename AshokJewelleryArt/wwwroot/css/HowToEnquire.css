@@ -1,0 +1,275 @@
+﻿/* General Colors */
+:root {
+    --gold-primary: #D4AF37;
+    --dark-grey: #2c2c2c;
+    --bg-light: #fdfaf5;
+}
+
+.enquiry-page-wrapper {
+    font-family: 'Poppins', sans-serif;
+    color: var(--dark-grey);
+}
+
+/* 1. Header Hero */
+.enquiry-hero {
+    background: url('/images/jewellery-banner-bg.jpg') no-repeat center center/cover; 
+    height: 400px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+}
+
+.hero-overlay {
+    background: rgba(0, 0, 0, 0.5); 
+    padding: 40px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.enquiry-hero h1 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    max-width: 800px;
+    margin: 0 auto 15px;
+    line-height: 1.3;
+}
+
+/* 2. Process Section */
+.process-section {
+    padding: 40px 5%;
+    background-color: var(--bg-light);
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 50px;
+    color: #000;
+    position: relative;
+}
+
+    .section-title::after {
+        content: '';
+        display: block;
+        width: 60px;
+        height: 3px;
+        background: var(--gold-primary);
+        margin: 10px auto;
+    }
+
+.steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.step-card {
+    background:#bfcac1;
+    padding: 40px 30px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    transition: 0.3s;
+    border-bottom: 4px solid transparent;
+}
+
+    .step-card:hover {
+        transform: translateY(-10px);
+        border-bottom: 4px solid var(--gold-primary);
+    }
+
+.icon-box {
+    font-size: 40px;
+    color: var(--gold-primary);
+    margin-bottom: 20px;
+}
+
+.step-card h3 {
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+    font-weight: 800;
+    color:#141a06;
+}
+
+.step-card p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #1a0909;
+    font-weight:500;
+}
+
+/* 3. Trust Section */
+.trust-note-section {
+    padding: 10px 5%;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+}
+.trust-container {
+    max-width: 900px;
+    width: 100%;
+    margin: 0 auto;
+    background: #1a1a1a;
+    color: white;
+    padding: 50px;
+    border-radius: 15px;
+    text-align: center;
+    position: relative;
+    border: 1px solid var(--gold-primary);
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.trust-content {
+    width: 100%;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+}
+
+    .trust-content i {
+        font-size: 50px;
+        color: var(--gold-primary);
+        margin-bottom: 20px;
+    }
+
+    .trust-content h2 {
+        color: var(--gold-primary);
+        margin-bottom: 20px;
+        font-size: 1.8rem;
+        text-align: center !important;
+        width: 100%;
+    }
+
+    .trust-content p {
+        font-style: italic;
+        font-size: 1.1rem;
+        line-height: 1.8;
+        text-align: center !important;
+        width: 100%;
+        margin: 0 auto !important;
+        display: block !important;
+    }
+
+
+
+
+/* ==========================================
+   RESPONSIVE MEDIA QUERIES
+   ========================================== */
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .steps-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+        .steps-grid .step-card:nth-child(3) {
+            grid-column: 1 / -1;
+            max-width: 500px;
+            margin: 0 auto;
+            width: 100%;
+        }
+}
+
+@media (max-width: 768px) {
+    .enquiry-hero {
+        height: 320px;
+    }
+
+    .hero-overlay {
+        padding: 20px 15px;
+    }
+
+    .enquiry-hero h1 {
+        font-size: 1.8rem;
+        margin-bottom: 10px;
+    }
+
+    .enquiry-hero p {
+        font-size: 0.95rem;
+    }
+
+    .process-section {
+        padding: 40px 4% 20px;
+    }
+
+    .section-title {
+        font-size: 1.6rem;
+        margin-bottom: 35px;
+    }
+
+    .steps-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .step-card {
+        padding: 30px 20px;
+    }
+
+    .trust-note-section {
+        padding: 10px 4% 40px;
+    }
+
+    .trust-container {
+        padding: 30px 20px;
+        text-align: center !important;
+    }
+
+    .trust-content {
+        text-align: center !important;
+        align-items: center !important;
+    }
+
+        .trust-content i {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        .trust-content h2 {
+            font-size: 1.5rem;
+            text-align: center !important;
+            margin-bottom: 15px;
+        }
+
+        .trust-content p {
+            font-size: 0.98rem;
+            line-height: 1.6;
+            text-align: center !important;
+        }
+}
+
+/* 3. Small Mobile Screens (480px aur kam) */
+@media (max-width: 480px) {
+    .enquiry-hero h1 {
+        font-size: 1.35rem;
+    }
+
+    .step-card h3 {
+        font-size: 1.25rem;
+    }
+
+    /* Trust box padding aur Shield Icon Fix */
+    .trust-container {
+        padding: 35px 20px 25px !important; 
+    }
+
+    .trust-content i {
+        font-size: 35px;
+        margin-top: 10px !important; 
+        margin-bottom: 15px !important;
+        display: inline-block;
+    }
+}

@@ -1,0 +1,559 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model IEnumerable<AshokJewelleryArt.Models.Product>
+
+<div class="container mt-5 mb-5">
+    <div class="bridal-header-wrapper">
+        <h2 class="bridal-heading">Exquisite Bridal Collection</h2>
+        <a href="@Url.Action("Index", "Home")" class="btn-back-home">
+            <i class="fa-solid fa-house me-2"></i> Back to Home
+        </a>
+    </div>
+    <div class="bridal-grid-container">
+        @foreach (var item in Model)
+        {
+            <div class="bridal-card-wrapper">
+                <div class="card bridal-card shadow-sm" style="position: relative; border-radius: 12px; overflow: hidden; cursor: pointer;"
+                     data-bs-toggle="modal" data-bs-target="#modal-@item.Id">
+
+                          <!-- Wishlist Icon (Top Right) -->
+                    <div class="wish-overlay"
+                         onclick="event.stopPropagation(); handleWishlistClick(this)"
+                         data-id="@item.Id"
+                         data-name="@item.Name"
+                         data-image="@item.ImageURL"
+                         data-weight="@item.Weight @item.WeightUnit"
+                         style="position: absolute !important; top: 15px !important; right: 15px !important; z-index: 999 !important; background-color: white !important; width: 40px !important; height: 40px !important; border-radius: 50% !important; display: flex !important; align-items: center !important; justify-content: center !important; box-shadow: 0 4px 10px rgba(0,0,0,0.2) !important; cursor: pointer !important; visibility: visible !important; opacity: 1 !important;">
+    
+                        <i class="fa-regular fa-heart icon-heart" style="color: #e74c3c !important; font-size: 20px !important;"></i>
+                    </div>
+
+                    <!-- Image -->
+                    <div class="bridal-img-container" style="height: 300px; background: #fff;">
+                        <img src="@item.ImageURL" alt="@item.Name" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                  
+                    <div class="bridal-info">
+                        <h5 class="bridal-title">@item.Name</h5>
+                        <div class="view-product-box">
+                            <a href="@Url.Action("Details", "Product", new { id = item.Id })"
+                               onclick="event.stopPropagation();"
+                               class="btn-view-product">
+                                View Details <i class="fa-solid fa-arrow-right-long ms-1" style="font-size: 11px;"></i>
+                            </a>
+                        </div>
+                        <p class="bridal-weight">Weight: @item.Weight @item.WeightUnit</p>
+                        
+                       @{
+        string ownerNumber = "919890451915"; // Owner  real number
+        
+        string productName = item.Name; 
+        string pageUrl = Context.Request.Scheme + "://" + Context.Request.Host + Context.Request.Path;
+
+        string bridalMsg = $"Hello Ashok Jewellery Art, I am interested in this bridal piece: {productName}.\n\n" +
+                           $"Can you please share the price and details?\n\n" +
+                           $"Product Link: {pageUrl}";
+
+        string encodedBridalMsg = Uri.EscapeDataString(bridalMsg);
+        string bridalWaUrl = $"https://wa.me/{ownerNumber}?text={encodedBridalMsg}";
+    } <!-- Yahan C# block band ho gaya -->
+
+    <div class="enquiry-box" style="margin-top: 10px;">
+        <a href="@bridalWaUrl" 
+           target="_blank" 
+           class="btn-enquiry-simple" 
+           onclick="return confirm('Are you sure you want to ask the price for this bridal piece on WhatsApp?');"
+           style="background: #25D366; color: white; display: inline-block; padding: 8px 15px; border-radius: 4px; text-decoration: none; font-weight: 600;">
+            <i class="fa-brands fa-whatsapp"></i> Price on Request
+        </a>
+    </div>
+                    </div>
+                </div>
+            </div>
+        }
+        
+    </div>
+</div>
+<div id="wishlist-toast" style="
+    display: none; 
+    position: fixed !important; 
+    bottom: 50px !important; 
+    right: 50px !important; 
+    width: 300px !important; 
+    padding: 20px !important; 
+    background-color: #008080 !important; 
+    color: white !important; 
+    border-radius: 12px !important; 
+    z-index: 999999999 !important; 
+    box-shadow: 0 10px 40px rgba(0,0,0,0.6) !important; 
+    text-align: center !important; 
+    font-weight: bold !important; 
+    font-family: sans-serif !important;
+    border-left: 8px solid #D4AF37 !important;">
+</div>
+<style>
+    .bridal-heading {
+        font-size: 40px;
+        color: darkred;
+        font-weight: bold;
+        margin-bottom: 40px;
+        text-align: left;
+    }
+
+    /* This container will place the cards side-by-side */
+    .bridal-grid-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 30px;
+        justify-content: flex-start;
+        /* Add this line to give space at the bottom */
+        margin-bottom: 80px;
+    }
+
+    /* How much space a single card will take */
+    .bridal-card-wrapper {
+        flex: 0 1 calc(33.33% - 20px); /* 3 cards on large screens */
+        min-width: 300px; /* Automatically moves to the next line on smaller screens */
+    }
+
+    .bridal-card {
+        background: darkcyan; /* Your faint shade */
+        border: 1px solid #E2E8E8;
+        border-radius: 12px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        /* Reduced height from 480px to 420px to decrease gaps */
+        min-height: 420px;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Smooth bounce effect */
+        cursor: pointer;
+    }
+
+        .bridal-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1) !important;
+            border-color: #D4AF37; /* Border will turn gold */
+        }
+
+    .bridal-img-container {
+        /* Made the image area larger */
+        height: 300px;
+        background: #008080 !important;
+        ;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0; /* Removed padding so the image looks bigger */
+        overflow: visible !important;
+    }
+
+        .bridal-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain !important;
+            /* This ensures the image fully fills the container without stretching */
+        }
+
+    .bridal-card:hover .bridal-img-container img {
+        transform: scale(1.1); /* 10% zoom */
+    }
+
+    .bridal-info {
+        padding: 15px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* Keeps the content centered */
+        align-items: center;
+        text-align: center;
+    }
+
+    .bridal-title {
+        color: darkred;
+        font-weight: 700;
+        font-size: 22px;
+        margin: 0; /* Removed extra margin */
+        padding-top: 5px;
+        /* Reduced min-height from 60px to 45px to decrease gaps */
+        min-height: 45px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .view-product-box {
+        margin: 5px 0 2px 0;
+    }
+
+    .btn-view-product {
+        color: #fff;
+        background: rgba(255, 255, 255, 0.15);
+        font-size: 13px;
+        font-weight: bold;
+        text-decoration: none;
+        padding: 4px 15px;
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        display: inline-block;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+        .btn-view-product:hover {
+            background: #fff;
+            color: darkcyan;
+            border-color: #fff;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+    .bridal-weight {
+        color: white;
+        font-weight: 600;
+        font-size: 15px;
+        margin: 10px 0; /* Slight top-bottom gap only */
+    }
+
+    .enquiry-box {
+        margin-top: 5px;
+        padding-bottom: 10px;
+    }
+
+    .btn-enquiry-simple {
+        background: #D4AF37;
+        color: white;
+        padding: 10px 25px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: bold;
+        display: inline-block;
+    }
+
+    /* Settings for mobile */
+    @@media (max-width: 768px) {
+        .bridal-card-wrapper {
+            flex: 0 1 100%; /* Stacked one below the other on mobile */
+        }
+    }
+
+
+    .btn-enquiry-simple:hover {
+        background: #b8952e;
+        transform: scale(1.05);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+  
+    /* Wishlist Icon Hover Effect */
+    #wishlist-toast {
+        position: fixed !important;
+        bottom: 30px;
+        right: 30px;
+        z-index: 999999 !important;
+        display: none; /* JS will change this to block */
+        background-color: #008080 !important;
+        color: white !important;
+        padding: 15px 25px;
+        border-radius: 8px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        min-width: 250px;
+        text-align: center;
+    }
+
+    .wish-overlay {
+        transition: all 0.3s ease !important; /* For smooth transition */
+    }
+
+        .wish-overlay:hover {
+            transform: scale(1.2); /* Icon will become slightly larger */
+            background-color: #f8f9fa !important; /* Light background change */
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4) !important; /* Reddish glow effect */
+        }
+
+            /* Icon rotation effect on hover */
+            .wish-overlay:hover .icon-heart {
+                transform: rotate(10deg);
+                color: #c0392b !important; /* Darker red on hover */
+            }
+
+        /* Click effect (Active state) */
+        .wish-overlay:active {
+            transform: scale(0.9); /* Compresses slightly when clicked */
+        }
+
+    /* Stylish Toast Message */
+
+    .custom-toast {
+        bottom: 30px !important;
+        right: 30px !important;
+        z-index: 9999999 !important; /* Keep it on top using 9999... */
+        position: fixed !important;
+        display: none; /* Do not apply !important here */
+        background: #008080;
+        color: white;
+        padding: 15px 25px;
+        border-radius: 8px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+        .custom-toast.error {
+            background-color: #e74c3c !important; /* Red for remove */
+            border-left: 6px solid #c0392b !important;
+        }
+
+    @@keyframes slideUp {
+        from {
+            transform: translateY(100px);
+            opacity: 0;
+        }
+
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    /* Wrapper that brings the heading and button into a single line */
+    .bridal-header-wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 40px;
+        flex-wrap: wrap; /* To allow wrapping on mobile views */
+        gap: 15px;
+    }
+
+    .bridal-heading {
+        font-size: 40px;
+        color: darkred;
+        font-weight: bold;
+        margin-bottom: 0; /* Margin is handled by the wrapper */
+        text-align: left;
+    }
+
+    /* Premium Back to Home Button Style */
+    .btn-back-home {
+        background: transparent;
+        color: darkred;
+        border: 2px solid darkred;
+        padding: 8px 20px;
+        font-weight: bold;
+        font-size: 15px;
+        text-decoration: none;
+        border-radius: 30px;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    }
+
+        /* Hover effect to give the design a premium look */
+        .btn-back-home:hover {
+            background: darkred;
+            color: #fff;
+            transform: translateX(-5px); /* Shifts slightly to the left for visual feedback */
+            box-shadow: 0 6px 15px rgba(139, 0, 0, 0.2);
+        }
+
+
+   /* ==========================================================
+   ONLY RESPONSIVE MEDIA QUERIES (NO ORIGINAL STYLES CHANGED)
+   ========================================================== */
+
+/* 1. MAX 1024px (Force Exact 3 Cards Per Row) */
+@@media (max-width: 1024px) {
+    .bridal-card-wrapper {
+        flex: 0 0 calc(33.333% - 20px) !important;
+        max-width: calc(33.333% - 20px) !important;
+        min-width: unset !important; /* Fixed 2-card break issue */
+    }
+
+    .bridal-img-container {
+        height: 250px !important;
+    }
+
+    .bridal-heading {
+        font-size: 32px !important;
+    }
+}
+
+/* 2. MAX 768px (Tablet - Exact 2 Cards Per Row) */
+@@media (max-width: 768px) {
+    .bridal-grid-container {
+        justify-content: center !important;
+        gap: 15px !important;
+    }
+
+    .bridal-card-wrapper {
+        flex: 0 0 calc(50% - 10px) !important;
+        max-width: calc(50% - 10px) !important;
+        min-width: unset !important;
+    }
+
+    .bridal-img-container {
+        height: 220px !important;
+    }
+
+    .bridal-heading {
+        font-size: 26px !important;
+    }
+
+    .bridal-title {
+        font-size: 18px !important;
+    }
+}
+
+/* ==========================================================
+   MOBILE FULL IMAGE FIX (425px, 375px, 320px)
+   ========================================================== */
+
+@@media (max-width: 425px) {
+    .bridal-card-wrapper {
+        flex: 0 0 100% !important;
+        max-width: 360px !important;
+        min-width: unset !important;
+        margin: 0 auto !important;
+    }
+
+    .bridal-img-container {
+        height: auto !important;       
+        min-height: 250px !important;   
+        background: #008080!important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    .bridal-img-container img {
+        width: 100% !important;
+        height: 100% !important;
+        max-height: 280px !important;  
+        object-fit: contain !important; 
+    }
+
+    .bridal-heading {
+        font-size: 24px !important;
+    }
+}
+
+/* Medium Mobile (375px) */
+@@media (max-width: 375px) {
+    .bridal-card-wrapper {
+        max-width: 320px !important;
+    }
+
+    .bridal-img-container img {
+        max-height: 250px !important;
+    }
+}
+
+/* Small Mobile (320px) */
+@@media (max-width: 320px) {
+    .bridal-card-wrapper {
+        max-width: 290px !important;
+    }
+
+    .bridal-img-container img {
+        max-height: 220px !important;
+    }
+
+    .bridal-heading {
+        font-size: 20px !important;
+    }
+}</style>
+
+<script>
+window.handleWishlistClick = function(element) {
+        const id = element.getAttribute('data-id');
+        const name = element.getAttribute('data-name');
+        const image = element.getAttribute('data-image');
+        const weight = element.getAttribute('data-weight');
+
+        let wishlist = JSON.parse(localStorage.getItem('userWishlist')) || [];
+        const index = wishlist.findIndex(item => item.id === id);
+
+        if (index === -1) {
+            wishlist.push({ id, name, image, weight });
+            element.querySelector('i').classList.replace('fa-regular', 'fa-solid');
+            window.showMessage(name + " Added! ❤️", "success");
+        } else {
+            wishlist.splice(index, 1);
+            element.querySelector('i').classList.replace('fa-solid', 'fa-regular');
+            window.showMessage(name + " Removed!", "error");
+        }
+
+        localStorage.setItem('userWishlist', JSON.stringify(wishlist));
+    };
+
+    window.showMessage = function(text, type) {
+        var toast = document.getElementById('wishlist-toast');
+        if (!toast) return;
+
+        toast.innerText = text;
+        toast.style.setProperty('display', 'block', 'important');
+        toast.style.setProperty('opacity', '1', 'important');
+
+        if (type === 'error') {
+            toast.style.setProperty('background-color', '#e74c3c', 'important');
+        } else {
+            toast.style.setProperty('background-color', '#008080', 'important');
+        }
+
+        setTimeout(function() {
+            toast.style.setProperty('display', 'none', 'important');
+        }, 3000);
+    };
+    function updateWishlistCount() {
+        const wishlist = JSON.parse(localStorage.getItem('userWishlist')) || [];
+        const countElement = document.getElementById('wishlist-count');
+        if (countElement) {
+            countElement.innerText = wishlist.length;
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', updateWishlistCount);
+
+    document.addEventListener('DOMContentLoaded', function() {
+        updateWishlistCount();
+        const wishlist = JSON.parse(localStorage.getItem('userWishlist')) || [];
+        document.querySelectorAll('.wish-overlay').forEach(btn => {
+            const currentId = btn.getAttribute('data-id');
+            const icon = btn.querySelector('i');
+            if (icon) {
+                const isFavorite = wishlist.some(item => item.id === currentId);
+                if (isFavorite) {
+                    icon.classList.replace('fa-regular', 'fa-solid');
+                }
+            }
+        });
+    });
+    function showMessage(text, type) {
+    const toast = document.getElementById('wishlist-toast');
+    if (!toast) {
+        console.error("Toast div nahi mila!");
+        return;
+    }
+
+    toast.innerText = text;
+    
+    if (type === 'error') {
+        toast.classList.add('error');
+    } else {
+        toast.classList.remove('error');
+    }
+
+    // Forcefully show
+    toast.style.setProperty('display', 'block', 'important');
+
+    setTimeout(() => {
+        toast.style.setProperty('display', 'none', 'important');
+    }, 3000);
+}
+</script>>
+    <script>
+        window.onload = function () {
+            window.scrollTo(0, 0);
+        };
+    </script>

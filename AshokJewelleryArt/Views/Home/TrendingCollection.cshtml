@@ -1,0 +1,138 @@
+﻿@model AshokJewelleryArt.Models.Product
+@section Styles {
+    <link rel="stylesheet" href="~/css/TrendingCollection.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+}
+
+@{
+    ViewData["Title"] = Model?.Name ?? "Jewellery Details";
+
+    // --- METAL and CATEGORY -> UNIT DECIDE  LOGIC ---
+    bool isDetailCarat = false;
+
+    if (Model != null)
+    {
+        if (Model.Category != null && (Model.Category.ToLower().Contains("diamond") || Model.Category.ToLower().Contains("gemstone")))
+        {
+            isDetailCarat = true;
+        }
+
+        if (Model.MetalType != null && (Model.MetalType.ToLower().Contains("diamond") || Model.MetalType.ToLower().Contains("gemstone")))
+        {
+            isDetailCarat = true;
+        }
+    }
+
+    string detailUnit = isDetailCarat ? "ct" : (Model != null && !string.IsNullOrEmpty(Model.WeightUnit) ? Model.WeightUnit : "g");
+}
+
+<div class="aj-details-page">
+    @* --- COMPACT BREADCRUMBS --- *@
+    <ul class="aj-breadcrumb">
+        <li><a href="/">Home</a></li>
+        <li><a href="/#trending-section-target">Trending Collection</a></li>
+        <li><a>@Model.Name</a></li>
+    </ul>
+
+    @* --- MAIN LAYOUT --- *@
+    <div class="aj-row">
+        @* --- LEFT COL: Image with Zoom ID --- *@
+        <div class="aj-col-visual">
+            <div class="aj-main-img-container" id="js-zoom-container">
+                <img src="@Model.ImageURL" id="js-main-img" alt="@Model.Name" class="aj-product-img">
+                <button class="wish-icon-trending"
+                        data-id="@Model.Id"
+                        data-name="@Model.Name"
+                        data-image="@Model.ImageURL"
+                        data-weight="@Model.Weight @detailUnit"
+                        style="position: absolute; top: 15px; right: 15px; border: none; background: white; border-radius: 50%; width: 35px; height: 35px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center;">
+                    <i class="fa-regular fa-heart" style="font-size: 18px; color: #e74c3c;"></i>
+                </button>
+                
+            </div>
+        </div>
+
+        @* --- RIGHT COL: Details --- *@
+        <div class="aj-col-info">
+            <div class="aj-info-box">
+                <span class="aj-brand-tag">Ashok Jewellery Art</span>
+                <h1 class="aj-product-title">@Model.Name</h1>
+                <p class="aj-product-code">Reference: AJ-@Model.Id</p>
+
+                @* DYNAMIC SPECIFICATIONS *@
+                <div class="aj-spec-list">
+                   @*  <div class="aj-spec-item">
+                        <span class="aj-spec-label">Purity:</span>
+                        <span class="aj-spec-value">@(Model.MaterialType ?? "22K Yellow Gold")</span>
+                    </div> *@
+
+                    @{
+                        ViewData["Title"] = Model?.Name ?? "Jewellery Details";
+
+                        string finalUnit = "g"; // Default unit
+
+                        // --- LOGIC: If the MetalType or Category contains Diamond or Gemstone, then it will always display 'ct'. ---
+                        string metal = (Model?.MetalType ?? "").ToLower();
+                        string category = (Model?.Category ?? "").ToLower();
+                        string name = (Model?.Name ?? "").ToLower();
+
+                        if (metal.Contains("diamond") || metal.Contains("gemstone") ||
+                            category.Contains("diamond") || category.Contains("gemstone") ||
+                            name.Contains("diamond") || name.Contains("gemstone"))
+                        {
+                            finalUnit = "ct";
+                        }
+                        // LOGIC: If it is not a diamond, then fetch the unit from the database, or else use 'g'
+                        else if (!string.IsNullOrEmpty(Model?.WeightUnit))
+                        {
+                            finalUnit = Model.WeightUnit;
+                        }
+                    }
+
+                    @* --- DISPLAY SECTION --- *@
+                    <div class="aj-spec-item">
+                        <span class="aj-spec-label">Metal Type:</span>
+                        <span class="aj-spec-value" style="text-transform: uppercase;">@(Model?.MetalType ?? "Gold")</span>
+                    </div>
+
+                    <div class="aj-spec-item">
+                        <span class="aj-spec-label">Approx Weight:</span>
+                        <span class="aj-spec-value">@Model.Weight @finalUnit</span>
+                    </div>
+
+                    <div class="aj-spec-item">
+                        <span class="aj-spec-label">Certificate:</span>
+                        <span class="aj-spec-value">BIS Hallmarked</span>
+                    </div>
+                </div>
+
+                @* ACTION BUTTONS *@
+                <div class="aj-action-buttons">
+                    <a href="https://wa.me/919890451915?text=@Uri.EscapeDataString("Hi Ashok Jewellery Art, I'm interested in " + Model.Name)" target="_blank" class="aj-btn aj-btn-whatsapp">
+                        ENQUIRE ON WHATSAPP
+                    </a>
+
+                    @* Back to Collection Link with Fragment Scroll *@
+                    <a href="/Home/TrendingList#product-@Model.Id" class="aj-btn" style="background: #e0fbff; color: #333; text-align: center; text-decoration: none; margin-top: 8px; display: block; padding: 10px; border-radius: 4px; font-weight: 600; font-size: 13px;">
+                        <i class="fa-solid fa-arrow-left"></i> BACK TO COLLECTION
+                    </a>
+                
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    document.addEventListener("DOMContentLoaded", function () {
+    if (window.location.hash === "#trending-section-target") {
+        const targetElement = document.getElementById("trending-section-target");
+        if (targetElement) {
+            targetElement.scrollIntoView();
+        }
+    }
+});
+
+
+    <script src="~/js/TrendingCollection.js" asp-append-version="true"></script>
+}

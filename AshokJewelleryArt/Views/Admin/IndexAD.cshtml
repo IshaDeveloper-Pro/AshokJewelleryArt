@@ -1,0 +1,1187 @@
+﻿@using System.Data
+@model DataTable
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Admin - Ashok Jewellery Art</title>
+  
+    <!-- ========================================== -->
+    <link rel="stylesheet" href="~/css/Admin.css" />
+</head>
+<body>
+
+    <div class="admin-panel-container">
+        <nav class="sidebar">
+            <div class="brand-section">
+                <h1>AJ ART</h1>
+                <p>MANAGEMENT</p>
+            </div>
+            <!-- ========================================== -->
+            <!-- SIDEBAR LIVE ANALYTICS SECTION START -->
+            <!-- ========================================== -->
+            <input type="checkbox" id="drawerToggleCheckbox" style="display: none;" />
+
+            <div class="sidebar-analytics" style="padding: 20px 15px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 20px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+
+                <div class="sidebar-stat-item" style="display: flex; align-items: center; margin-bottom: 25px;">
+                    <div style="background: rgba(255, 193, 7, 0.15); width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-right: 15px;margin-left: 18px; flex-shrink: 0;">
+                        <span style="color: #ffc107; font-size: 18px; font-weight: bold;">👥</span>
+                    </div>
+                    <div style="margin-left: 20px;">
+                        <p style="margin: 0 0 4px 0; font-size: 11px; opacity: 0.6; letter-spacing: 1px; text-transform: uppercase; color: #fff;">TOTAL VISITORS</p>
+                        <h4 style="margin: 0; font-weight: 700; font-size: 22px; color: #fff; line-height: 1;">@ViewBag.TotalVisitors</h4>
+                    </div>
+                </div>
+
+                <label for="drawerToggleCheckbox" style="display: flex; align-items: center; justify-content: space-between; background: rgba(255,255,255,0.06); padding: 12px 15px; border-radius: 8px; cursor: pointer; border: 1px solid rgba(0,203,198,0.2); box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: all 0.3s ease; user-select: none;">
+                    <div style="display: flex; align-items: center;">
+                        <div style="background: rgba(231, 76, 60, 0.2); width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-right: 15px; flex-shrink: 0;">
+                            <span style="color: #e74c3c; font-size: 18px;">📍</span>
+                        </div>
+                        <div>
+                            <p style="margin: 0 0 4px 0; font-size: 10px; opacity: 0.7; letter-spacing: 1px; text-transform: uppercase; color: #fff;">TOP LOCATION</p>
+                            <h5 style="margin: 0; font-size: 14px; font-weight: 600; color: #00cbc6; line-height: 1;">@ViewBag.TopLocation</h5>
+                        </div>
+                    </div>
+
+                    <div style="background: #00cbc6; color: #fff; width: 32px; height: 32px; border-radius: 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; box-shadow: 0 3px 8px rgba(0,203,198,0.3);">
+                        <span style="display: block; width: 14px; height: 2px; background: white; border-radius: 1px;"></span>
+                        <span style="display: block; width: 14px; height: 2px; background: white; border-radius: 1px;"></span>
+                        <span style="display: block; width: 14px; height: 2px; background: white; border-radius: 1px;"></span>
+                    </div>
+                </label>
+
+            </div>
+            <div id="locationDrawer" class="custom-side-drawer">
+
+                <div style="background: #7b1fa2; color: white; padding: 15px 20px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 5px rgba(0,0,0,0.1); flex-shrink: 0;">
+                    <h5 style="margin: 0; font-size: 15px; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                        📊 Visitor Logs (Ashok Jewellery Art)
+                    </h5>
+                    <label for="drawerToggleCheckbox" style="color: white; font-size: 28px; cursor: pointer; line-height: 1; opacity: 0.8; padding: 2px 8px;">&times;</label>
+                </div>
+
+                <div style="flex: 1; padding: 15px; background: #f8f9fa; display: flex; flex-direction: column; overflow: hidden;">
+
+                    <div class="table-scroll-zone" style="height: 290px !important; max-height: 290px !important; overflow-y: scroll !important; overflow-x: auto !important; border: 1px solid #dee2e6; border-radius: 8px; background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+
+                        <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 12px; margin: 0; table-layout: fixed;">
+
+                            <thead style="position: sticky; top: 0; background: #343a40; z-index: 99;">
+                                <tr style="color: white;">
+                                    <th style="padding: 10px; width: 35px; text-align: center; background: #343a40;">#</th>
+                                    <th style="padding: 10px; width: 110px; background: #343a40;">IP Address</th>
+                                    <th style="padding: 10px; width: 110px; background: #343a40;">Location</th>
+                                    <th style="padding: 10px; width: 130px; background: #343a40;">Visit Date & Time</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @if (ViewBag.AllLocationsList != null)
+                                {
+                                    int index = 1;
+                                    foreach (var log in (List<Dictionary<string, string>>)ViewBag.AllLocationsList)
+                                    {
+                                        <tr style="border-bottom: 1px solid #dee2e6;">
+                                            <td style="padding: 10px; text-align: center; font-weight: bold; color: #666; background: #fdfdfd;">@index</td>
+                                            <td style="padding: 10px; word-wrap: break-word; white-space: normal;"><code style="color: #e83e8c; font-family: monospace; font-size: 11px; font-weight: 600;">@log["Ip"]</code></td>
+                                            <td style="padding: 10px; word-wrap: break-word; white-space: normal; color: #333; font-weight: 500;">📍 @log["Loc"]</td>
+                                            <td style="padding: 10px; color: #666; font-size: 11px;">
+                                                @(log.ContainsKey("Date") ? log["Date"] : DateTime.Now.ToString("dd-MM-yyyy hh:mm tt"))
+                                            </td>
+                                        </tr>
+                                        index++;
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="4" style="padding: 25px; text-align: center; color: #dc3545; font-weight: bold;">No records found.</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+          
+            <!-- SIDEBAR LIVE ANALYTICS SECTION END -->
+            <ul class="nav-links">
+                <li class="active">
+                    <!-- Products Tab -->
+                    <a id="prodLink" href="javascript:void(0)" onclick="switchSection('productInventorySection')">Products</a>
+                </li>
+                <li>
+                    <!-- Multi-Products Tab -->
+                    <a id="multiProdLink" href="javascript:void(0)" onclick="switchSection('multiProductsSection')">Multi-Products</a>
+                </li>
+                <li>
+                    <!-- Orders Tab -->
+                    <a id="ordLink" href="javascript:void(0)" onclick="switchSection('ordersSection')">Orders</a>
+                </li>
+                <li>
+                    <!-- Calculator Tab -->
+                    <a id="calcLink" href="javascript:void(0)" onclick="switchSection('calculatorSection')">Price Calculator</a>
+                </li>
+                <li>
+                    <!-- Settings Tab -->
+                    <a class="settings-card-box" id="settingTabBtn" href="javascript:void(0)" onclick="switchSection('settingsSection')">Settings</a>
+                </li>
+               
+            </ul>
+        </nav>
+        </div>
+
+       <main class="main-content">
+        <div class="top-nav-wrapper" >
+                <a href="/" class="back-home-btn">
+                    <span class="arrow-icon">←</span> Back to Home
+                </a>
+            </div>
+        <div id="productInventorySection">
+            <header class="content-header">
+                <h2>Product Inventory</h2>
+                <div class="admin-welcome-badge">
+                    <span class="welcome-text">Welcome,</span>
+                    <span class="admin-name">ADMIN</span>
+                    <span class="verified-icon">
+                        <svg viewBox="0 0 24 24" width="16" height="16">
+                            <path fill="currentColor" d="M23,12L20.56,9.22L20.9,5.54L17.29,4.72L15.4,1.54L12,3L8.6,1.54L6.71,4.72L3.1,5.53L3.44,9.21L1,12L3.44,14.78L3.1,18.47L6.71,19.29L8.6,22.47L12,21L15.4,22.46L17.29,19.28L20.9,18.46L20.56,14.78L23,12M10,17L6,13L7.41,11.59L10,14.17L16.59,7.58L18,9L10,17Z"></path>
+                        </svg>
+                    </span>
+                </div>
+            </header>
+
+        
+
+        <!-- NEW DIRECT UPLOAD SECTION START-->
+            <div class="admin-card mt-5 shadow-lg">
+                <div class="admin-header">
+                    <h3><i class="fas fa-gem me-2"></i> DIRECT UPLOAD - ASHOK JEWELLERY ART</h3>
+                </div>
+    
+                <div class="admin-body">
+                    <div class="row g-4">
+                        <!-- Image Upload Box -->
+                        <div class="col-md-4">
+                            <div class="upload-wrapper">
+                                <label for="direct-image" class="upload-box" id="drop-area">
+                                    <input type="file" id="direct-image" hidden accept="image/*" onchange="previewDirectImage(event)">
+                                    <div id="preview-content" class="text-center">
+                                        <i class="fas fa-cloud-upload-alt fa-3x mb-3 text-success"></i>
+                                        <p class="mb-2 fw-bold">Ready to add new item?</p>
+                                        <span class="upload-btn-styled">CHOOSE PHOTO</span>
+                                    </div>
+                                    <img id="direct-preview" class="img-fluid d-none shadow-sm rounded">
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Inputs Section -->
+                        <div class="col-md-8">
+                            <div class="row g-3">
+                                <!-- Collection Dropdown -->
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Select Collection</label>
+                                    <select id="direct-collection" class="form-select custom-input" onchange="toggleGemstoneView()">
+                                        <!-- Gold Categories -->
+                                        <optgroup label="Gold Collection">
+                                            <option value="Gold">General Gold Collection</option>
+                                            <option value="Gold Bangles">Gold Bangles</option>
+                                            <option value="Gold Chains">Gold Chains</option>
+                                            <option value="Gents Rings">Gents Rings</option>
+                                            <option value="Kids Bracelet">Kids Bracelet</option>
+                                            <option value="Kids Mangati">Kids Mangati</option>
+                                            <option value="Gold Earring">Gold Earring</option>
+                                            <option value="Kids Ring">Kids Ring</option>
+                                            <option value="Gold Mangalsutra">Gold Mangalsutra</option>
+                                            <option value="Mangalsutra Pendants">Mangalsutra Pendants</option>
+                                            <option value="Gold Coins">Gold Coins</option>
+                                            <option value="Ladies Rings">Ladies Rings</option>
+                                            <option value="Gold Bracelets">Gold Bracelets</option>
+                                            <option value="Gold Pendants">Gold Pendants</option>
+                                            <option value="Gold Necklace">Gold Necklace</option>
+                                            <option value="Dorle Pendant">Dorle Pendant</option>
+                                            <option value="Jhumka">Jhumka</option>
+                                            <option value="Patta Mangalsutra">Patta Mangalsutra</option>
+                                            <option value="Bridal Necklace">Bridal Necklace</option>
+                                            <option value="Gold Tops">Gold Tops</option>
+                                            <option value="Nath">Nath</option>
+                                            <option value="Short Poth">Short Poth</option>
+                                            <option value="Rounded Ring">Rounded Ring</option>
+                                            <option value="Ranihaar">Ranihaar</option>
+                                            <option value="Laxmi Har">Laxmi Har</option>
+                                            <option value="Bormani Maal">Bormani Maal</option>
+                                            <option value="Pohehaar">Pohehaar</option>
+                                            <option value="Kanthi Choker">Kanthi Choker</option>
+                                            <option value="EarChain">EarChain</option>
+                                            <option value="Nosepins">Nosepins</option>
+                                            <option value="Basket Earrings">Basket Earrings</option>
+                                            <option value="RoseGold Ring">RoseGold Ring</option>
+                                        </optgroup>
+
+                                        <!-- Silver Categories -->
+                                        <optgroup label="Silver Collection">
+                                            <option value="Silver">General Silver Collection</option>
+                                            <option value="Silver Earrings">Silver Earrings</option>
+                                            <option value="Silver Utensils">Silver Utensils</option>
+                                            <option value="Pooja Items">Pooja Items</option>
+                                            <option value="Silver Idol">Silver Idol</option>
+                                            <option value="Silver Studs">Silver Studs</option>
+                                            <option value="Silver Articles">Silver Articles</option>
+                                            <option value="Silver Anklets">Silver Anklets</option>
+                                            <option value="Silver Karanda">Silver Karanda</option>
+                                            <option value="Silver Door Hanging">Silver Door Hanging</option>
+                                            <option value="Silver Gents Rings">Silver Gents Rings</option>
+                                            <option value="Silver Ladies Rings">Silver Ladies Rings</option>
+                                            <option value="Silver Kids Rings">Silver Kids Rings</option>
+                                            <option value="Silver Nosepins">Silver Nosepins</option>
+                                            <option value="Silver Bracelets">Silver Bracelets</option>
+                                            <option value="Silver Kids Bracelets">Silver Kids Bracelets</option>
+                                            <option value="Silver Pendants">Silver Pendants</option>
+                                            <option value="Silver Bangles">Silver Bangles</option>
+                                            <option value="Chain Anklets">Chain Anklets</option>
+                                            <option value="Silver Chains">Silver Chains</option>
+                                            <option value="Silver Toe Rings">Silver Toe Rings</option>
+                                            <option value="Silver Kambarpatta">Silver Kambarpatta</option>
+                                            <option value="Silver Krishna Saaj">Silver Krishna Saaj</option>
+                                            <option value="Silver Karnful">Silver Karnful</option>
+                                            <option value="Silver Coins">Silver Coins</option>
+                                        </optgroup>
+
+                                        <!-- Diamond Categories -->
+                                        <optgroup label="Diamond Collection">
+                                            <option value="Diamond">General Diamond Collection</option>
+                                            <option value="Diamond Rings">Diamond Rings</option>
+                                            <option value="Diamond Earrings">Diamond Earrings</option>
+                                            <option value="Diamond Bracelets">Diamond Bracelets</option>
+                                            <option value="Diamond Pendants">Diamond Pendants</option>
+                                            <option value="Diamond Bangles">Diamond Bangles</option>
+                                            <option value="Diamond Mangalsutra">Diamond Mangalsutra</option>
+                                        </optgroup>
+
+                                        <!-- Gemstone Categories -->
+                                        <optgroup label="Gemstone Collection">
+                                            <option value="Gemstone">General Gemstone Collection</option>
+                                            <option value="Gemstones">Gemstones</option>
+                                            <option value="Gemstone Rings">Gemstone Rings</option>
+                                            <option value="Emerald Special">Emerald Special</option>
+                                            <option value="Gemstone Pendants">Gemstone Pendants</option>
+                                            <option value="Gemstone Bracelets">Gemstone Bracelets</option>
+                                        </optgroup>
+
+                                        <!-- Other Collections -->
+                                        <optgroup label="Other Collections">
+                                            <option value="DailyWear">Daily Wear Collection</option>
+                                            <option value="New Arrival">New Arrival</option>
+                                            <option value="Trending">Trending Collection</option>
+                                            <option value="1 Gram Gold">1 Gram Gold</option>
+                                            <option value="Bridal">Bridal Collection</option>
+                                        </optgroup>
+                                    </select>
+                                </div>
+                               
+                                <!--metal type-->
+                                <div class="col-md-6" id="metal-type-section">
+                                    <label class="form-label fw-bold">Select Metal</label>
+                                    <select id="direct-metal-type" name="MetalType" class="form-select custom-input">
+                                        <option value="Gold">Gold</option>
+                                        <option value="Silver">Silver</option>
+                                        <option value="Diamond">Diamond</option>
+                                        <option value="Gemstone">Gemstone</option>
+                                        <option value="Rose Gold">Rose Gold</option>
+                                    </select>
+                                </div>
+                                <!-- Material Type Dropdown -->
+                                <div class="col-md-6" id="material-section">
+                                    <label class="form-label fw-bold">Material Type</label>
+                                    <select id="direct-material" name="MaterialType" class="form-select custom-input" oninput="calculatePrice()" >
+                                     <!-- Gold Options -->
+                                        <option value="24K">24K Gold</option>
+                                           <option value="22K">22K Gold</option>
+                                      <option value="18K">18K Gold</option>
+                                      <option value="14K">14K Gold</option>
+        
+                                     <!-- Silver Options -->
+                                            <option value="925 Silver">925 Sterling Silver</option>
+                                          <option value="999 Silver">999 Pure Silver</option>
+                                          <option value="Chandi">Normal Silver (Chandi)</option>
+                                           <option value="Silver">Silver</option>
+
+                                   <!-- Diamond Options -->
+                                   <option value="VVS-EF">VVS - EF (Diamond)</option>
+                                     <option value="VVS-GH">VVS - GH (Diamond)</option>
+                                           <option value="VS-GH">VS - GH (Diamond)</option>
+                                      <option value="SI-HI">SI - HI (Diamond)</option>
+
+                                    <!-- Gemstone Options (Requested List) -->
+                                 <option value="Emerald">Emerald (Panna)</option>
+                                  <option value="Ruby">Ruby (Manik)</option>
+                                  <option value="Yellow Sapphire">Yellow Sapphire (Pukhraj)</option>
+                                  <option value="Blue Sapphire">Blue Sapphire (Neelam)</option>
+                                     <option value="Hessonite">Hessonite (Gomed)</option>
+                                   <option value="Pearl">Pearl (Moti)</option>
+                                    <option value="Amethyst">Amethyst</option>
+                                   <option value="Navratna">Navratna (9 Gems)</option>
+                                   <option value="Other Gemstone">Other Gemstone</option>
+
+                                     <!-- Other -->
+                                    <option value="Other">Other (Manual)</option>
+                                       </select>
+                                </div>
+                              
+
+                                <!-- Product Title -->
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Product Title</label>
+                                    <input list="product-suggestions" id="direct-title" class="form-control custom-input" placeholder="Type or Select Product Name" autocomplete="off">
+                                    <datalist id="product-suggestions">
+                                        <option value="1 Gram Gold"></option>
+                                        <option value="Amethyst (Jamuniya)"></option>
+                                        <option value="Anklets (Payal)"></option>
+                                        <option value="Bangles & Bracelets"></option>
+                                        <option value="Basket Rings"></option>
+                                        <option value="Bor Mani Maal (Berry Beads)"></option>
+                                        <option value="Bridal Collection"></option>
+                                        <option value="Chains"></option>
+                                        <option value="Chokers (Kanthi)"></option>
+                                        <option value="Coral (Moonga)"></option>
+                                        <option value="Daily Wear"></option>
+                                        <option value="Diamond Mangalsutra"></option>
+                                        <option value="Diamond Necklaces"></option>
+                                        <option value="Earrings"></option>
+                                        <option value="Emerald (Panna)"></option>
+                                        <option value="Gomed (Hessonite)"></option>
+                                        <option value="Gold Coin"></option>
+                                        <option value="Jhumkas"></option>
+                                        <option value="Karnphul (Earflowers)"></option>
+                                        <option value="Krishna Saaj"></option>
+                                        <option value="Kumkum Box (Karanda)"></option>
+                                        <option value="Mangal Oval"></option>
+                                        <option value="Mangalsutra"></option>
+                                        <option value="Navratna Set"></option>
+                                        <option value="Necklace"></option>
+                                        <option value="Nose Stud (Nath)"></option>
+                                        <option value="Nosepins"></option>
+                                        <option value="Oanes Emerald"></option>
+                                        <option value="Party Wear"></option>
+                                        <option value="Pearl (Moti)"></option>
+                                        <option value="Pendant"></option>
+                                        <option value="Ranihaar (Queen Necklace)"></option>
+                                        <option value="Ring"></option>
+                                        <option value="Ruby (Manik)"></option>
+                                        <option value="Sapphire (Neelam)"></option>
+                                        <option value="Short Mangalsutra"></option>
+                                        <option value="Silver Coins"></option>
+                                        <option value="Silver Idols"></option>
+                                        <option value="Silver Utensils"></option>
+                                        <option value="Solitaire Ring"></option>
+                                        <option value="Studs & Tops"></option>
+                                        <option value="Toe Rings (Bichhiya)"></option>
+                                        <option value="Toran (Door Hanging)"></option>
+                                        <option value="Waist Belts (Kambar Patta)"></option>
+                                        <option value="Wedding Rings"></option>
+                                        <option value="Wedding Wear"></option>
+                                    </datalist>
+                                </div>
+                                <!-- Weight with Incremental Dropdown + Manual -->
+                                <!-- 1. Grams Section (for Gold/Silver ) -->
+                                <div class="col-md-6" id="weight-grams-section" style="display: block;">
+                                    <label class="form-label fw-bold">Weight (Grams)</label>
+                                    <input list="weight-options" id="direct-weight" class="form-control custom-input" placeholder="Select or Type Weight" oninput="calculatePrice()" >
+                                    <datalist id="weight-options"></datalist>
+                                </div>
+
+                                <!-- 2. Carat Section (Gemstone ) -->
+                                <div class="col-md-6" id="weight-carat-section" style="display: none;">
+                                    <label class="form-label fw-bold">Weight (Carats)</label>
+                                    <div class="input-group">
+                                        <input list="carat-options" id="direct-carat" class="form-control custom-input" placeholder="Type weight or select..." oninput="calculateInstantPrice()">
+                                        <span class="input-group-text">ct</span>
+        
+                                        <datalist id="carat-options">
+                                            <option value="1.00">1.00 ct (Ek Carat)</option>
+                                            <option value="1.25">1.25 ct (Sava Ratti)</option>
+                                            <option value="1.50">1.50 ct (Dedh Carat)</option>
+                                            <option value="2.00">2.00 ct (Do Carat)</option>
+                                            <option value="2.25">2.25 ct</option>
+                                            <option value="3.25">3.25 ct</option>
+                                            <option value="4.25">4.25 ct (Paune Paanch)</option>
+                                            <option value="5.25">5.25 ct (Sava Paanch)</option>
+                                        </datalist>
+                                    </div>
+                                    <small class="text-muted" style="font-size: 10px;">*Admin manual type bhi kar sakte hain (e.g. 1.10, 2.50)</small>
+                                </div>
+
+                                <!--diamond dropdown open-->
+                                <div class="col-md-6" id="weight-diamond-section" style="display: none;">
+                                    <label class="form-label fw-bold">Diamond Weight (Carats)</label>
+                                    <div class="input-group">
+                                        <input list="diamond-carat-options" id="direct-diamond-carat" class="form-control custom-input" placeholder="Type weight (e.g. 1.05)" oninput="calculatePrice()">
+                                        <span class="input-group-text bg-dark text-white">ct</span>
+        
+                                        <datalist id="diamond-carat-options">
+                                            <option value="0.50">0.50 ct</option>
+                                            <option value="1.00">1.00 ct</option>
+                                            <option value="1.50">1.50 ct</option>
+                                            <option value="2.00">2.00 ct</option>
+                                            <option value="2.50">2.50 ct</option>
+                                        </datalist>
+                                    </div>
+                                    <small class="text-muted" style="font-size: 10px;">*Aap yahan koi bhi weight manually type kar sakte hain.</small>
+                                </div>
+                                <!--GENDER-->
+                              <div class="form-group mb-3">
+                                      <label style="font-weight: bold;">Select Gender</label>
+                                   <select name="pGender" id="pGender" class="form-control" style="height: 40px; border: 1px solid #ced4da;">
+                                     <option value="Women">Women</option>
+                                     <option value="Men">Men</option>
+                                     <option value="Kids">Kids</option>
+                                     <option value="Unisex" selected>Unisex</option>
+                                   </select>
+                              </div>
+                                <!--price calculation-->
+                                <div class="col-md-6 mt-3">
+                                    <div class="rate-input-wrapper mb-3" style="max-width: 300px;">
+                                        <label class="form-label fw-bold text-muted mb-1" style="font-size: 12px; letter-spacing: 0.5px;">
+                                            MARKET RATE (1G)
+                                        </label>
+                                        <div class="input-group input-group-sm">
+                                            <span class="input-group-text bg-white border-gold text-gold" style="border-color: #d4af37; color: #d4af37;">₹</span>
+                                            <input type="number" id="manual-live-rate"
+                                                   class="form-control border-gold"
+                                                   style="border-color: #d4af37; font-weight: bold;"
+                                                   placeholder="0.00" oninput="calculatePrice()">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Price Display -->
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Estimated Price (₹)</label>
+                                    <div class="price-tag">
+                                        <span id="direct-price">₹ 0</span>
+                                    </div>
+                                </div>
+
+                                <!-- Action Buttons -->
+                                <div class="col-md-6 d-flex align-items-end gap-2">
+                                    <button class="btn btn-gold w-100 p-2" onclick="saveDirectProduct()">
+                                        <i class="fas fa-check-circle me-1"></i> DONE & SAVE
+                                    </button>
+                                    <!--Clear Button-->
+                                    <button class="btn btn-clear-custom w-100 p-2" onclick="resetAdminForm()">
+                                        <i class="fas fa-undo-alt me-1"></i> CLEAR FORM
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+       
+            
+
+           
+                <!--TABLE sECTION START-->
+                <section class="admin-card" style="margin-bottom: 20px; background: #fdfaf3;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+
+                        <h3 style="margin: 0;">Current Inventory</h3>
+
+                        <div style="display: flex; gap: 8px;">
+        
+                            <!-- Refresh Button -->
+                            <button onclick="refreshInventory()" class="btn-gold-outline" title="Reset Search">
+                                <span style="font-size: 16px;">&#8635;</span> Refresh
+                            </button>
+
+                            <!-- See All Button -->
+                            <button id="seeAllBtn" onclick="toggleInventoryView()" class="btn-gold-outline">
+                                See All
+                            </button>
+
+                        </div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 15px; margin-bottom: 20px;">
+    
+                        <div style="flex: 1; min-width: 300px; display: flex; flex-direction: column; gap: 5px;">
+                            <div style="display: flex; gap: 10px;">
+                                <input type="text" id="inventorySearch"
+                                       onkeypress="handleSearchKeyPress(event)"
+                                       autocomplete="off"
+                                       placeholder="Search by ID, Name, Date (DD-MM-YYYY), or Weight..."
+                                       style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #b0914f; background: #fff; color: #333; font-size: 14px;">
+                                <button type="button" onclick="searchInventory()" class="btn-search">SEARCH</button>
+                            </div>
+        
+                        <p id="note" style="margin: 0; font-size: 11px; color: #666; font-style: italic; padding-left: 5px; line-height: 1.5; width: 100%;">
+                            <span style="display: block;"><u>(Note:</u> Type '#' before number to search by ID.)</span>
+                            <span style="display: block;"><u>Note:</u> Type 'M-' before number to search by METAL.</span>
+                            <span style="display: block;"><u>Note:</u> Type 'C-' before number to search by CATEGORY.</span>
+                        </p>
+                        </div>
+
+                        <div class="total-badge" style="background: #87CEEB; color: black; padding: 10px 20px; border-radius: 50px; font-weight: bold;">
+                            Total Items: <span id="totalCount">@Model.Rows.Count</span>
+                        </div>
+                    </div>
+                    
+                    <div id="inventoryWrapper" class="inventory-scroll-container">
+                        <table class="inventory-table" id="invTable" style="table-layout: fixed; width: 100%; border-collapse: collapse;">
+                            
+                            <thead>
+                            <tr>
+                                    <th style="width: 40px;">SR.</th>
+                                    <th style="width: 50px;">ID</th>
+                                    <th style="width: 100px; white-space: nowrap;">DATE</th>
+                                    <th style="width: 60px;">IMAGE</th>
+                                    <th style="width: 80px; color: #555; text-align: left;">METAL</th>
+                                    <th style="text-align: left; padding-left: 10px;">PRODUCT NAME</th>
+                                    <th style="width: 70px;">WEIGHT</th>
+                                    <th style="width: 100px;">PRICE</th>
+                                    <th style="width: 110px;">CATEGORY</th>
+                                    <th style="width: 140px;">ACTIONS</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null && Model.Rows.Count > 0)
+                                {
+                                    int srNo = 1;
+                                    foreach (System.Data.DataRow row in Model.Rows)
+                                    {
+                                        
+                                    <tr data-product-id="@row["Id"]">
+                                                        <td>@(srNo++)</td>
+                                                        <td>#@row["Id"]</td>
+                                        <td style="white-space: nowrap;">
+                                            @(row["CreatedAt"] != DBNull.Value ? Convert.ToDateTime(row["CreatedAt"]).ToString("dd-MM-yyyy") : "-")
+                                        </td>
+                                        @*<td style="white-space: nowrap;">@row["CreatedAt"] !=DBNull.Value?@Convert.ToDateTime(row["CreatedAt"]).ToString("dd-MM-yyyy") : "-"</td>*@
+                                                        <td><img src="@row["ImageURL"]" style="width:40px; height:40px; object-fit:cover;"></td>
+                                        <td style="font-weight: bold; color: #d4af37; text-align: left;">
+                                            @(row["MetalType"] != DBNull.Value && row["MetalType"] != null ? row["MetalType"].ToString() : "-")
+                                        </td>
+
+                                            <td style="text-align: left; padding-left: 10px; ">@row["Name"]</td>
+                
+                                                        <td>@row["Weight"]</td>
+                
+                                        <td>
+                                            ₹@(row["Price"] != DBNull.Value ? Convert.ToDecimal(row["Price"]).ToString("N0") : "0")
+                                        </td>
+                                            <td style="text-transform: capitalize; color:darkcyan;font-weight:bold;">
+                                                            @if (row["Category"] != DBNull.Value && !string.IsNullOrEmpty(row["Category"].ToString()))
+                                                            {
+                                                                @row["Category"]
+                                                            }
+                                                            else
+                                                            {
+                                                                <span>-</span>
+                                                            }
+                                            </td>
+
+                                                        <td>
+                                                            <div style="display: flex; gap: 5px; justify-content: center;">
+                                                               <button type="button" class="btn-update" 
+                                                                         onclick="handleUpdate(
+                                                                        '@row["Id"]', 
+                                                                          '@(row["Name"]?.ToString()?.Replace("'", "\\'") ?? "")', 
+                                                                        '@(row["Weight"] ?? "")', 
+                                                                       '@(row["Price"] ?? "")', 
+                                                                      '@(row["MetalType"] ?? "")', 
+                                                                       '@(row["Category"] ?? "")', 
+                                                                      '@(row["MaterialType"] ?? "")'
+                                                                                         )">
+                                                                                      Update
+                                                                                   </button>
+                                                <button type="button" class="btn-delete" onclick="handleDelete('@row["Id"]')">
+                                                                    Delete
+                                                                </button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                    } 
+                                }
+                            </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+
+        <!--NEW DIRECT UPLOAD SECTION ENDED-->
+
+    
+       
+            <div id="ordersSection" style="display: none; padding: 20px;">
+                <section class="admin-card">
+                    <div class="no-data-view">
+                        <div class="no-data-icon">📦</div>
+                        <h3>No Any Data</h3>
+                        <p>Currently, there are no active orders to display in the management panel.</p>
+                    </div>
+                </section>
+            </div>
+
+        <!-- MULTI PRODUCTS UPLOAD SECTION START -->
+        <div id="multiProductsSection" class="admin-card mt-5 shadow-lg" style="display: none; background: #fff; border-radius: 10px; padding: 15px 12px; box-sizing: border-box; width: 100%;">
+            <div class="admin-header" style="margin-bottom: 12px; border-bottom: 2px solid #f1f1f1; padding-bottom: 8px;">
+                <h3 style="margin: 0; font-size: 1.25rem;"><i class="fas fa-layer-group me-2"></i> MULTI UPLOAD - ASHOK JEWELLERY ART</h3>
+            </div>
+
+            <div class="admin-body" style="padding: 0; width: 100%; box-sizing: border-box;">
+
+                <!-- Form Fields Stack -->
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; margin-bottom: 8px; width: 100%;">
+
+                    <!-- Collection Dropdown -->
+                    <div style="width: 320px; max-width: 100%; text-align: left;">
+                        <label style="font-weight: 700; font-size: 11px; color: #666; margin-bottom: 3px; display: block;">Collection</label>
+                        <select id="multi-collection" class="form-select" onchange="handleMultiCollectionChange()" style="width: 320px !important; max-width: 100% !important; height: 36px; border-radius: 6px; border: 1px solid #ced4da; padding: 4px 10px; background-color: #fff;">
+                            <!-- Gold Categories -->
+                            <optgroup label="Gold Collection">
+                                <option value="Gold">General Gold Collection</option>
+                                <option value="Gold Bangles">Gold Bangles</option>
+                                <option value="Gold Chains">Gold Chains</option>
+                                <option value="Gents Rings">Gents Rings</option>
+                                <option value="Kids Bracelet">Kids Bracelet</option>
+                                <option value="Kids Mangati">Kids Mangati</option>
+                                <option value="Gold Earring">Gold Earring</option>
+                                <option value="Kids Ring">Kids Ring</option>
+                                <option value="Gold Mangalsutra">Gold Mangalsutra</option>
+                                <option value="Mangalsutra Pendants">Mangalsutra Pendants</option>
+                                <option value="Gold Coins">Gold Coins</option>
+                                <option value="Ladies Rings">Ladies Rings</option>
+                                <option value="Gold Bracelets">Gold Bracelets</option>
+                                <option value="Gold Pendants">Gold Pendants</option>
+                                <option value="Gold Necklace">Gold Necklace</option>
+                                <option value="Dorle Pendant">Dorle Pendant</option>
+                                <option value="Jhumka">Jhumka</option>
+                                <option value="Patta Mangalsutra">Patta Mangalsutra</option>
+                                <option value="Bridal Necklace">Bridal Necklace</option>
+                                <option value="Gold Tops">Gold Tops</option>
+                                <option value="Nath">Nath</option>
+                                <option value="Short Poth">Short Poth</option>
+                                <option value="Rounded Ring">Rounded Ring</option>
+                                <option value="Ranihaar">Ranihaar</option>
+                                <option value="Laxmi Har">Laxmi Har</option>
+                                <option value="Bormani Maal">Bormani Maal</option>
+                                <option value="Pohehaar">Pohehaar</option>
+                                <option value="Kanthi Choker">Kanthi Choker</option>
+                                <option value="EarChain">EarChain</option>
+                                <option value="Nosepins">Nosepins</option>
+                                <option value="Basket Earrings">Basket Earrings</option>
+                                <option value="RoseGold Ring">RoseGold Ring</option>
+                            </optgroup>
+
+                            <!-- Silver Categories -->
+                            <optgroup label="Silver Collection">
+                                <option value="Silver">General Silver Collection</option>
+                                <option value="Silver Earrings">Silver Earrings</option>
+                                <option value="Silver Utensils">Silver Utensils</option>
+                                <option value="Pooja Items">Pooja Items</option>
+                                <option value="Silver Idol">Silver Idol</option>
+                                <option value="Silver Studs">Silver Studs</option>
+                                <option value="Silver Articles">Silver Articles</option>
+                                <option value="Silver Anklets">Silver Anklets</option>
+                                <option value="Silver Karanda">Silver Karanda</option>
+                                <option value="Silver Door Hanging">Silver Door Hanging</option>
+                                <option value="Silver Gents Rings">Silver Gents Rings</option>
+                                <option value="Silver Ladies Rings">Silver Ladies Rings</option>
+                                <option value="Silver Kids Rings">Silver Kids Rings</option>
+                                <option value="Silver Nosepins">Silver Nosepins</option>
+                                <option value="Silver Bracelets">Silver Bracelets</option>
+                                <option value="Silver Kids Bracelets">Silver Kids Bracelets</option>
+                                <option value="Silver Pendants">Silver Pendants</option>
+                                <option value="Silver Bangles">Silver Bangles</option>
+                                <option value="Chain Anklets">Chain Anklets</option>
+                                <option value="Silver Chains">Silver Chains</option>
+                                <option value="Silver Toe Rings">Silver Toe Rings</option>
+                                <option value="Silver Kambarpatta">Silver Kambarpatta</option>
+                                <option value="Silver Krishna Saaj">Silver Krishna Saaj</option>
+                                <option value="Silver Karnful">Silver Karnful</option>
+                                <option value="Silver Coins">Silver Coins</option>
+                            </optgroup>
+
+                            <!-- Diamond Categories -->
+                            <optgroup label="Diamond Collection">
+                                <option value="Diamond">General Diamond Collection</option>
+                                <option value="Diamond Rings">Diamond Rings</option>
+                                <option value="Diamond Earrings">Diamond Earrings</option>
+                                <option value="Diamond Bracelets">Diamond Bracelets</option>
+                                <option value="Diamond Pendants">Diamond Pendants</option>
+                                <option value="Diamond Bangles">Diamond Bangles</option>
+                                <option value="Diamond Mangalsutra">Diamond Mangalsutra</option>
+                            </optgroup>
+
+                            <!-- Gemstone Categories -->
+                            <optgroup label="Gemstone Collection">
+                                <option value="Gemstone">General Gemstone Collection</option>
+                                <option value="Gemstones">Gemstones</option>
+                                <option value="Gemstone Rings">Gemstone Rings</option>
+                                <option value="Emerald Special">Emerald Special</option>
+                                <option value="Gemstone Pendants">Gemstone Pendants</option>
+                                <option value="Gemstone Bracelets">Gemstone Bracelets</option>
+                            </optgroup>
+
+                            <!-- Other Collections -->
+                            <optgroup label="Other Collections">
+                                <option value="DailyWear">Daily Wear Collection</option>
+                                <option value="New Arrival">New Arrival</option>
+                                <option value="Trending">Trending Collection</option>
+                                <option value="1 Gram Gold">1 Gram Gold</option>
+                                <option value="Bridal">Bridal Collection</option>
+                            </optgroup>
+                        </select>
+                    </div>
+
+                    <!-- Select Metal Type (Fixed alignment) -->
+                    <div style="width: 320px; max-width: 100%; text-align: left; margin: 0 auto;">
+                        <label style="font-weight: 700; font-size: 11px; color: #666; margin-bottom: 3px; display: block;">Select Metal</label>
+                        <select id="multi-metal-type" class="form-select" style="width: 320px !important; max-width: 100% !important; height: 36px; border-radius: 6px; border: 1px solid #ced4da; padding: 4px 10px; background-color: #fff; float: none !important; position: static !important; display: block !important;">
+                            <option value="">-- Choose Metal --</option>
+                            <option value="Gold">Gold</option>
+                            <option value="Silver">Silver</option>
+                            <option value="Diamond">Diamond</option>
+                            <option value="Gemstone">Gemstone</option>
+                            <option value="Rose Gold">Rose Gold</option>
+                        </select>
+                    </div>
+
+                    <!-- Material Type Dropdown -->
+                    <div style="width: 320px; max-width: 100%; text-align: left;">
+                        <label style="font-weight: 700; font-size: 11px; color: #666; margin-bottom: 3px; display: block;">Material Type</label>
+                        <select id="multi-material" class="form-select" onchange="updateMultiQualityOptionsByMetal()" style="width: 320px !important; max-width: 100% !important; height: 36px; border-radius: 6px; border: 1px solid #ced4da; padding: 4px 10px; background-color: #fff;">
+                          <!-- Gold Options -->
+        <option value="24K">24K Gold</option>
+        <option value="22K" selected>22K Gold</option>
+        <option value="18K">18K Gold</option>
+        <option value="14K">14K Gold</option>
+        <option value="1 Gram Gold">1 Gram Gold</option>
+        
+        <!-- Silver Options -->
+        <option value="925 Silver">925 Sterling Silver</option>
+        <option value="999 Silver">999 Pure Silver</option>
+        <option value="Chandi">Normal Silver (Chandi)</option>
+        
+        <!-- Diamond Clarity Options -->
+        <option value="VVS-EF">VVS - EF (Diamond)</option>
+        <option value="VVS-FG">VVS - FG (Diamond)</option>
+        <option value="SI-GH">SI - GH (Diamond)</option>
+        <option value="SI-IJ">SI - IJ (Diamond)</option>
+        
+        <!-- Gemstone Options -->
+        <option value="Emerald">Emerald (Panna)</option>
+        <option value="Ruby">Ruby (Manik / Manek)</option>
+        <option value="Yellow Sapphire">Yellow Sapphire (Pukhraj)</option>
+        <option value="Blue Sapphire">Blue Sapphire (Neelam)</option>
+        <option value="Hessonite">Hessonite (Gomed)</option>
+        <option value="Pearl">Pearl (Moti)</option>
+        <option value="Amethyst">Amethyst (Jamuniya)</option>
+        <option value="Navratna">Navratna (9 Gems)</option>
+        <option value="Onyx/Emerald">Onyx Emerald</option>
+        <option value="Mangal Oval">Mangal Oval</option>
+        <option value="Normal Manik">Normal Manik</option>
+        <option value="High Manik">High Quality Manik</option>
+        <option value="Other Gemstone">Other Gemstone</option>
+        
+        <!-- Other -->
+        <option value="Other">Other (Manual)</option>
+                        </select>
+                    </div>
+
+                    <!-- Product Title -->
+                    <div style="width: 320px; max-width: 100%; text-align: left;">
+                        <label style="font-weight: 700; font-size: 11px; color: #666; margin-bottom: 3px; display: block;">Product Title</label>
+                        <input list="product-suggestions" id="multi-title" class="form-control" placeholder="e.g. Ring, Chain" style="width: 320px !important; max-width: 100% !important; height: 36px; border-radius: 6px; border: 1px solid #ced4da; padding: 4px 10px; background-color: #fff;">
+                    </div>
+
+                    <!-- Gender -->
+                    <div style="width: 320px; max-width: 100%; text-align: left;">
+                        <label style="font-weight: 700; font-size: 11px; color: #666; margin-bottom: 3px; display: block;">Gender</label>
+                        <select id="multi-gender" class="form-select" style="width: 320px !important; max-width: 100% !important; height: 36px; border-radius: 6px; border: 1px solid #ced4da; padding: 4px 10px; background-color: #fff;">
+                            <option value="Women">Women</option>
+                            <option value="Men">Men</option>
+                            <option value="Kids">Kids</option>
+                            <option value="Unisex" selected>Unisex</option>
+                        </select>
+                    </div>
+
+                    <!-- Master Weight Input (Applies to all multi-rows) -->
+                    <div style="width: 320px; max-width: 100%; text-align: left;">
+                        <label id="multi-weight-label" style="font-weight: 700; font-size: 11px; color: #d4af37; margin-bottom: 3px; display: block;">APPLY SAME WEIGHT (Grams)</label>
+                        <input type="number" id="masterWeightInput" class="form-control" oninput="applyWeightToAllRows(this)" placeholder="0.000" step="0.001" style="width: 320px !important; max-width: 100% !important; height: 36px; border-radius: 6px; border: 1px solid #d4af37; padding: 4px 10px; background-color: #fff;">
+                    </div>
+                </div>
+
+                <div style="border-bottom: 1px solid #eee; margin: 10px 0;"></div>
+
+                <!-- Image Selection Box -->
+                <div style="width: 320px; max-width: 100%; margin: 0 auto 8px auto; text-align: center;">
+                    <label for="bulk-images-input" style="display: block; width: 100%; padding: 22px 15px; background: #fafafa; border: 2px dashed #28a745; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 11px; color: #28a745;">
+                        <i class="fas fa-images fa-xl d-block" style="margin-bottom: 4px;"></i>
+                        <i class="fas fa-plus-circle me-1"></i> ADD MULTI PRODUCTS (SELECT IMAGES)
+                        <input type="file" id="bulk-images-input" hidden multiple accept="image/*" onchange="processBulkImages(event)">
+                    </label>
+                    <p style="color: #6c757d; font-size: 10px; margin: 2px 0 0 0;">*Select multiple images from gallery.</p>
+                </div>
+
+                <!-- Dynamic Product Cards Container -->
+                <div id="bulk-cards-container" class="row g-2 mb-0" style="width: 100%;"></div>
+
+                <!-- Action Buttons Row -->
+                <div id="bulk-actions-row" class="d-none" style="width: 320px; max-width: 100%; margin: 5px auto -5px auto; padding-bottom: 10px; display: flex; gap: 10px;">
+                    <div style="width: 50%;">
+                        <button type="button" class="exact-upload-btn" onclick="uploadBulkProducts()">
+                            <i class="fas fa-cloud-upload-alt me-1"></i> UPLOAD ALL
+                        </button>
+                    </div>
+                    <div style="width: 50%;">
+                        <button type="button" class="exact-clear-btn" onclick="clearBulkSection()">
+                            <i class="fas fa-trash-alt me-1"></i> CLEAR ALL
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- CURRENT INVENTORY & TABLE SECTION (SEPARATE FULL-WIDTH BLOCK BELOW) -->
+        <div id="multiInventoryContainer" style="display: none;">
+            <div class="admin-card mt-5 pt-4" style="width: 100%; max-width: 100%; clear: both; display: block; box-sizing: border-box; background: #fdfaf3; padding: 20px; border-radius: 12px; border: 2px solid #d4af37;">
+
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; font-weight:700; flex-wrap: wrap; gap: 10px;">
+                    <h3 style="margin: 0; font-size: 1.15rem;">Current Inventory</h3>
+                    <div style="display: flex; gap: 8px;">
+                        <button onclick="refreshMultiInventory()" class="btn-gold-outline" title="Reset Search" style="padding: 6px 12px; font-size: 12px; border-radius: 6px;">
+                            <span style="font-size: 14px; font-weight:700;">&#8635;</span> Refresh
+                        </button>
+                        <button id="seeAllBtnMulti" onclick="toggleInventoryView()" class="btn-gold-outline" style="font-weight:700; padding: 6px 12px; font-size: 12px; border-radius: 6px;">See All</button>
+                    </div>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 15px; margin-bottom: 20px; width: 100%;">
+                    <div style="flex: 1; min-width: 260px; display: flex; flex-direction: column; gap: 5px;">
+                        <div style="display: flex; gap: 8px; width: 100%;">
+                            <input type="text" id="inventorySearchMulti"
+                                   onkeypress="handleMultiEnter(event)"
+                                   autocomplete="off"
+                                   placeholder="Search by ID, Name, Date, or Weight..."
+                                   style="flex: 1; min-width: 0; padding: 10px; border-radius: 8px; border: 1px solid #b0914f; background: #fff; color: #333; font-size: 13px;">
+                            <button type="button" onclick="searchInventoryMulti()" class="btn-search" style="padding: 10px 14px; font-size: 12px; font-weight: 700; white-space: nowrap;">SEARCH</button>
+                        </div>
+                        <p id="multiNote" style="margin: 0; font-size: 11px; color: #666; font-style: italic; padding-left: 5px; line-height: 1.4; width: 100%;">
+                            <span style="display: block;"><u>(Note:</u> Type '#' before number to search by ID.)</span>
+                            <span style="display: block;"><u>Note:</u> Type 'M-' before number to search by METAL.</span>
+                            <span style="display: block;"><u>Note:</u> Type 'C-' before number to search by CATEGORY.</span>
+                        </p>
+                    </div>
+                    <div class="total-badge" style="background: #87CEEB; color: black; padding: 8px 16px; border-radius: 50px; font-weight: bold; font-size: 12px;">
+                        Total Items: <span id="totalCountMulti">@Model.Rows.Count</span>
+                    </div>
+                </div>
+
+                <div id="inventoryWrapperMulti" class="inventory-scroll-container" >
+                    <table class="inventory-table" id="invTableMulti" style="table-layout: fixed; width: 100%; border-collapse: collapse;" >
+                        <thead style="position: sticky; top: 0; z-index: 5; background-color: #f8f9fa;">
+                            <tr style="background-color: #f8f9fa;">
+                                <th style="width: 45px; min-width: 45px; padding: 8px 6px; font-size: 11px; text-align: center; background-color: #f8f9fa;">SR.</th>
+                                <th style="width: 75px; min-width: 75px; padding: 8px 6px; font-size: 11px; text-align: center; background-color: #f8f9fa;">ID</th>
+                                <th style="width: 90px; min-width: 90px; padding: 8px 6px; font-size: 11px; text-align: center; background-color: #f8f9fa;">DATE</th>
+                                <th style="width: 60px; min-width: 60px; padding: 8px 6px; font-size: 11px; text-align: center; background-color: #f8f9fa;">IMAGE</th>
+                                <th style="width: 70px; min-width: 70px; padding: 8px 6px; font-size: 11px; text-align: left; background-color: #f8f9fa;">METAL</th>
+                                <th style="width: 150px; min-width: 150px; padding: 8px 6px; font-size: 11px; text-align: left; background-color: #f8f9fa;">PRODUCT NAME</th>
+                                <th style="width: 100px; min-width: 100px; padding: 8px 6px; font-size: 11px; text-align: center; background-color: #f8f9fa;">WEIGHT</th>
+                                <th style="width: 65px; min-width: 65px; padding: 8px 6px; font-size: 11px; text-align: center; background-color: #f8f9fa;">PRICE</th>
+                                <th style="width: 95px; min-width: 95px; padding: 8px 6px; font-size: 11px; text-align: center; background-color: #f8f9fa;">CATEGORY</th>
+                                <th style="width: 130px; min-width: 130px; padding: 8px 6px; font-size: 11px; text-align: center; background-color: #f8f9fa;">ACTIONS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null && Model.Rows.Count > 0)
+                            {
+                                int srNo = 1;
+                                foreach (System.Data.DataRow row in Model.Rows)
+                                {
+                                    <tr data-product-id="@row["Id"]">
+                                        <td style="padding: 8px 6px; font-size: 11px; text-align: center; vertical-align: middle; white-space: nowrap;">@(srNo++)</td>
+                                        <td style="padding: 8px 6px; font-size: 11px; text-align: center; vertical-align: middle; white-space: nowrap;">#@row["Id"]</td>
+                                        <td style="padding: 8px 6px; font-size: 11px; text-align: center; vertical-align: middle; white-space: nowrap;">@(row["CreatedAt"] != DBNull.Value ? Convert.ToDateTime(row["CreatedAt"]).ToString("dd-MM-yyyy") : "-")</td>
+                                        <td style="padding: 8px 6px; font-size: 11px; text-align: center; vertical-align: middle; white-space: nowrap;"><img src="@row["ImageURL"]" style="width:26px; height:26px; object-fit:cover; border-radius: 4px;"></td>
+                                        <td style="padding: 8px 6px; font-size: 11px; text-align: left; vertical-align: middle; white-space: nowrap; font-weight: bold; color: #d4af37;">
+                                            @(row["MetalType"] != null ? row["MetalType"].ToString() : "No Data")
+                                        </td>
+                                        <td style="padding: 8px 6px; font-size: 11px; text-align: left; vertical-align: middle; white-space: nowrap;">@row["Name"]</td>
+                                        <td style="padding: 8px 6px; font-size: 11px; text-align: center; vertical-align: middle; white-space: nowrap;">@row["Weight"]</td>
+                                        <td style="padding: 8px 6px; font-size: 11px; text-align: center; vertical-align: middle; white-space: nowrap;">₹@(row["Price"] != DBNull.Value ? Convert.ToDecimal(row["Price"]).ToString("N0") : "0")</td>
+                                        <td style="padding: 8px 6px; font-size: 11px; text-align: center; vertical-align: middle; white-space: nowrap; text-transform: capitalize; color:darkcyan;font-weight:bold;">@row["Category"]</td>
+                                        <td style="padding: 8px 6px; font-size: 11px; text-align: center; vertical-align: middle; white-space: nowrap;">
+                                            <div style="display: flex; gap: 4px; justify-content: center;">
+                                                <button type="button" class="btn-update" style="padding: 4px 6px; font-size: 10px;" onclick="handleUpdate('@row["Id"]', '@(row["Name"]?.ToString()?.Replace("'", "\\'"))', '@row["Weight"]', '@row["Price"]', '@row["MetalType"]', '@row["Category"]', '@row["MaterialType"]')">Update</button>
+                                                <button type="button" class="btn-delete" style="padding: 4px 6px; font-size: 10px;" onclick="handleDelete('@row["Id"]')">Delete</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- MULTI PRODUCTS UPLOAD SECTION END -->
+
+
+
+        <!-- CALCULATOR SECTION START -->
+        <div id="calculatorSection" style="display: none; padding: 30px; background: #fdfaf3;">
+            <!-- Section Title -->
+            <div style="margin-bottom: 30px; text-align: center;">
+                <h2 style="margin: 0; color: #1a3c34; font-family: 'Playfair Display', serif; font-size: 2.5rem; letter-spacing: 1px;">Price Calculator</h2>
+                <div style="width: 80px; height: 2px; background: #b0914f; margin: 10px auto;"></div>
+            </div>
+
+            <!-- Main Premium Card -->
+            <section style="max-width: 1000px; margin: 0 auto; background: #fff; border: 1.5px solid #b0914f; border-radius: 0px; box-shadow: 10px 10px 0px #1a3c34; padding: 40px; position: relative;">
+    
+              
+                <!-- Admin Calculator Header with Sync Dropdown -->
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+                    <h3 style="margin: 0; color: #b0914f; font-family: 'Playfair Display', serif;">Jewellery Price Estimation</h3>
+
+                    <!--switch on /off button-->
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+                        <span style="font-size: 12px; color: #1a3c34; font-weight: bold;">AUTO-CALCULATE:</span>
+                        <label class="switch">
+                            <input type="checkbox" id="autoCalcToggle">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+
+
+                    <!-- Today's Rate Dropdown -->
+                    <div class="rate-dropdown-container" id="rateDropdownContainer" style="position: relative; display: inline-block;">
+                        <button class="today-rates-btn" style="background: #1a3c34; color: #ffd700; padding: 10px 20px; border: 1px solid #b0914f; cursor: pointer; font-family: 'Playfair Display', serif; border-radius: 25px;">
+                            TODAY'S RATES <i class="fa fa-chevron-down"></i>
+                        </button>
+    
+                        <div class="rate-dropdown-content" style=" display: none;  position: absolute; right: 0; top: 45px; background: #fdfaf3; border: 1.5px solid #b0914f; padding: 15px; width: 300px; z-index: 100; box-shadow: 0 10px 20px rgba(0,0,0,0.2);">
+                            <h4 style="text-align: center; color: #1a3c34; margin-top: 0; border-bottom: 1px solid #b0914f; padding-bottom: 10px;">Live Market Rates</h4>
+                            <table style="width: 100%; border-collapse: collapse; font-size: 14px; color: #1a3c34;">
+                                <tr style="border-bottom: 1px solid #eee;"> <td style="padding: 8px 0;">Gold 24KT</td> <td style="text-align: right; font-weight: bold;"><span id="rate24">₹--</span>/gm</td> </tr>
+                                <tr style="border-bottom: 1px solid #eee;"> <td style="padding: 8px 0;">Gold 22KT</td> <td style="text-align: right; font-weight: bold;"><span id="rate22">₹--</span>/gm</td> </tr>
+                                <tr style="border-bottom: 1px solid #eee;"> <td style="padding: 8px 0;">Gold 18KT</td> <td style="text-align: right; font-weight: bold;"><span id="rate18">₹--</span>/gm</td> </tr>
+                                <tr style="border-bottom: 2px solid #b0914f;"> <td style="padding: 8px 0;">Gold 14KT</td> <td style="text-align: right; font-weight: bold;"><span id="rate14">₹--</span>/gm</td> </tr>
+                                <tr style="border-bottom: 1px solid #eee;"> <td style="padding: 8px 0;">Silver</td> <td style="text-align: right; font-weight: bold;"><span id="rateSilver">₹--</span>/gm</td> </tr>
+                            </table>
+                            <p style="font-size: 10px; color: #666; margin-top: 10px; font-style: italic;">*Prices exclude GST & Making Charges</p>
+                        </div>
+                    </div> 
+                </div> <!-- Header Div Band -->
+              
+                <!-- Inputs Row -->
+                <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 30px; align-items: flex-start;">
+    
+                    <!-- Current Rate -->
+                    <div style="flex: 1; min-width: 200px;">
+                        <label style="font-family: 'Playfair Display', serif; color: #1a3c34; font-weight: bold; display: block; margin-bottom: 10px; text-transform: uppercase; font-size: 12px; letter-spacing: 0.5px;">Current Rate (per gram)</label>
+                        <input type="number" id="calcCurrentRate" oninput="checkAutoCalc()"  style="border: 1px solid #b0914f; padding: 12px; width: 100%; outline: none; background: #fdfaf3; box-sizing: border-box;" placeholder="Enter rate">
+                    </div>
+
+
+                    <!--WEIGHTS-->
+                    <div style="flex: 1; min-width: 200px;">
+                        <label style="font-family: 'Playfair Display', serif; color: #1a3c34; font-weight: bold; display: block; margin-bottom: 10px; text-transform: uppercase; font-size: 12px; letter-spacing: 0.5px;">Weight (Grams)</label>
+
+                        <!-- Weight Dropdown Options -->
+                        <select id="calcWeightSelect" onchange="toggleCustomWeightInput()" style="border: 1px solid #b0914f; padding: 12px; width: 100%; background: #fdfaf3; outline: none; box-sizing: border-box;">
+                            <option value="1">1 Gram</option>
+                            <option value="2">2 Grams</option>
+                             <option value="3">3 Grams</option>
+                              <option value="4">4 Grams</option>
+                            <option value="5">5 Grams</option>
+                            <option value="10">10 Grams (1 Tola)</option>
+                            <option value="custom">-- Enter Custom Weight --</option>
+                        </select>
+
+                        <!-- Custom Weight Input Box (Shows only when Custom is selected) -->
+                        <input type="number" id="calcCustomWeight" step="0.01" oninput="checkAutoCalc()" style="display:none; border: 1px solid #b0914f; padding: 12px; width: 100%; margin-top: 10px; background: #fff; box-sizing: border-box;" placeholder="Enter weight in grams (e.g. 15.5)">
+                    </div>
+
+                    <!-- Making Charges -->
+                    <div style="flex: 1; min-width: 150px;">
+                        <label style="font-weight: bold; display: block; margin-bottom: 5px; color: #555; font-size: 13px;">MAKING (%)</label>
+                        <select id="calc-making-list" class="form-control" style="width: 100%; height: 40px; border: 1px solid #d4af37;" onchange="calculateTotalEstimation()">
+                        </select>
+                    </div>
+                </div>
+
+                <div style="display: flex; align-items: center; gap: 15px; justify-content: space-between;">
+
+                  
+
+              <div class="input-group" style="flex: 1; min-width: 200px;">
+    <label style="font-family: 'Playfair Display', serif; color: #1a3c34; font-weight: bold; display: block; margin-bottom: 10px; text-transform: uppercase; font-size: 12px; letter-spacing: 0.5px;">GST (%)</label>
+    
+    <!-- GST Dropdown Options (Default 3% Selected) -->
+    <select id="calcGST" onchange="toggleCustomGSTInput()" class="form-control" style="border: 1px solid #b0914f; padding: 12px; width: 100%; background: #fdfaf3; outline: none; box-sizing: border-box;">
+        <option value="0">0% (None)</option>
+        <option value="3" selected>3% (Standard Jewelry)</option>
+        <option value="5">5%</option>
+        <option value="12">12%</option>
+        <option value="18">18%</option>
+        <option value="custom">-- Enter Custom GST % --</option>
+    </select>
+
+    <!-- Custom GST Input Box (Shows only when Custom is selected) -->
+    <input type="number" id="calcCustomGST" step="0.1" oninput="calculateTotalEstimation()" style="display:none; border: 1px solid #b0914f; padding: 12px; width: 100%; margin-top: 10px; background: #fff; box-sizing: border-box;" placeholder="Enter GST % (e.g. 5, 12, 28)">
+</div>
+
+                <!-- Result Box -->
+                    <div id="calcResult" style="  display: none; transition: all 0.5s ease-in-out; margin-bottom: 20px; padding: 20px; background: #1a3c34; border: 1px solid #b0914f; text-align: center; border-radius: 8px;">
+                    <p style="font-family: 'Playfair Display', serif; color: #ffd700; font-style: italic; margin: 0; font-size: 14px;">Total Estimated Price (Incl. GST):</p>
+                    <h1 id="finalPriceDisplay" style="color: #ffffff; font-size: 2.5rem; margin: 5px 0 0 0; font-family: 'Playfair Display', serif;">₹ 0.00</h1>
+                    </div>
+
+                <!-- Button -->
+                    <button onclick="calculateTotalEstimation()" class="action-btn-gold"
+                            style="width: 50%; display: block !important; margin-left: auto !important; margin-right: auto !important; padding: 15px; background: #b0914f; color: white; border: none; transition: transform 0.2s;  font-family: 'Playfair Display' , serif; cursor: pointer; font-size: 18px; border-radius: 4px;">
+                        Calculate Total
+                    </button>
+                    <button onclick="resetCalculator()" class="refresh-btn">
+                        <i class="fa fa-refresh"></i> Refresh
+                    </button>
+                </div>
+              
+            </section> <!-- Section Band -->
+        </div> <!-- Calculator Section Main Div Band -->
+    
+            
+        <!-- Settings Section -->
+        <!-- Settings Section Start -->
+        <div id="settingsSection" class="content-div" style="display:none; padding: 20px; margin-left: 250px;">
+
+            <!-- Row 1: Navigation Tabs -->
+            <div class="row">
+                <div class="col-md-12 d-flex justify-content-center">
+                    <div style="display: flex; gap: 10px; width: 100%; max-width: 600px; margin-bottom: 25px;">
+                        <button onclick="toggleSettingTab('update')" id="btnTabUpdate"
+                                style="flex: 1; padding: 12px; border: none; border-bottom: 3px solid #d4af37; background: #fff; cursor: pointer; font-weight: bold; color: #d4af37;">
+                            Update Profile
+                        </button>
+                        <button onclick="toggleSettingTab('create')" id="btnTabCreate"
+                                style="flex: 1; padding: 12px; border: none; border-bottom: 3px solid transparent; background: #fff; cursor: pointer; font-weight: bold; color: #666;">
+                            Create New Admin
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Row 2: Settings Form Cards -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="settingsActualContent" style="width: 100%; display: flex; flex-direction: column; align-items: center; gap: 20px;">
+
+                        <!-- 1. Update Profile Tab -->
+                        <div id="updateProfileTab" style="width: 100%; max-width: 600px; background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-top: 4px solid #d4af37;">
+                            <h3 style="color: #d4af37; margin-bottom: 20px;">Admin Profile Settings</h3>
+                            <div class="setting-group" style="margin-bottom: 25px;">
+                                <label style="font-weight: bold;">Update Username (8-12 characters):</label>
+                                <input type="text" id="newUsername" class="form-control" autocomplete="off" placeholder="Enter New Username" style="width: 100%; margin-top: 10px; padding: 8px;">
+                            </div>
+                            <hr style="border: 0.5px solid #eee; margin: 20px 0;">
+                            <div class="setting-group">
+                                <h4 style="margin-bottom: 15px;">Change Password</h4>
+                                <label>Old Password:</label>
+                                <input type="password" id="oldPassword" placeholder="Puraana password" class="form-control" style="width: 100%; margin-bottom: 10px; padding: 8px;">
+                                <label>New Password:</label>
+                                <input type="password" id="newPassword" placeholder="Naya password" class="form-control" style="width: 100%; margin-bottom: 10px; padding: 8px;">
+                                <label>Confirm New Password:</label>
+                                <input type="password" id="confirmPassword" placeholder="Naya password dobara daalein" class="form-control" style="width: 100%; margin-bottom: 15px; padding: 8px;">
+                                <button onclick="saveAdminSettings()" style="width: 100%; background: #000; color: #fff; padding: 12px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">SAVE SETTINGS</button>
+                            </div>
+                        </div>
+
+                        <!-- 2. Create New Admin Tab -->
+                        <div id="createNewAdminTab" style="display: none; width: 100%; max-width: 600px; background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-top: 4px solid #28a745;">
+                            <h3 style="color: #28a745; margin-bottom: 20px;">Create New Admin Account</h3>
+                            <div class="setting-group" style="margin-bottom: 15px;">
+                                <label style="font-weight: bold;">New Admin Username:</label>
+                                <input type="text" id="createAdminUser" placeholder="Enter new username" class="form-control" autocomplete="off" style="width: 100%; margin-top: 10px; padding: 8px;">
+                            </div>
+                            <div class="setting-group" style="margin-bottom: 20px;">
+                                <label style="font-weight: bold;">Initial Password:</label>
+                                <input type="password" id="createAdminPass" placeholder="Enter initial password" class="form-control" autocomplete="new-password" style="width: 100%; margin-top: 10px; padding: 8px;">
+                            </div>
+                            <button onclick="createNewAdminAccount()" style="width: 100%; background: #28a745; color: #fff; padding: 12px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">CREATE ACCOUNT</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- Settings Section End -->
+
+   
+   
+        
+        
+</main>
+    
+    <!-- MODALS -->
+    <div id="resetModal" class="custom-modal-overlay">
+        <div class="custom-modal-box">
+            <div class="modal-icon">⚠️</div>
+            <h3>Reset Confirmation</h3>
+            <p>Are you sure to reset all data? <br> <small>This action cannot be undone.</small></p>
+            <div class="modal-buttons">
+                <button class="btn-no" onclick="closeResetModal()">Cancel</button>
+                <button class="btn-yes" onclick="executeReset()">Yes, Reset</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="successModal" class="custom-modal-overlay" style="display:none;">
+        <div class="custom-modal-box">
+            <div class="modal-icon" id="modalIcon" style="color: #28a745;">✅</div>
+            <h3 id="modalTitle">Success!>Success!</h3>
+            <p id="successMessageText">Saved Successfully!</p>
+            <div class="modal-buttons">
+                <button class="btn-yes" onclick="closeSuccessModal()" style="background: #b0914f; width: 100%;">OK</button>
+            </div>
+        </div>
+    </div>
+   
+    <script>
+            // Image Preview function
+            function handleImagePreview(input) {
+                const file = input.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        document.getElementById('imgPreview').src = e.target.result;
+                        document.getElementById('previewWrapper').style.display = 'block';
+                    }
+                    reader.readAsDataURL(file);
+                }
+            }
+
+            <div id="toast-popup" style="display:none;">Done ✔</div>
+    </script>
+    <script src="https://kit.fontawesome.com/your-code.js" crossorigin="anonymous"></script>
+    <script src="~/js/Admin.js"></script>
+    <script>
+            // This variable will pass the C# message to JavaScript
+
+        var loginSuccessMessage = '@TempData["LoginSuccess"]';
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+</html>

@@ -1,0 +1,1022 @@
+﻿
+/* ==========================================
+   1. BASE SETTINGS & GLOBAL
+   ========================================== */
+body {
+    background-color: #f9f9f9;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+.category-page-container {
+    background-color: #fff;
+    padding-top: 0 !important;
+    margin-top: -25px !important;
+}
+
+/* ==========================================
+   2. TITLE & HEADER
+   ========================================== */
+.cat-title-wrapper {
+    text-align: center;
+    padding-top: 0px !important;
+    margin-bottom: 5px !important;
+}
+
+.cat-section-title {
+    font-size: 38px !important;
+    font-weight: 800 !important;
+    color: #4B0082 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    line-height: 1;
+    font-family: serif;
+    margin: 0;
+}
+
+.cat-side-icon {
+    width: 60px !important;
+    height: auto;
+}
+
+.cat-subtitle {
+    color: #777;
+    font-size: 0.9rem;
+    margin-top: 5px;
+}
+
+/* ==========================================
+   3. FILTER BAR & BUTTONS
+   ========================================== */
+.filter-bar-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 5%;
+    background: #ffffff;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 20px !important;
+}
+
+.filter-left-side {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.pill-group {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.main-filter-btn {
+    padding: 8px 25px;
+    border-radius: 50px;
+    border: 1px solid #ffb6c1;
+    background-color: #fff0f5;
+    color: #333;
+    font-weight: 700 !important;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: 0.3s;
+}
+
+    .main-filter-btn:hover {
+        background-color: #ffc0cb;
+    }
+
+.filter-select-pill {
+    padding: 8px 15px;
+    border-radius: 50px;
+    border: 1px solid #ddd;
+    background-color: #fafafa;
+    font-size: 13px;
+    font-weight: 700 !important;
+    color: #333;
+    cursor: pointer;
+    outline: none;
+    transition: 0.3s;
+}
+
+.filter-right.sort-capsule-wrapper {
+    display: flex;
+    align-items: center;
+    background-color: #fafafa;
+    border: 1px solid #ddd;
+    border-radius: 50px;
+    padding: 2px 15px;
+    transition: 0.3s ease;
+    cursor: pointer;
+}
+
+    .filter-right.sort-capsule-wrapper:hover {
+        border-color: #d4af37;
+        background-color: #ffffff;
+    }
+
+.sort-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #888;
+    margin-right: 5px;
+    white-space: nowrap;
+}
+
+.custom-sort {
+    border: none !important;
+    background: transparent !important;
+    font-size: 13px;
+    font-weight: 700;
+    color: #333;
+    outline: none;
+    cursor: pointer;
+    padding: 8px 10px 8px 0;
+    appearance: none;
+}
+
+.apply-filter-small-btn {
+    background-color: #d4af37;
+    color: white;
+    border: none;
+    padding: 5px 12px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+    .apply-filter-small-btn:hover {
+        background-color: #b8962d;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+.reset-filter-small-btn {
+    background: #f8f9fa !important;
+    color: #333 !important;
+    border: 1px solid #ccc !important;
+    padding: 0 16px !important;
+    border-radius: 20px !important;
+    font-weight: bold !important;
+    cursor: pointer !important;
+    height: 38px !important;
+    font-size: 12px !important;
+    transition: all 0.3s ease !important;
+}
+
+    .reset-filter-small-btn:hover {
+        background: #800000 !important;
+        color: #fff !important;
+        border-color: #800000 !important;
+    }
+
+/* ==========================================
+   4. SIDE DRAWER (OFF-CANVAS) & OVERLAY
+   ========================================== */
+.aj-offcanvas-drawer {
+    position: fixed !important;
+    top: 0 !important;
+    right: -380px !important;
+    left: auto !important;
+    width: 350px !important;
+    height: 100vh !important;
+    background: #ffffff !important;
+    z-index: 99999 !important;
+    transition: right 0.35s ease-in-out, left 0.35s ease-in-out !important;
+    display: flex !important;
+    flex-direction: column !important;
+    box-shadow: 10px 0 30px rgba(0,0,0,0.1);
+    overscroll-behavior: contain !important;
+}
+
+    .aj-offcanvas-drawer.aj-drawer-active {
+        right: 0 !important;
+        left: auto !important;
+    }
+
+.aj-drawer-top {
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.aj-brand-title {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: #3b0a39;
+    letter-spacing: 1px;
+}
+
+.aj-close-icon {
+    font-size: 28px;
+    cursor: pointer;
+    color: #666;
+    line-height: 1;
+}
+
+.aj-drawer-middle {
+    padding: 20px;
+    flex: 1 !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    overscroll-behavior-y: contain !important;
+}
+
+.aj-accordion {
+    width: 100%;
+    background: none;
+    border: none;
+    border-bottom: 1px solid #f0f0f0;
+    padding: 18px 0;
+    font-size: 16px;
+    font-weight: 700;
+    color: #333;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+}
+
+.aj-panel {
+    padding: 10px 0;
+    display: none;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.aj-selection-item {
+    padding: 15px 0;
+    font-weight: 700;
+    color: #444;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+    .aj-selection-item:hover {
+        color: #d4af37;
+        padding-left: 8px;
+    }
+
+.aj-reset-btn {
+    color: #800000 !important;
+}
+
+.aj-drawer-bottom {
+    padding: 15px 20px;
+    border-top: 1px solid #eee;
+    background: #f9f9f9;
+}
+
+.aj-main-apply-btn {
+    background-color: #d4af37 !important;
+    color: #fff !important;
+    border: none;
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+.aj-glass-effect {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 99988 !important;
+    visibility: hidden;
+    opacity: 0;
+    display: none;
+    transition: all 0.3s ease-in-out;
+    backdrop-filter: blur(4px);
+    touch-action: none !important;
+}
+
+    .aj-glass-effect.aj-overlay-active {
+        visibility: visible !important;
+        opacity: 1 !important;
+        display: block !important;
+    }
+
+body.drawer-open {
+    overflow: hidden !important;
+    position: fixed !important;
+    width: 100% !important;
+    height: 100% !important;
+    overscroll-behavior: none !important;
+}
+
+/* ==========================================
+   5. PRODUCT GRID & CARDS
+   ========================================== */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+    padding: 20px 5%;
+}
+
+.jewel-card-new {
+    border: 1px solid #f0f0f0;
+    background: #fff;
+    transition: all 0.4s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+    .jewel-card-new:hover {
+        box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+        transform: translateY(-5px);
+    }
+
+.card-img-area {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background-color: #fdfdfd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+    .card-img-area img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+        transition: transform 0.6s ease;
+    }
+
+.jewel-card-new:hover .card-img-area img {
+    transform: scale(1.08);
+}
+
+.card-details {
+    padding: 0px 15px 15px 15px;
+    text-align: left;
+}
+
+.ref-no {
+    font-size: 11px;
+    color: #999;
+    text-transform: uppercase;
+    margin-bottom: 0px;
+    margin-top: 5px;
+}
+
+.jewel-name {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    color: #333;
+    font-size: 0.95rem;
+    margin: 0px;
+    line-height: 1.2;
+    text-transform: uppercase;
+}
+
+.jewel-spec {
+    color: #777;
+    font-size: 0.8rem;
+    margin-top: 2px;
+    margin-bottom: 10px;
+}
+
+.jewel-price {
+    color: #222;
+    font-weight: 700;
+    font-size: 1.1rem;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.price-action {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.btn-enquire {
+    background: #800000;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    border-radius: 4px;
+}
+
+    .btn-enquire:hover {
+        background: #4B0082 !important;
+        letter-spacing: 1.5px;
+    }
+
+.btn-whatsapp-card {
+    background-color: #25D366;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-top: 8px;
+    transition: 0.3s;
+}
+
+    .btn-whatsapp-card:hover {
+        background-color: #128C7E;
+        color: white;
+    }
+
+/* ==========================================
+   6. FLOATING TAGS & BUTTONS
+   ========================================== */
+.bestseller-tag {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    background: #d4af37;
+    color: white;
+    font-size: 9px;
+    padding: 3px 10px;
+    font-weight: 700;
+    z-index: 2;
+    border-radius: 2px;
+    transition: 0.3s;
+}
+
+.jewel-card-new:hover .bestseller-tag {
+    background: #e5c05b;
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+}
+
+.wish-icon {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    background: white;
+    border: 1px solid #eee;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #888;
+    cursor: pointer;
+    z-index: 2;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+    .wish-icon:hover {
+        color: #e91e63 !important;
+        background: #fff0f5 !important;
+        border-color: #ffb6c1 !important;
+        transform: scale(1.15) rotate(5deg);
+    }
+
+.floating-home-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    background-color: #b8860b;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 50px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+}
+
+    .floating-home-btn:hover {
+        background-color: #800000;
+        transform: scale(1.1);
+        color: white;
+    }
+
+.home-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.wishlist-toast-msg {
+    display: none;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: #800000;
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    z-index: 99999;
+    transition: all 0.3s ease-in-out;
+}
+
+    .wishlist-toast-msg.error {
+        background-color: #333;
+    }
+
+.back-to-home-wrapper {
+    margin-top: 30px !important;
+    margin-bottom: 5px !important;
+    padding-top: 5px !important;
+    text-align: left;
+}
+
+    .back-to-home-wrapper a,
+    .back-to-home-wrapper button {
+        display: inline-block;
+        padding: 10px 24px;
+        border: 2px solid #D4AF37;
+        border-radius: 50px;
+        color: #1a1a1a;
+        background-color: transparent;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.9rem;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+
+        .back-to-home-wrapper a:hover,
+        .back-to-home-wrapper button:hover {
+            background-color: #D4AF37;
+            color: #ffffff;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .back-to-home-wrapper a:hover {
+            color: #b13333 !important;
+            transform: translateX(-3px);
+        }
+
+/* ==========================================
+   7. RESPONSIVE MEDIA QUERIES
+   ========================================== */
+
+@media screen and (max-width: 1024px) {
+    .back-to-home-wrapper {
+        margin-top: 25px !important;
+        margin-bottom: 12px !important;
+    }
+
+        .back-to-home-wrapper a,
+        .back-to-home-wrapper button {
+            padding: 5px 10px;
+            font-size: 0.48rem;
+        }
+
+    .aj-offcanvas-drawer {
+        width: 320px;
+        right: -340px;
+    }
+    .card-img-area img {
+        max-width: 100% !important;
+        max-height: 100% !important;
+        object-fit: cover !important;
+    }
+}
+
+@media screen and (max-width: 850px) {
+    .back-to-home-wrapper {
+        margin-top: 20px !important;
+        margin-bottom: 10px !important;
+        text-align: left !important;
+    }
+
+        .back-to-home-wrapper a,
+        .back-to-home-wrapper button {
+            padding: 4px 11px;
+            font-size: 0.55rem;
+            letter-spacing: 0.5px;
+        }
+
+    .aj-offcanvas-drawer {
+        width: 260px !important;
+        right: -280px !important;
+    }
+
+        .aj-offcanvas-drawer.aj-drawer-active {
+            right: 0 !important;
+        }
+
+    .filter-bar-row {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .filter-left-side {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 6px;
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .pill-group {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex-wrap: wrap;
+    }
+
+    .main-filter-btn {
+        height: 36px !important;
+        padding: 0 10px !important;
+        font-size: 11px !important;
+        white-space: nowrap;
+    }
+
+    .filter-select-pill,
+    .apply-filter-small-btn,
+    .reset-filter-small-btn {
+        height: 36px !important;
+        padding: 0 8px !important;
+        font-size: 11px !important;
+        white-space: nowrap;
+        border-radius: 20px !important;
+    }
+
+    .filter-right.sort-capsule-wrapper {
+        width: 220px !important;
+        margin-left: auto !important;
+        display: flex;
+        align-items: center;
+        background: #f8f9fa;
+        border: 1px solid #ccc;
+        border-radius: 20px;
+        padding: 4px 10px;
+        justify-content: space-between;
+    }
+
+    .custom-sort {
+        border: none;
+        background: transparent;
+        width: 70%;
+        outline: none;
+        font-size: 11px;
+    }
+
+    .sort-label {
+        font-size: 11px;
+    }
+}
+
+@media screen and (max-width: 440px) {
+    .category-page-container {
+        padding: 0 12px !important;
+        overflow-x: hidden !important;
+    }
+
+    .back-to-home-wrapper a {
+        padding: 4px 10px !important;
+        font-size: 10px !important;
+        border-radius: 15px !important;
+    }
+
+    .cat-section-title {
+        font-size: 35px !important;
+        text-align: center !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 8px !important;
+        font-weight: 800 !important;
+    }
+
+    .cat-side-icon {
+        width: 22px !important;
+        height: 22px !important;
+    }
+
+    .cat-subtitle {
+        font-size: 12px !important;
+        text-align: center !important;
+        margin-bottom: 15px !important;
+    }
+
+    .aj-offcanvas-drawer {
+        width: 240px !important;
+        right: -260px !important;
+    }
+
+    .aj-drawer-top {
+        padding: 10px 12px;
+    }
+
+    .aj-brand-title {
+        font-size: 14px;
+    }
+
+    .filter-bar-row {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 8px !important;
+        width: 100% !important;
+        margin-bottom: 20px !important;
+    }
+
+    .filter-left-side {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        gap: 3px !important;
+        width: 100% !important;
+        flex-wrap: nowrap !important;
+    }
+
+    .pill-group {
+        display: flex !important;
+        align-items: center !important;
+        gap: 3px !important;
+        flex-wrap: nowrap !important;
+    }
+
+    .main-filter-btn {
+        width: 100% !important;
+        height: 32px !important;
+        padding: 0 8px !important;
+        font-size: 10.5px !important;
+        white-space: nowrap !important;
+        justify-content: center !important;
+        border-radius: 25px !important;
+    }
+
+    .filter-select-pill {
+        height: 28px !important;
+        padding: 0 3px !important;
+        font-size: 9px !important;
+        white-space: nowrap !important;
+        border-radius: 10px !important;
+    }
+
+    #genderPill {
+        flex: 1 !important;
+        width: auto !important;
+        height: 38px !important;
+        font-size: 13px !important;
+        padding: 0 10px !important;
+        border-radius: 20px !important;
+        background-color: #fff !important;
+        border: 1px solid #ccc !important;
+    }
+
+    .filter-right.sort-capsule-wrapper {
+        width: 180px !important;
+        margin: 4px auto 0 auto !important;
+        display: flex;
+        align-items: center;
+        background: #f8f9fa;
+        border: 1px solid #ccc;
+        border-radius: 20px;
+        padding: 3px 8px;
+        justify-content: space-between;
+    }
+
+    .custom-sort {
+        border: none;
+        background: transparent;
+        width: 65%;
+        outline: none;
+        font-size: 9.5px;
+    }
+
+    .sort-label {
+        font-size: 9.5px;
+    }
+
+    .floating-home-btn {
+        padding: 7px 10px !important;
+        font-size: 13px !important;
+        bottom: 13px;
+        right: 13px;
+        font-weight: 700;
+    }
+
+        .floating-home-btn .home-icon {
+            width: 16px !important;
+            height: 16px !important;
+        }
+}
+
+@media screen and (max-width: 375px) {
+    .category-page-container {
+        padding: 0 10px !important;
+    }
+
+    .back-to-home-wrapper a {
+        padding: 3px 8px !important;
+        font-size: 9.5px !important;
+    }
+
+    .cat-section-title {
+        font-size: 30px !important;
+        gap: 6px !important;
+    }
+
+    .cat-side-icon {
+        width: 19px !important;
+        height: 19px !important;
+    }
+
+    .cat-subtitle {
+        font-size: 11px !important;
+        margin-bottom: 12px !important;
+    }
+
+    .main-filter-btn {
+        padding: 8px !important;
+        font-size: 13px !important;
+    }
+
+    .filter-left-side {
+        gap: 2px !important;
+    }
+
+    .pill-group {
+        gap: 2px !important;
+    }
+
+    .filter-select-pill {
+        height: 30px !important;
+        min-width: 72px !important;
+        padding: 0 4px !important;
+        font-size: 8.5px !important;
+    }
+
+    .apply-filter-small-btn,
+    .reset-filter-small-btn {
+        height: 30px !important;
+        padding: 0 4px !important;
+        font-size: 8.5px !important;
+    }
+
+    .filter-right.sort-capsule-wrapper {
+        width: 175px !important;
+        padding: 3px 8px !important;
+    }
+
+    .custom-sort {
+        font-size: 9px !important;
+        width: 62% !important;
+    }
+
+    .sort-label {
+        font-size: 9px !important;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .category-page-container {
+        padding: 0 8px !important;
+    }
+
+    .back-to-home-wrapper a {
+        padding: 3px 6px !important;
+        font-size: 9px !important;
+    }
+
+    .cat-section-title {
+        font-size: 28px !important;
+        gap: 5px !important;
+    }
+
+    .cat-side-icon {
+        width: 16px !important;
+        height: 16px !important;
+    }
+
+    .cat-subtitle {
+        font-size: 10px !important;
+        margin-bottom: 10px !important;
+    }
+
+    .filter-bar-row {
+        gap: 4px !important;
+        width: 100% !important;
+    }
+
+    .filter-left-side {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        gap: 2px !important;
+        width: 100% !important;
+        flex-wrap: nowrap !important;
+    }
+
+    .pill-group {
+        display: flex !important;
+        align-items: center !important;
+        gap: 2px !important;
+        flex-wrap: nowrap !important;
+        flex-shrink: 1 !important;
+    }
+
+    .main-filter-btn {
+        height: 26px !important;
+        padding: 0 3px !important;
+        font-size: 7.5px !important;
+        white-space: nowrap !important;
+        flex-shrink: 1 !important;
+    }
+
+    .filter-select-pill {
+        height: 26px !important;
+        min-width: 40px !important;
+        width: auto !important;
+        padding: 0 2px !important;
+        font-size: 7.5px !important;
+        border-radius: 6px !important;
+        flex-shrink: 1 !important;
+    }
+
+    .apply-filter-small-btn,
+    .reset-filter-small-btn {
+        height: 26px !important;
+        padding: 0 !important;
+        font-size: 7.5px !important;
+        border-radius: 6px !important;
+        min-width: unset !important;
+        width: auto !important;
+        flex-shrink: 1 !important;
+        white-space: nowrap !important;
+    }
+
+    .filter-right.sort-capsule-wrapper {
+        width: 155px !important;
+        margin: 4px auto 0 auto !important;
+        display: flex !important;
+        align-items: center !important;
+        background: #f8f9fa !important;
+        border: 1px solid #ccc !important;
+        border-radius: 20px !important;
+        padding: 2px 5px !important;
+        justify-content: space-between !important;
+    }
+
+    .custom-sort {
+        border: none !important;
+        background: transparent !important;
+        width: 63% !important;
+        outline: none !important;
+        font-size: 10px !important;
+    }
+
+    .sort-label {
+        font-size: 8px !important;
+    }
+    .jewel-card-new .card-img-area .wish-icon {
+        top: 13px !important; 
+        right: 17px !important; 
+    }
+}
+
+

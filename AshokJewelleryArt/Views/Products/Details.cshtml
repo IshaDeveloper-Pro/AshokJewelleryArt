@@ -1,0 +1,657 @@
+﻿@model AshokJewelleryArt.Models.Product
+
+<!-- Scroll fix script so the page always opens at the top -->
+<script>
+    // Disable browser scroll memory so it doesn't remember the previous position
+    if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+    }
+
+    // Force to the top immediately as the page loads
+    window.scrollTo(0, 0);
+
+    // Double-check when the DOM loads and after a slight delay
+    document.addEventListener("DOMContentLoaded", function() {
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    });
+
+    window.onload = function() {
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+        setTimeout(function() {
+            window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+        }, 50);
+    };
+</script>
+
+<div class="container product-details-wrapper" style="margin-top: 50px; margin-bottom: 50px;">
+    <div class="row align-items-start  details-row-fix" style="display: flex; flex-wrap: nowrap;align-items:flex-start; ">
+
+        <!-- LEFT SIDE: Image Section (Fixed Width) -->
+        <div class="col-12 col-md-6  detail-img-col" style="padding: 15px;">
+            <div id="js-details-zoom-container"
+                 style="background: #ffffff; border: 1px solid #f1f1f1; border-radius: 12px; padding: 20px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center;
+                overflow: hidden; position: relative; cursor: crosshair;
+                height: 420px; width: 100%; display: flex; align-items: center; justify-content: center;">
+
+                <img src="@Model.ImageURL"
+                     id="js-details-main-img"
+                     alt="@Model.Name"
+                     style="max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; pointer-events: none;" />
+
+                <button class="wish-icon-detail"
+                        data-id="@Model.Id"
+                        data-name="@Model.Name"
+                        data-image="@Model.ImageURL"
+                        data-weight="@Model.Weight">
+                    <i class="fa-regular fa-heart"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- RIGHT SIDE: Details Section -->
+        <div class="col-md-6  detail-info-col" style="padding: 20px 40px;">
+            <div class="details-content">
+
+                
+                <span style="color: #D4AF37; text-transform: uppercase; letter-spacing: 2px; font-weight: bold; font-size: 14px;">
+                    @Model.Category Collection
+                </span>
+
+                <h1 class="product-main-title">
+                    @Model.Name
+                </h1>
+                <p style="color: #888; font-size: 14px; margin-bottom: 20px;">Reference: AJ-@Model.Id</p>
+                <div style="font-size: 20px; color: #4b0082; font-weight: 700; margin-bottom: 30px; border-bottom: 2px solid #f8f8f8; padding-bottom: 20px; letter-spacing: 1px;">
+                    <i class="fas fa-tag" style="font-size: 16px;"></i> Price on Request
+                </div>
+                <div style="margin-top: 20px; border-top: 1px solid #eee; padding-top: 20px; max-width: 400px;">
+
+                    @* --- PURITY BLOCK START --- *@
+                    @{
+                        bool isDiamondOrGemstone = false;
+
+                        if (Model.Category != null && (Model.Category.ToLower().Contains("diamond") || Model.Category.ToLower().Contains("gemstone")))
+                        {
+                            isDiamondOrGemstone = true;
+                        }
+
+                        if (Model.MetalType != null && (Model.MetalType.ToLower().Contains("diamond") || Model.MetalType.ToLower().Contains("gemstone")))
+                        {
+                            isDiamondOrGemstone = true;
+                        }
+                    }
+
+@* Show Purity only if it is NOT Diamond or Gemstone *@
+                    @if (!isDiamondOrGemstone)
+                    {
+                        <div style="display: flex; margin-bottom: 12px; align-items: center;">
+                            <span style="color: #666; font-size: 15px; width: 120px; display: inline-block;">Purity:</span>
+                            <span style="color: #333; font-weight: 700; font-size: 15px;">
+                                @if (!string.IsNullOrEmpty(Model.MaterialType))
+                                {
+                                    @Model.MaterialType
+                                }
+                                else
+                                {
+                                    @(Model.MetalType != null && Model.MetalType.Equals("Silver", StringComparison.OrdinalIgnoreCase) ? "925 Sterling Silver" : "22K Gold")
+                                }
+                            </span>
+                        </div>
+                    }
+                    @* --- PURITY BLOCK END --- *@
+
+                    <div style="display: flex; margin-bottom: 12px; align-items: center;">
+                        <span style="color: #666; font-size: 15px; width: 120px; display: inline-block;">Metal Type:</span>
+                        <span style="color: #333; font-weight: 700; font-size: 15px; text-transform: uppercase;">
+                            @(string.IsNullOrEmpty(Model.MetalType) ? "Gold" : Model.MetalType)
+                        </span>
+                    </div>
+
+                    <div style="display: flex; margin-bottom: 12px; align-items: center;">
+                        <span style="color: #666; font-size: 15px; width: 120px; display: inline-block;">Certificate:</span>
+                        <span style="color: #333; font-weight: 700; font-size: 15px;">BIS Hallmarked</span>
+                    </div>
+
+                </div>
+
+
+                <!-- Weight Info (Jewellery ke liye important) -->
+                @{
+                    // Check whether it is a Diamond or Gemstone or not
+                    bool isCaratItem = (Model.Category != null && (Model.Category.ToLower().Contains("diamond") || Model.Category.ToLower().Contains("gemstone"))) ||
+                                       (Model.MetalType != null && (Model.MetalType.ToLower().Contains("diamond") || Model.MetalType.ToLower().Contains("gemstone")));
+
+                    // Setting the unit: Diamond/Gemstone -> ct, Everything else -> WeightUnit or default 'g'
+                    string displayUnit = isCaratItem ? "ct" : (!string.IsNullOrEmpty(Model.WeightUnit) ? Model.WeightUnit : "g");
+                }
+
+                <div style="margin-bottom: 20px;">
+                    <span style="background: #fdf7e3; color: #856404; padding: 5px 12px; border-radius: 20px; font-weight: 600; font-size: 14px;">
+                        Weight: @Model.Weight @displayUnit
+                    </span>
+                </div>
+                 
+                <!--Product Description-->
+                <div style="margin-bottom: 30px;">
+                    <h6 style="font-weight: bold; color: #555;">Product Description</h6>
+                    <p style="color: #777; line-height: 1.6; font-size: 15px; max-width: 380px;">
+                        @if (!string.IsNullOrEmpty(Model.Description))
+                        {
+                            @Model.Description
+                        }
+                        else
+                        {
+                            @($"Handcrafted {Model.Name} with fine finish and premium quality by Ashok Jewellery Art. Perfect choice for daily elegance and special occasions.")
+                        }
+                    </p>
+                </div>
+                <!--Product Description End-->
+                @{
+                    string ownerNumber = "917588752373"; // Real owner number
+
+                    // Yeh hamesha Products controller ka clean aur standard link banayega (chahe user kahin se bhi aaye)
+                    string pageUrl = Url.Action("Details", "Products", new { id = Model.Id }, Context.Request.Scheme)!;
+
+                    string waMessage = $"Hello Ashok Jewellery Art, I'm interested in {Model.Name} (Reference: AJ-{Model.Id}, Category: {Model.Category}). " +
+                                       $"Can you please share the current price and details?\n\n" +
+                                       $"Product Link: {pageUrl}";
+
+                    string encodedMsg = Uri.EscapeDataString(waMessage);
+                    string waUrl = $"https://wa.me/{ownerNumber}?text={encodedMsg}";
+                }
+
+                <a href="@waUrl" target="_blank" class="btn-whatsapp-premium"  onclick="return confirm('Are you sure you want to chat on WhatsApp for this product?')";>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="25" style="margin-right: 10px;">
+                    Ask Price on WhatsApp
+                </a>
+
+                <!-- Update your Back to Collection button on the Details page to use standard ASP.NET tag helpers -->
+                <div style="margin-top: 20px; text-align: center;">
+                  <!-- Details Page Button -->
+<a asp-controller="Products" 
+   asp-action="Index" 
+   id="js-btn-back-to-collection" 
+   class="btn btn-outline-secondary">
+    ← Back to Collection
+</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<style>
+    /* Premium Look Fixes */
+    .product-details-wrapper {
+        width: 100%;
+        margin: 30px auto;
+        padding: 0 15px;
+        box-sizing: border-box;
+    }
+
+    .zoom-box {
+        background: #ffffff;
+        border: 1px solid #f1f1f1;
+        border-radius: 12px;
+        padding: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        text-align: center;
+        overflow: hidden;
+        position: relative;
+        cursor: crosshair;
+        height: 480px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink:0;
+    }
+
+    #js-details-main-img {
+        width: 100%;
+        height: 100%;
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+        transition: transform 0.1s ease-out;
+        pointer-events: none;
+        display: block;
+    }
+
+
+    /* Row Override */
+    .details-row-fix {
+        margin: 0 !important;
+        width: 100% !important;
+    }
+    /* Common Centering Utilities */
+
+    .product-gallery {
+        position: sticky;
+        top: 100px; 
+    }
+
+    .main-product-img {
+        max-height: 500px;
+        object-fit: contain;
+        transition: transform 0.5s ease;
+    }
+
+        .main-product-img:hover {
+            transform: scale(1.05); 
+        }
+
+    .btn-whatsapp-premium {
+        background-color: #25D366;
+        color: white;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 18px;
+        border-radius: 8px;
+        font-weight: bold;
+        font-size: 18px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(37, 211, 102, 0.2);
+        border: none;
+    }
+
+        /* Hover Effect */
+        .btn-whatsapp-premium:hover {
+            background-color: #128c7e !important; 
+            color: white !important;
+            transform: translateY(-3px); 
+            box-shadow: 0 8px 25px rgba(18, 140, 126, 0.4); 
+            cursor: pointer;
+        }
+
+    .breadcrumb-item + .breadcrumb-item::before {
+        content: "|";
+    }
+    /* ====================================================
+           WISHLIST HEART ICON POSITION FIX (Desktop & Max 1024px)
+           ==================================================== */
+
+    #js-details-zoom-container {
+        position: relative !important;
+    }
+
+    /* Base Desktop View Styling */
+    .wish-icon-detail {
+        position: absolute !important;
+        top: 30px !important; 
+        right: 30px !important;
+        left: auto !important;
+        bottom: auto !important;
+        width: 42px !important;
+        height: 42px !important;
+        background: #ffffff !important;
+        border: 1px solid #e5e5e5 !important;
+        border-radius: 50% !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12) !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        cursor: pointer !important;
+        z-index: 25 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        transition: all 0.2s ease-in-out !important;
+    }
+
+        .wish-icon-detail i {
+            font-size: 18px !important;
+            color: #333333 !important;
+            line-height: 1 !important;
+            margin: 0 !important;
+            display: block !important;
+        }
+
+        .wish-icon-detail:hover {
+            background-color: #fff9e6 !important;
+            border-color: #D4AF37 !important;
+            transform: scale(1.08);
+        }
+
+       
+    /* ------------------------------------------
+       1. SMALL DESKTOP / TABLET LANDSCAPE (MAX 1024px)
+       ------------------------------------------ */
+    @@media (max-width: 1024px) {
+        .product-details-wrapper {
+            max-width: 900px;
+        }
+
+        .product-main-title {
+            font-size: 2rem !important;
+        }
+
+        #js-details-main-img {
+            max-height: 380px !important;
+        }
+
+        .wish-icon-detail {
+            top: 12px !important;
+            right: 12px !important;
+            width: 38px !important;
+            height: 38px !important;
+        }
+
+            .wish-icon-detail i {
+                font-size: 16px !important;
+            }
+    }
+
+    /* ==========================================
+       FORCE CENTERED CONTAINER FOR MAX 768px & BELOW
+       ========================================== */
+
+    @@media screen and (max-width: 768px) {
+        /* 1. Outer Wrapper Padding */
+        .product-details-wrapper {
+            max-width: 100% !important;
+            padding-left: 20px !important;
+            padding-right: 20px !important;
+            margin-top: 30px !important;
+        }
+        /* 2. Row Reset for Side-by-Side */
+        .details-row-fix {
+            display: flex !important;
+            flex-direction: row !important;
+            flex-wrap: nowrap !important;
+            align-items: flex-start !important;
+            justify-content: space-between !important;
+            width: 100% !important;
+            margin: 0 !important;
+        }
+        /* 3. Left Side Image Container Width (45%) */
+        .detail-img-col {
+            flex: 0 0 45% !important;
+            max-width: 45% !important;
+            width: 45% !important;
+            padding-right: 15px !important; 
+            padding-left: 0 !important;
+        }
+        /* 4. Right Side Info Container Width (53%) + PERFECT GAP */
+        .detail-info-col {
+            flex: 0 0 53% !important;
+            max-width: 53% !important;
+            width: 53% !important;
+            padding-left: 30px !important;
+            padding-right: 0 !important;
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+        }
+        /* 5. Image Container Size Adjustment for 768px */
+        #js-details-zoom-container {
+            height: 360px !important;
+            padding: 15px !important;
+            box-sizing: border-box !important;
+        }
+        /* 6. Typography adjustments for 768px */
+        .product-main-title {
+            font-size: 1.5rem !important;
+            margin-top: 0 !important;
+            line-height: 1.2 !important;
+        }
+
+        .price-request {
+            font-size: 18px !important;
+            margin-bottom: 20px !important;
+            padding-bottom: 15px !important;
+        }
+        .wish-icon-detail {
+            top: 60px !important; 
+            right: 20px !important; 
+            width: 36px !important;
+            height: 36px !important;
+        }
+
+            .wish-icon-detail i {
+                font-size: 15px !important; 
+            }
+    }
+
+        /* ====================================================
+               ONLY MOBILE RESPONSIVE FIX (425px, 375px, 320px)
+               ==================================================== */
+    /* 1. Main Mobile Query (Targeting 575px and below including 425px) */
+    @@media screen and (max-width: 575px) {
+        .row,
+        div[class*="row"] {
+            display: flex !important;
+            flex-wrap: wrap !important;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+        }
+        div.col-12,
+        div.col-md-6,
+        div[class*="col-"] {
+            width: 100% !important;
+            max-width: 100% !important;
+            flex: 0 0 100% !important;
+            float: none !important;
+            display: block !important;
+            padding-left: 5px !important;
+            padding-right: 5px !important;
+            box-sizing: border-box !important;
+        }
+        /* Right side details padding override */
+        div.details-content,
+        .col-md-6[style*="padding: 20px 40px"],
+        div[style*="padding: 20px 40px"] {
+            padding: 10px 5px !important;
+            margin: 0 !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
+        }
+        /* Inline max-width elements fix */
+        p[style*="max-width: 380px"],
+        div[style*="max-width: 400px"] {
+            max-width: 100% !important;
+            width: 100% !important;
+        }
+        /* Button Full Width Fix */
+        .btn-whatsapp-premium {
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
+        }
+        .wish-icon-detail {
+            top: 16px !important;
+            right: 16px !important;
+            width: 36px !important;
+            height: 36px !important;
+        }
+
+            .wish-icon-detail i {
+                font-size: 15px !important;
+            }
+    }
+
+    /* 2. Specific Query for MAX 425px */
+    @@media screen and (max-width: 425px) {
+        #js-details-zoom-container {
+            height: 280px !important;
+            width: 100% !important;
+            padding: 8px !important;
+            margin-bottom: 15px !important;
+            box-sizing: border-box !important;
+        }
+
+        .product-main-title {
+            font-size: 20px !important;
+            line-height: 1.3 !important;
+            word-wrap: break-word;
+        }
+        .wish-icon-detail {
+            top: 14px !important;
+            right: 14px !important;
+            width: 34px !important;
+            height: 34px !important;
+        }
+
+            .wish-icon-detail i {
+                font-size: 14px !important;
+            }
+    }
+
+    /* 3. Specific Query for MAX 375px */
+    @@media screen and (max-width: 375px) {
+        #js-details-zoom-container {
+            height: 240px !important;
+        }
+
+        .product-main-title {
+            font-size: 18px !important;
+        }
+
+        .wish-icon-detail {
+            top: 12px !important;
+            right: 12px !important;
+            width: 32px !important;
+            height: 32px !important;
+        }
+
+            .wish-icon-detail i {
+                font-size: 13px !important;
+            }
+    }
+
+    /* 4. Specific Query for MAX 320px */
+    @@media screen and (max-width: 320px) {
+        #js-details-zoom-container {
+            height: 210px !important;
+        }
+
+        .product-main-title {
+            font-size: 16px !important;
+        }
+
+        .wish-icon-detail {
+            top: 10px !important;
+            right: 10px !important;
+            width: 30px !important;
+            height: 30px !important;
+        }
+
+            .wish-icon-detail i {
+                font-size: 12px !important;
+            }
+    }
+</style>
+
+
+        <script> //zoom effect//
+    document.addEventListener("DOMContentLoaded", function () {
+        const dContainer = document.getElementById('js-details-zoom-container');
+        const dImage = document.getElementById('js-details-main-img');
+
+        if (dContainer && dImage) {
+            dContainer.addEventListener('mousemove', function (e) {
+                const rect = dContainer.getBoundingClientRect();
+            
+                // Mouse coordinates percentage 
+                const x = ((e.clientX - rect.left) / rect.width) * 100;
+                const y = ((e.clientY - rect.top) / rect.height) * 100;
+
+                // Zoom effect
+                dImage.style.transformOrigin = `${x}% ${y}%`;
+                dImage.style.transform = "scale(1.8)"; 
+            });
+
+            dContainer.addEventListener('mouseleave', function () {
+                dImage.style.transform = "scale(1)";
+                dImage.style.transformOrigin = "center center";
+            });
+        }
+    });
+
+    //for wishlist now=>
+
+            document.addEventListener('DOMContentLoaded', function() {
+        const wishBtn = document.querySelector('.wish-icon-detail');
+        if(!wishBtn) return;
+
+        const productId = wishBtn.dataset.id;
+        const icon = wishBtn.querySelector('i');
+
+        let wishlist = JSON.parse(localStorage.getItem('userWishlist')) || [];
+    
+        // Check if already in wishlist
+        if (wishlist.some(item => item.id == productId)) {
+            icon.classList.replace('fa-regular', 'fa-solid');
+            icon.style.color = 'red';
+        }
+
+        wishBtn.addEventListener('click', function() {
+            wishlist = JSON.parse(localStorage.getItem('userWishlist')) || [];
+            const index = wishlist.findIndex(item => item.id == productId);
+
+            if (index === -1) {
+                // Naya product object 
+                const product = {
+                    id: wishBtn.dataset.id,
+                    name: wishBtn.dataset.name,
+                    image: wishBtn.dataset.image,
+                    weight: wishBtn.dataset.weight
+                };
+                wishlist.push(product);
+                icon.classList.replace('fa-regular', 'fa-solid');
+                icon.style.color = 'red';
+            } else {
+                // Remove from wishlist
+                wishlist.splice(index, 1);
+                icon.classList.replace('fa-solid', 'fa-regular');
+                icon.style.color = '';
+            }
+
+            localStorage.setItem('userWishlist', JSON.stringify(wishlist));
+            if (typeof updateWishlistCount === "function") updateWishlistCount();
+        });
+    });
+</script>
+<script>
+    //BACK TO COLLECTION//
+   // 3. Back to Collection Button Logic
+    document.addEventListener("DOMContentLoaded", function() {
+    const backBtn = document.getElementById("js-btn-back-to-collection");
+    if (backBtn) {
+    backBtn.addEventListener("click", function(e) {
+    e.preventDefault();
+    // If browser history exists, go back, else redirect to collection/home
+    if (document.referrer && document.referrer.includes(window.location.host)) {
+    window.history.back();
+    } else {
+    window.location.href = '/Products/Index'; // Yahan apna collection page ka route de dena
+    }
+    });
+    }
+    });
+    </script>
+    <script>
+// Disable default browser scroll memory
+if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+}
+
+// Force scroll to top immediately
+window.scrollTo(0, 0);
+
+// Force scroll to top multiple times to counter any dynamic content loading
+window.addEventListener('load', function() {
+    window.scrollTo(0, 0);
+    setTimeout(function() {
+        window.scrollTo(0, 0);
+    }, 50);
+    setTimeout(function() {
+        window.scrollTo(0, 0);
+    }, 150);
+    setTimeout(function() {
+        window.scrollTo(0, 0);
+    }, 300);
+});
+</script>
