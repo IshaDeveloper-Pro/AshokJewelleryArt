@@ -9,7 +9,7 @@ A high-end luxury jewellery brand showcase web application designed with an eleg
 
 * **Status:** Currently running in Local Environment / Under Development for cloud hosting.
 * **Live Demo Link:** *Coming Soon (Will be updated once hosted on cloud/app services).*
-* **Live GitHub Repository:** [View Repository on GitHub](https://github.com/ishadeveloper-pro/ASHOK-JEWELLERY-ART)
+* **Live GitHub Repository:** [[View Repository on GitHub](https://github.com/ishadeveloper-pro/ASHOK-JEWELLERY-ART)]
   
 ## 🚀 Key Features
 
