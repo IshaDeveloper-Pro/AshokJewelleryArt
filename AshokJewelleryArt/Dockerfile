@@ -1,8 +1,9 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
-COPY ["AshokJewelleryArt.csproj", "./"]
-RUN dotnet restore "AshokJewelleryArt.csproj"
+COPY ["AshokJewelleryArt/AshokJewelleryArt/AshokJewelleryArt.csproj", "AshokJewelleryArt/AshokJewelleryArt/"]
+RUN dotnet restore "AshokJewelleryArt/AshokJewelleryArt/AshokJewelleryArt.csproj"
 COPY . .
+WORKDIR "/src/AshokJewelleryArt/AshokJewelleryArt"
 RUN dotnet publish -c Release -o /app/publish
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
