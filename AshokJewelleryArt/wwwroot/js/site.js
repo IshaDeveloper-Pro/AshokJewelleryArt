@@ -899,3 +899,28 @@ document.body.style.height = 'auto';
             }, 100);
         }
     });
+
+//floatong home button
+
+window.addEventListener('scroll', function () {
+    var btn = document.getElementById('scrollTopBtn');
+    var banner = document.querySelector('.showcase-banner');
+
+    if (banner && btn) {
+        var bannerBottom = banner.offsetTop + banner.offsetHeight;
+
+        if (window.scrollY > bannerBottom) {
+            btn.classList.add('show');
+        } else {
+            btn.classList.remove('show');
+        }
+    }
+});
+
+document.getElementById('scrollTopBtn')?.addEventListener('click', function (e) {
+    e.preventDefault();
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+});

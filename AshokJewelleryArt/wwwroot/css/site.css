@@ -3815,7 +3815,7 @@ header, .navbar, .top-bar {
                 }
             /* 🔥 2nd aur 3rd Column */
             .footer-column:not(.brand-info) {
-                flex: 0 1 290px !important;
+                flex: 0 1 300px !important;
                 margin-bottom: 20px !important;
                 text-align: left !important;
                 position: relative !important;
@@ -3829,7 +3829,7 @@ header, .navbar, .top-bar {
                 .footer-column:not(.brand-info) p,
                 .footer-column:not(.brand-info) a,
                 .footer-column:not(.brand-info) li {
-                    font-size: 18px !important;
+                    font-size: 17px !important;
                 }
             /* Footer Bottom / Copyright section */
             .footer-bottom {
@@ -3924,7 +3924,7 @@ header, .navbar, .top-bar {
                 }
             /* 2nd aur 3rd Column  */
             .footer-column:not(.brand-info) {
-                flex: 0 1 290px !important;
+                flex: 0 1 300px !important;
                 margin-bottom: 20px !important;
                 text-align: left !important;
                 position: relative !important;
@@ -3938,7 +3938,8 @@ header, .navbar, .top-bar {
                 .footer-column:not(.brand-info) p,
                 .footer-column:not(.brand-info) a,
                 .footer-column:not(.brand-info) li {
-                    font-size: 14px !important;
+                    font-size: 13px !important;
+                    word-break: break-all;
                 }
 
             .contact-info p.hover-item {
@@ -10963,5 +10964,126 @@ header, .navbar, .top-bar {
         max-width: 1700px !important;
         margin-left: auto !important;
         margin-right: auto !important;
+    }
+}
+/*home btn --------------------------------*/
+.floating-home-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 15px;
+    z-index: 99999;
+    background-color: #b8860b;
+    color: white;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    transition: all 0.3s ease;
+    opacity: 0;
+    visibility: hidden;
+}
+
+    .floating-home-btn.show {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .floating-home-btn:hover {
+        background-color: #800000;
+        transform: scale(1.1);
+        color: white;
+    }
+
+.home-icon {
+    width: 13px;
+    height: 13px;
+    fill: currentColor;
+}
+
+@media (max-width: 1024px) {
+    .floating-home-btn {
+        bottom: 22px;
+        right: 18px;
+        width: 25px;
+        height: 25px;
+    }
+
+    .home-icon {
+        width: 12px;
+        height: 12px;
+    }
+}
+
+@media (max-width: 880px) {
+    .floating-home-btn {
+        bottom: 20px;
+        right: 16px;
+        width: 24px;
+        height: 24px;
+    }
+
+    .home-icon {
+        width: 12px;
+        height: 12px;
+    }
+}
+
+@media (max-width: 768px) {
+    .floating-home-btn {
+        bottom: 18px;
+        right: 15px;
+        width: 23px;
+        height: 23px;
+    }
+
+    .home-icon {
+        width: 11px;
+        height: 11px;
+    }
+}
+
+@media (max-width: 440px) {
+    .floating-home-btn {
+        bottom: 15px;
+        right: 12px;
+        width: 22px;
+        height: 22px;
+    }
+
+    .home-icon {
+        width: 11px;
+        height: 11px;
+    }
+}
+
+@media (max-width: 375px) {
+    .floating-home-btn {
+        bottom: 12px;
+        right: 10px;
+        width: 20px;
+        height: 20px;
+    }
+
+    .home-icon {
+        width: 10px;
+        height: 10px;
+    }
+}
+
+@media (max-width: 320px) {
+    .floating-home-btn {
+        bottom: 10px;
+        right: 8px;
+        width: 18px;
+        height: 18px;
+    }
+
+    .home-icon {
+        width: 9px;
+        height: 9px;
     }
 }
