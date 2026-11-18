@@ -8,7 +8,7 @@ A high-end luxury jewellery brand showcase web application designed with an eleg
 ## 🔗 Live Demo & Status
 
 * **Status:** Currently running in Local Environment / Under Development for cloud hosting.
-* **Live Demo Link:** *Coming Soon (Will be updated once hosted on cloud/app services).*
+* **Live Demo Link:** https://ashokjewelleryart.onrender.com
 * **Live GitHub Repository:**https://github.com/IshaDeveloper-Pro/AshokJewelleryArt
   
 ## 🚀 Key Features
